@@ -1,5 +1,5 @@
 # 🧾 Pogi – A Machine-Learning & AI approach to the US Budget  📊
-![Chismis Logo](https://github.com/is-leeroy-jenkins/Chismis/blob/main/resources/assets/img/git/Chismis.png)
+![Pogi Logo](https://github.com/is-leeroy-jenkins/Chismis/blob/main/resources/assets/img/git/Chismis.png)
 
 > A full-spectrum ML pipeline for forecasting Treasury Account Symbol balances using real federal budget data.
 
