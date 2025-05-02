@@ -1,13 +1,15 @@
 ###### Pogi
 ![](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/assets/images/github/PogiProjectTemplate.png)
-###  ![](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/assets/images/github/Appropriation.png)Budget Execution & Budgetary Resources
-- A full-spectrum ML pipeline for forecasting Treasury Account Symbol balances using real federal budget data.
+
+- A pipeline for forecasting and reporting Treasury Account Symbol balances using active data.
+- Project federal balances using generative ai
+- Analyze funding metrics with a compendium of machine-leaning models
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/is-leeroy-jenkins/Pogi/blob/main/models.ipynb)
 
 ---
 
-## Modeling Budget Execution & Available Resources
+## ![](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/assets/images/github/Appropriation.png) Modeling Budget Execution & Available Resources
 
 ### 📊 Regression
 - Linear, Ridge, Lasso, ElasticNet
