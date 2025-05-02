@@ -1,6 +1,6 @@
-### 🧾 Pogi – A Machine-Learning & Generative AI approach to the Federal Status of Funds 📊
+###### Pogi
 ![](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/assets/images/github/PogiProjectTemplate.png)
-
+### 📊 A Machine-Learning & Generative AI approach to the Approrpriated Funds 
 > A full-spectrum ML pipeline for forecasting Treasury Account Symbol balances using real federal budget data.
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/is-leeroy-jenkins/Chismis/blob/main/ipynb/models.ipynb)

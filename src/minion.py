@@ -1,6 +1,6 @@
 '''
   ******************************************************************************************
-      Assembly:                Boo
+      Assembly:                Pogi
       Filename:                minion.py
       Author:                  Terry D. Eppler
       Created:                 05-31-2023
@@ -10,7 +10,7 @@
   ******************************************************************************************
   <copyright file="minion.py" company="Terry D. Eppler">
 
-     This is a Federal Budget, Finance, and Accounting application.
+     Pogi is a Federal Budget and Data Analysis Application for EPA Analysts
      Copyright ©  2024  Terry Eppler
 
      Permission is hereby granted, free of charge, to any person obtaining a copy
