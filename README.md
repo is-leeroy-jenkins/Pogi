@@ -1,15 +1,17 @@
 ###### Pogi
 ![](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/assets/images/github/PogiProjectTemplate.png)
-### 📊 A Machine-Learning & Generative AI approach to the Approrpriated Funds 
-> A full-spectrum ML pipeline for forecasting Treasury Account Symbol balances using real federal budget data.
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/is-leeroy-jenkins/Chismis/blob/main/ipynb/models.ipynb)
+- A pipeline for forecasting and reporting Treasury Account Symbol balances using active data.
+- Project federal balances using generative ai
+- Analyze funding metrics with a compendium of machine-leaning models
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/is-leeroy-jenkins/Pogi/blob/main/models.ipynb)
 
 ---
 
-## 🧠 Modeling Capabilities
+## ![](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/assets/images/github/Appropriation.png) Modeling Budget Execution & Available Resources
 
-### 🔢 Regression
+### 📊 Regression
 - Linear, Ridge, Lasso, ElasticNet
 - Decision Tree, Random Forest, Gradient Boosting
 - SVR, KNN, MLP Regressor, Bayesian Ridge, Huber Regressor
