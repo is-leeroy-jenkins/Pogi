@@ -19,7 +19,7 @@
 - Decision Tree, Random Forest, Extra Trees, AdaBoost, Gradient Boosting
 - MLP Classifier, Naive Bayes
 
----
+
 
 ## 📊 Diagnostics & Evaluation
 
@@ -27,7 +27,7 @@
 - Confusion matrices, ANOVA tests, statistical fitting
 - PCA visualizations and correlation heatmaps
 
----
+
 
 ## 📁 Data & Engineering
 
@@ -37,7 +37,7 @@
 - Feature creation via polynomial expansion
 - Dimensionality reduction and outlier detection
 
----
+
 
 ## 🏛️ Use in Government
 
@@ -45,7 +45,7 @@
 - 🏛️ Congressional Appropriations scenario testing
 - 🧮 Audit prep and fiscal behavior anomaly detection
 
----
+
 
 ## 📦 Dependencies
 
