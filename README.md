@@ -77,7 +77,7 @@ jupyter notebook models.ipynb
 ___
 
 ## 📊 Descriptive Statistics
-___
+
 | Statistic         | Description                             | Use in Budget Analysis                                               |
 |------------------|-----------------------------------------|----------------------------------------------------------------------|
 | **Mean**         | Average value                           | Avg. Outlays, Obligations, etc., across accounts                |
@@ -91,7 +91,7 @@ ___
 | **Kurtosis**     | "Peakedness" of distribution            | High values indicate outlier-prone financial data                   |
 
 
-___
+
 
 
 ## 🔍 Inferrential Statistics
@@ -109,19 +109,19 @@ ___
 | **F-statistic (overall regression)**   | Test whole model fit                                   | Determines the combined influence of all predictors                  |
 | **Z-score / Outlier Tests** | Deviation from standard mean                           | Identify abnormal balances or lapse rates                            |
 | **Boxplots**            | Visual outlier detection                               | Discover obligation anomalies within agencies                        |
-___
+
 
 
 ## 📈 Feature Correlations
 
 - ![](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/assets/images/github/PogiCorrelationAnalysis.gif)
 
-___
+
 
 ## 🧠 Machine-Learning Models
-- ![]((https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/assets/images/github/PogiLearningModels.gif) )
+- ![](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/assets/images/github/PogiLearningModels.gif)
 
-___
+
 
 
 ## 📦 Dependencies
