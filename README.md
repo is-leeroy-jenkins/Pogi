@@ -73,6 +73,8 @@ git clone https://github.com/your-username/chismis.git
 cd chismis
 pip install -r requirements.txt
 jupyter notebook models.ipynb
+```
+
 
 ## 🔬 Data Source
 
@@ -87,4 +89,4 @@ jupyter notebook models.ipynb
 - Pulled automatically from data in the [Governmentwide Treasury Account Symbol Adjusted Trial Balance System (GTAS)](https://fiscal.treasury.gov/gtas/)
 - Contains Budgetary resources, obligation, and outlay data for all the relevant Treasury Account Symbols (TAS) in a reporting agency.
 - It includes both award and non-award spending (grouped together), and crosswalks with the [SF 133 report](https://portal.max.gov/portal/document/SF133/Budget/FACTS%20II%20-%20SF%20133%20Report%20on%20Budget%20Execution%20and%20Budgetary%20Resources.html).
-___
+
