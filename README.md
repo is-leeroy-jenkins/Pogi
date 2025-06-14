@@ -114,12 +114,12 @@ ___
 
 ## 📈 Feature Correlations
 
-- ![](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/assets/images/github/PogiCorrelationAnalysis.gif)
+![](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/assets/images/github/PogiCorrelationAnalysis.gif)
 
 
 
 ## 🧠 Machine-Learning Models
-- ![](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/assets/images/github/PogiLearningModels.gif)
+![](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/assets/images/github/PogiLearningModels.gif)
 
 
 
@@ -140,3 +140,18 @@ ___
 | loguru        | Logging                               | [github.com/Delgan/loguru](https://github.com/Delgan/loguru) |
 
 ---
+
+
+## ![](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/assets/images/github/web.png) Privacy Policy
+
+This program will not transfer any information to other networked systems unless specifically requested by the user or the person installing or operating it.
+
+Badger has integrated the following services for additional functions, which can be enabled or disabled at the first start (in the welcome dialog) or at any time in the settings:
+
+- [api.github.com](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement) (Check for program updates)
+- [ipify.org](https://www.ipify.org/) (Retrieve the public IP address used by the client)
+- [ip-api.com](https://ip-api.com/docs/legal) (Retrieve network information such as geo location, ISP, DNS resolver used, etc. used by the client)
+
+## 📝 License
+
+Pogi is published under the [MIT General Public License v3](https://github.com/is-leeroy-jenkins/Pogi/blob/main/LICENSE).
