@@ -114,11 +114,12 @@ ___
 
 ## 📈 Feature Correlations
 
-- [ex.](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/assets/images/github/PogiCorrelationAnalysis.gif)
+- ![](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/assets/images/github/PogiCorrelationAnalysis.gif)
 
 ___
 
-## 🧠 [Machine-Learning Models](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/assets/images/github/PogiLearningModels.gif) 
+## 🧠 Machine-Learning Models
+- ![]((https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/assets/images/github/PogiLearningModels.gif) )
 
 ___
 
