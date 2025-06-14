@@ -73,3 +73,18 @@ git clone https://github.com/your-username/chismis.git
 cd chismis
 pip install -r requirements.txt
 jupyter notebook models.ipynb
+
+## 🔬 Data Source
+
+- The SF 133 Report on Budget Execution and Budgetary Resources fulfills the requirement in 31 U.S.C. 1511 - 1514
+- That is, the President reviews Federal expenditures at least four times a year.
+- SF 133s provide historical reference that can be used to help prepare the President's Budget, program operating plans, and spend-out rate estimates.
+- For further information on the SF 133 [here](https://tfx.treasury.gov/taxonomy/term/10991)
+- Agencies submit the data that appear on these reports to the Department of the Treasury Bureau of Fiscal Service.
+- While OMB publishes these reports, the underlying data is submitted by the agencies.
+- File A (Account Balances) published monthly by agencies on [USASpending](https://www.usaspending.gov/federal_account)
+- Required by the DATA Act.
+- Pulled automatically from data in the [Governmentwide Treasury Account Symbol Adjusted Trial Balance System (GTAS)](https://fiscal.treasury.gov/gtas/)
+- Contains Budgetary resources, obligation, and outlay data for all the relevant Treasury Account Symbols (TAS) in a reporting agency.
+- It includes both award and non-award spending (grouped together), and crosswalks with the [SF 133 report](https://portal.max.gov/portal/document/SF133/Budget/FACTS%20II%20-%20SF%20133%20Report%20on%20Budget%20Execution%20and%20Budgetary%20Resources.html).
+___
