@@ -49,23 +49,6 @@
 
 
 
-## 📦 Dependencies
-
-| Package       | Description                          | Link                                               |
-|---------------|--------------------------------------|----------------------------------------------------|
-| numpy         | Numerical computing                   | [numpy.org](https://numpy.org/)                    |
-| pandas        | Data manipulation                     | [pandas.pydata.org](https://pandas.pydata.org/)    |
-| matplotlib    | Plotting                              | [matplotlib.org](https://matplotlib.org/)          |
-| seaborn       | Statistical plots                     | [seaborn.pydata.org](https://seaborn.pydata.org/)  |
-| scikit-learn  | Machine learning models               | [scikit-learn.org](https://scikit-learn.org/)      |
-| xgboost       | Extreme gradient boosting             | [xgboost.readthedocs.io](https://xgboost.readthedocs.io/) |
-| statsmodels   | Statistical modeling & ANOVA          | [statsmodels.org](https://www.statsmodels.org/)    |
-| openpyxl      | Excel I/O                             | [openpyxl.readthedocs.io](https://openpyxl.readthedocs.io/) |
-| fitz (PyMuPDF)| PDF parsing                           | [pymupdf.readthedocs.io](https://pymupdf.readthedocs.io/) |
-| loguru        | Logging                               | [github.com/Delgan/loguru](https://github.com/Delgan/loguru) |
-
----
-
 ## 🚀 How to Run
 
 ```bash
@@ -91,3 +74,68 @@ jupyter notebook models.ipynb
 - Contains Budgetary resources, obligation, and outlay data for all the relevant Treasury Account Symbols (TAS) in a reporting agency.
 - It includes both award and non-award spending (grouped together), and crosswalks with the [SF 133 report](https://portal.max.gov/portal/document/SF133/Budget/FACTS%20II%20-%20SF%20133%20Report%20on%20Budget%20Execution%20and%20Budgetary%20Resources.html).
 
+___
+
+## 📊 Descriptive Statistics
+___
+| Statistic         | Description                             | Use in Budget Analysis                                               |
+|------------------|-----------------------------------------|----------------------------------------------------------------------|
+| **Mean**         | Average value                           | Avg. Outlays, Obligations, etc., across accounts                |
+| **Median**       | Middle value                            | Robust central tendency in skewed financial data                    |
+| **Mode**         | Most frequent value                     | Identify common MainAccountCodes or Availability categories     |
+| **Standard Deviation** | Spread around the mean                | Indicates variability in execution rates or balances                |
+| **Variance**     | Square of standard deviation            | Used in statistical tests and model diagnostics                     |
+| **Range**        | Difference between max and min          | Measures total spread of financial metrics                          |
+| **Interquartile Range (IQR)** | Spread of middle 50% of data           | Identifies budget outliers and extreme accounts                     |
+| **Skewness**     | Asymmetry of distribution               | Skewed obligations suggest few accounts dominate totals             |
+| **Kurtosis**     | "Peakedness" of distribution            | High values indicate outlier-prone financial data                   |
+
+
+___
+
+
+## 🔍 Inferrential Statistics
+
+
+| Metric           | Description                                            | Use in Budget Analysis                                               |
+|-------------------------|--------------------------------------------------------|----------------------------------------------------------------------|
+| **Pearson Correlation** | Linear relationship between variables                  | E.g., TotalResources vs. Obligations                                 |
+| **Spearman Correlation**| Monotonic (rank-based) relationship                    | More robust to non-linear trends in financial execution              |
+| **t-test**              | Compare means between 2 groups                         | Discretionary vs. Mandatory accounts' execution rates                |
+| **ANOVA**               | Compare means across multiple groups                   | Obligations across availability periods or account types             |
+| **Chi-square Test**     | Categorical independence                               | Are Main Account Codes related to availability or a specific agency? |
+| **Confidence Intervals**| Estimate range of a population mean                    | Upper and lower bound expected obligations or recoveries             |
+| **Regression Coefficients (p-values)** | Test variable significance                             | Are Recoveries a significant predictor of UnobligatedBalance?        |
+| **F-statistic (overall regression)**   | Test whole model fit                                   | Determines the combined influence of all predictors                  |
+| **Z-score / Outlier Tests** | Deviation from standard mean                           | Identify abnormal balances or lapse rates                            |
+| **Boxplots**            | Visual outlier detection                               | Discover obligation anomalies within agencies                        |
+___
+
+
+## 📈 Feature Correlations
+
+- [ex.](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/assets/images/github/PogiCorrelationAnalysis.gif)
+
+___
+
+## 🧠 [Machine-Learning Models](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/assets/images/github/PogiLearningModels.gif) 
+
+___
+
+
+## 📦 Dependencies
+
+| Package       | Description                          | Link                                               |
+|---------------|--------------------------------------|----------------------------------------------------|
+| numpy         | Numerical computing                   | [numpy.org](https://numpy.org/)                    |
+| pandas        | Data manipulation                     | [pandas.pydata.org](https://pandas.pydata.org/)    |
+| matplotlib    | Plotting                              | [matplotlib.org](https://matplotlib.org/)          |
+| seaborn       | Statistical plots                     | [seaborn.pydata.org](https://seaborn.pydata.org/)  |
+| scikit-learn  | Machine learning models               | [scikit-learn.org](https://scikit-learn.org/)      |
+| xgboost       | Extreme gradient boosting             | [xgboost.readthedocs.io](https://xgboost.readthedocs.io/) |
+| statsmodels   | Statistical modeling & ANOVA          | [statsmodels.org](https://www.statsmodels.org/)    |
+| openpyxl      | Excel I/O                             | [openpyxl.readthedocs.io](https://openpyxl.readthedocs.io/) |
+| fitz (PyMuPDF)| PDF parsing                           | [pymupdf.readthedocs.io](https://pymupdf.readthedocs.io/) |
+| loguru        | Logging                               | [github.com/Delgan/loguru](https://github.com/Delgan/loguru) |
+
+---
