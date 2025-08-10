@@ -53,8 +53,8 @@
 ## 🚀 How to Run
 
 ```bash
-git clone https://github.com/your-username/chismis.git
-cd chismis
+git clone https://github.com/your-username/pogi.git
+cd pogi
 pip install -r requirements.txt
 jupyter notebook models.ipynb
 ```
