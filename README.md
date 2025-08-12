@@ -59,6 +59,32 @@ pip install -r requirements.txt
 jupyter notebook models.ipynb
 ```
 
+## 🎯 Quickstart
+
+### Option A — Google Colab (no local setup)
+
+1. Click the **Open In Colab** badge above.
+2. Upload your CSV or mount Google Drive.
+3. Set `DATA_PATH` near the top of the notebook.
+4. **Runtime → Run all**.
+
+### Option B — Local (conda or venv)
+
+```
+bash
+# 1) Create environment
+conda create -n schedx python=3.11 -y
+conda activate schedx
+
+# 2) Install dependencies
+pip install -U pip wheel setuptools
+pip install pandas numpy scipy matplotlib seaborn scikit-learn jupyter
+
+# 3) Launch Jupyter
+jupyter notebook
+```
+
+Open `ipynb/schedule-x.ipynb` and run cells top-to-bottom.
 
 ## 🔬 Data Source
 
@@ -153,6 +179,9 @@ Badger has integrated the following services for additional functions, which can
 - [ipify.org](https://www.ipify.org/) (Retrieve the public IP address used by the client)
 - [ip-api.com](https://ip-api.com/docs/legal) (Retrieve network information such as geo location, ISP, DNS resolver used, etc. used by the client)
 
+> **Disclaimer**: This is for analytical exploration, research, and education purposes.  
+> This is **not** an official government product; validate against authoritative sources before use.
+>
 ## 📝 License
 
 Pogi is published under the [MIT General Public License v3](https://github.com/is-leeroy-jenkins/Pogi/blob/main/LICENSE).
