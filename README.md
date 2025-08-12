@@ -169,8 +169,6 @@ ___
 ---
 
 
-## ![](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/assets/images/github/web.png) Privacy Policy
-
 > **Disclaimer**: This is for analytical exploration, research, and education purposes.  
 > This is **not** an official government product; validate against authoritative sources before use.
 
