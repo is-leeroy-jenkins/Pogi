@@ -73,8 +73,8 @@ jupyter notebook models.ipynb
 ```
 bash
 # 1) Create environment
-conda create -n schedx python=3.11 -y
-conda activate schedx
+conda create -n pogi python=3.11 -y
+conda activate pogi
 
 # 2) Install dependencies
 pip install -U pip wheel setuptools
