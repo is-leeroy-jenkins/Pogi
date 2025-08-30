@@ -1,5 +1,5 @@
 ###### Pogi
-![](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/assets/images/github/PogiProjectTemplate.png)
+![](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/git/pogi_project.png)
 
 - A machine-learning pipeline for forecasting and reporting Treasury Account Symbol balances using active data.
 - Project federal balances using generative ai
