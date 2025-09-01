@@ -177,7 +177,7 @@ ___
 | fitz (PyMuPDF)| PDF parsing                           | [pymupdf.readthedocs.io](https://pymupdf.readthedocs.io/) |
 | loguru        | Logging                               | [github.com/Delgan/loguru](https://github.com/Delgan/loguru) |
 
----
+
 
 
 > **Disclaimer**: This is for analytical exploration, research, and education purposes.  
