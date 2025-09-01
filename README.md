@@ -10,14 +10,14 @@
 
 ---
 
-## ![](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/assets/images/github/Appropriation.png) Modeling Budget Execution & Available Resources
+### ![](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/assets/images/github/Appropriation.png) Modeling Budget Execution & Available Resources
 
-### 📊 Regression
+#### 📊 Regression
 - Linear, Ridge, Lasso, ElasticNet
 - Decision Tree, Random Forest, Gradient Boosting
 - SVR, KNN, MLP Regressor, Bayesian Ridge, Huber Regressor
 
-### ✅ Classification
+#### ✅ Classification
 - Logistic Regression, Perceptron, SVM, KNN
 - Decision Tree, Random Forest, Extra Trees, AdaBoost, Gradient Boosting
 - MLP Classifier, Naive Bayes
