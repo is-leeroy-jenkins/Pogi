@@ -86,7 +86,7 @@ jupyter notebook
 
 Open `ipynb/schedule-x.ipynb` and run cells top-to-bottom.
 
-## 🔬 Data Source
+## 🔬 Data Sources
 
 - The SF 133 Report on Budget Execution and Budgetary Resources fulfills the requirement in 31 U.S.C. 1511 - 1514
 - That is, the President reviews Federal expenditures at least four times a year.
