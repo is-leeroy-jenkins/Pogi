@@ -70,18 +70,29 @@ jupyter notebook models.ipynb
 
 ### Option B — Local (conda or venv)
 
+#### 1) Create environment
 ```
-bash
-# 1) Create environment
-conda create -n pogi python=3.11 -y
-conda activate pogi
 
-# 2) Install dependencies
-pip install -U pip wheel setuptools
-pip install pandas numpy scipy matplotlib seaborn scikit-learn jupyter
+  bash
+  
+  conda create -n pogi python=3.11 -y
+  conda activate pogi
 
-# 3) Launch Jupyter
-jupyter notebook
+```
+
+#### 2) Install dependencies
+```
+
+  pip install -U pip wheel setuptools
+  pip install pandas numpy scipy matplotlib seaborn scikit-learn jupyter
+
+```
+
+#### 3) Launch Jupyter
+```
+
+  jupyter notebook
+
 ```
 
 Open `ipynb/schedule-x.ipynb` and run cells top-to-bottom.
