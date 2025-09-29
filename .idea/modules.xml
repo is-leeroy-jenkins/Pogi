@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/pogi.iml" filepath="$PROJECT_DIR$/.idea/pogi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Pogi.iml" filepath="$PROJECT_DIR$/.idea/Pogi.iml" />
     </modules>
   </component>
 </project>
