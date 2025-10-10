@@ -5,12 +5,10 @@ datasets
 FreeSimpleGUI
 fitz
 fastapi
-numpy
 pandas
 openai
 google-genai
 google
-gensim
 groq
 ipywidgets
 ipython
@@ -26,6 +24,7 @@ mypy
 matplotlib
 mglearn
 nltk
+numpy==1.26.4
 openpyxl
 openai
 Pygments
