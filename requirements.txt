@@ -1,59 +1,23 @@
-beautifulsoup4
-camelot-py
-dotenv
-datasets
-FreeSimpleGUI
-fitz
-fastapi
-pandas
-openai
-google-genai
-google
-groq
-ipywidgets
-ipython
-jupyterlab
-lxml
-loguru
-langchain
-langgraph
-langchain-core
-langchain-community
-langchain-openai
-mypy
-matplotlib
-mglearn
-nltk
+# ------------------------------------------------------------
+# Core Application
+# ------------------------------------------------------------
+streamlit>=1.31,<2.0
+
+# ------------------------------------------------------------
+# Data Handling
+# ------------------------------------------------------------
+pandas>=2.1,<3.0
 numpy==1.26.4
-openpyxl
-openai
-Pygments
-pyodbc
-pillow
-python-dotenv
-pinecone
-pathlib
-plotly
-pinecone
-playwright
-protobuf
-PyPDF2
-PyMuPDF
-requests
-scikit-learn
-scipy
-seaborn
-soundfile
-sounddevice
-statsmodels
-sentence-transformers
-torch
-tensorflow
-tiktoken
-tqdm
-typing
-typing_extensions
-tenacity
-termcolor
-textblob
-transformers
+openpyxl>=3.1,<4.0
+
+# ------------------------------------------------------------
+# Machine Learning
+# ------------------------------------------------------------
+scikit-learn>=1.4,<2.0
+scipy>=1.11,<2.0
+
+# ------------------------------------------------------------
+# Visualization
+# ------------------------------------------------------------
+matplotlib>=3.8,<4.0
+seaborn>=0.13,<1.0
