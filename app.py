@@ -73,8 +73,7 @@ st.sidebar.header( '📁 Data Input' )
 
 uploaded_file = st.sidebar.file_uploader(
 	'Upload CSV or Excel File',
-	type=[ 'csv',  'xlsx' ],
-)
+	type=[ 'csv',  'xlsx' ],)
 
 if uploaded_file is None:
 	st.info( 'Upload a dataset.' )
