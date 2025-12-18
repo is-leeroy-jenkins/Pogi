@@ -59,7 +59,7 @@ pip install -r requirements.txt
 jupyter notebook models.ipynb
 ```
 
-## 🎯 Quickstart
+## 🎯 Quickstart ( Colab )
 
 ### Option A — Google Colab (no local setup)
 
@@ -96,6 +96,113 @@ jupyter notebook models.ipynb
 ```
 
 Open `ipynb/schedule-x.ipynb` and run cells top-to-bottom.
+
+
+Below is a **clean, end-user–oriented README section**, written in **plain GitHub-compatible Markdown**, that explains **how to clone, set up, and run the Pogi Streamlit application**.
+
+The tone and structure assume a technically competent analyst or developer, but not necessarily a Python specialist. The steps are explicit, reproducible, and align with long-standing Python/Streamlit conventions.
+
+---
+
+## 🚀 Running Pogi with Streamlit
+
+This section explains how to clone the repository, set up the Python environment, and launch the **Pogi** Streamlit application locally.
+
+---
+
+### 📥 Clone the Repository
+
+First, clone the Pogi repository from GitHub and navigate into the project directory:
+
+```bash
+git clone https://github.com/<your-org-or-username>/pogi.git
+cd pogi
+```
+
+---
+
+### 🐍 Create a Python Virtual Environment (Recommended)
+
+Using a virtual environment is strongly recommended to isolate dependencies and avoid version conflicts.
+
+**Windows (PowerShell):**
+
+```bash
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+```
+
+**macOS / Linux:**
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+---
+
+### 📦 Install Dependencies
+
+Install the required Python packages using `pip`:
+
+```bash
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+This installs only the libraries required to run the Streamlit application (no notebook-only or experimental dependencies).
+
+---
+
+### ▶️ Run the Streamlit App
+
+Start the application using Streamlit:
+
+```bash
+streamlit run app.py
+```
+
+Once launched, Streamlit will display a local URL (typically `http://localhost:8501`) in the terminal. Open this link in your web browser to access the app.
+
+---
+
+### 📊 Using the Application
+
+After the app starts:
+
+1. Upload a CSV or Excel dataset.
+2. Select the target variable and feature columns.
+3. Choose:
+
+   * Regression or classification
+   * Preprocessing options (imputation, scaling)
+   * A machine-learning model
+4. Click **Train Model** to view diagnostics and performance metrics.
+
+All model training and evaluation occur locally in your browser session.
+
+---
+
+### 🛑 Stopping the App
+
+To stop the Streamlit server, return to the terminal and press:
+
+```text
+CTRL + C
+```
+
+---
+
+### 🧩 Troubleshooting
+
+* Ensure Python **3.10 or newer** is installed.
+* If `streamlit` is not found, verify the virtual environment is activated.
+* If installation fails, try:
+
+  ```bash
+  pip install --no-cache-dir -r requirements.txt
+  ```
+
 
 ## 🔬 Data Sources
 
