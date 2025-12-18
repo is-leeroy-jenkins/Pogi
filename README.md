@@ -108,7 +108,7 @@ jupyter notebook models.ipynb
 
 
 
-## 📥 Clone the Repository
+### 📥 Clone the Repository
 
 First, clone the Pogi repository from GitHub and navigate into the project directory:
 
@@ -119,7 +119,7 @@ cd pogi
 
 
 
-## 🐍 Create a Python Virtual Environment (Recommended)
+### 🐍 Create a Python Virtual Environment (Recommended)
 
 Using a virtual environment is strongly recommended to isolate dependencies and avoid version conflicts.
 
@@ -139,7 +139,7 @@ source .venv/bin/activate
 
 
 
-## 📦 Install Dependencies
+### 📦 Install Dependencies
 
 Install the required Python packages using `pip`:
 
@@ -152,7 +152,7 @@ pip install -r requirements.txt
 
 
 
-## ▶️ Run the Streamlit App
+### ▶️ Run the Streamlit App
 
 - Start the application using Streamlit:
 
@@ -164,7 +164,7 @@ Once launched, Streamlit will display a local URL (typically `http://localhost:8
 
 
 
-## 📊 Using the Application
+### 📊 Using the Application
 
 After the app starts:
 
@@ -181,7 +181,7 @@ After the app starts:
 
 
 
-## 🛑 Stopping the App
+### 🛑 Stopping the App
 
 To stop the Streamlit server, return to the terminal and press:
 
