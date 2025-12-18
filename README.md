@@ -97,22 +97,18 @@ jupyter notebook models.ipynb
 
 ```
 
-Open `ipynb/schedule-x.ipynb` and run cells top-to-bottom.
+- Open `ipynb/schedule-x.ipynb` and run cells top-to-bottom.
 
 
-Below is a **clean, end-user–oriented README section**, written in **plain GitHub-compatible Markdown**, that explains **how to clone, set up, and run the Pogi Streamlit application**.
 
-The tone and structure assume a technically competent analyst or developer, but not necessarily a Python specialist. The steps are explicit, reproducible, and align with long-standing Python/Streamlit conventions.
 
----
+##  🎯 Quickstart (Streamlit)
 
-## 🚀 Running Pogi with Streamlit
+- This section explains how to clone the repository, set up the Python environment, and launch the **Pogi** Streamlit application locally.
 
-This section explains how to clone the repository, set up the Python environment, and launch the **Pogi** Streamlit application locally.
 
----
 
-### 📥 Clone the Repository
+## 📥 Clone the Repository
 
 First, clone the Pogi repository from GitHub and navigate into the project directory:
 
@@ -121,9 +117,9 @@ git clone https://github.com/<your-org-or-username>/pogi.git
 cd pogi
 ```
 
----
 
-### 🐍 Create a Python Virtual Environment (Recommended)
+
+## 🐍 Create a Python Virtual Environment (Recommended)
 
 Using a virtual environment is strongly recommended to isolate dependencies and avoid version conflicts.
 
@@ -141,9 +137,9 @@ python3 -m venv .venv
 source .venv/bin/activate
 ```
 
----
 
-### 📦 Install Dependencies
+
+## 📦 Install Dependencies
 
 Install the required Python packages using `pip`:
 
@@ -152,13 +148,13 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-This installs only the libraries required to run the Streamlit application (no notebook-only or experimental dependencies).
+- This installs only the libraries required to run the Streamlit application (no notebook-only or experimental dependencies).
 
----
 
-### ▶️ Run the Streamlit App
 
-Start the application using Streamlit:
+## ▶️ Run the Streamlit App
+
+- Start the application using Streamlit:
 
 ```bash
 streamlit run app.py
@@ -166,9 +162,9 @@ streamlit run app.py
 
 Once launched, Streamlit will display a local URL (typically `http://localhost:8501`) in the terminal. Open this link in your web browser to access the app.
 
----
 
-### 📊 Using the Application
+
+## 📊 Using the Application
 
 After the app starts:
 
@@ -181,11 +177,11 @@ After the app starts:
    * A machine-learning model
 4. Click **Train Model** to view diagnostics and performance metrics.
 
-All model training and evaluation occur locally in your browser session.
+- All model training and evaluation occur locally in your browser session.
 
----
 
-### 🛑 Stopping the App
+
+## 🛑 Stopping the App
 
 To stop the Streamlit server, return to the terminal and press:
 
@@ -193,9 +189,9 @@ To stop the Streamlit server, return to the terminal and press:
 CTRL + C
 ```
 
----
 
-### 🧩 Troubleshooting
+
+## 🧩 Troubleshooting
 
 * Ensure Python **3.10 or newer** is installed.
 * If `streamlit` is not found, verify the virtual environment is activated.
