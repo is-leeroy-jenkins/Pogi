@@ -1289,5 +1289,5 @@ with tabs[7]:
 
 st.markdown("---")
 st.caption(
-    "Pogi — Analytics Workbench"
+    "Pogi"
 )
