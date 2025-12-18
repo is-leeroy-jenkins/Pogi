@@ -1,11 +1,11 @@
 ###### Pogi
 ![](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/git/pogi_project.png)
-
+# SF-133 Forecasting Tool
 - A machine-learning pipeline for forecasting and reporting Treasury Account Symbol balances using active data.
 - Project federal balances using generative ai
 - Analyze funding metrics with classification and regression models
 
-# SF-133 Forecasting Tool
+
 
 
 
