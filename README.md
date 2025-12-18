@@ -6,7 +6,6 @@
 - Analyze funding metrics with classification and regression models
 
 ### SF-133 Forecasting Tool
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/is-leeroy-jenkins/Pogi/blob/main/models.ipynb)
 
 ---
 
@@ -60,13 +59,16 @@ jupyter notebook models.ipynb
 ```
 
 ## 🎯 Quickstart ( Colab )
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/is-leeroy-jenkins/Pogi/blob/main/models.ipynb)
 
 ### Option A — Google Colab (no local setup)
 
+```
 1. Click the **Open In Colab** badge above.
 2. Upload your CSV or mount Google Drive.
 3. Set `DATA_PATH` near the top of the notebook.
 4. **Runtime → Run all**.
+```
 
 ### Option B — Local (conda or venv)
 
