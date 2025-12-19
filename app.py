@@ -319,9 +319,9 @@ def corr_with_pvalues(df: pd.DataFrame, cols: List[str], method: str) -> Tuple[p
 # App
 # ======================================================================================
 
-st.set_page_config(page_title="Pogi — Analytics Workbench", layout="wide")
+st.set_page_config(page_title="Pogi", layout="wide", page_icon=r'resources/favicon.ico')
 st.title("🏛️ Analytics Workbench")
-st.caption("A statistics-forward exploratory analytics workbench; visualizations include interpretation notes.")
+st.caption("Exploratory Data Analysis")
 
 # Sidebar
 st.sidebar.header("📁 Data Input")
