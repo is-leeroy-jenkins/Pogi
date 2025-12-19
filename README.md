@@ -104,10 +104,10 @@ jupyter notebook models.ipynb
 
 
 ##  🎯 Quickstart (Streamlit)
-
+![](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/Pogi-Py.gif)
+---
 - This section explains how to clone the repository, set up the Python environment, and launch the **Pogi** Streamlit application locally.
 
-![](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/Pogi-Py.gif)
 
 ### 📥 Clone the Repository
 
