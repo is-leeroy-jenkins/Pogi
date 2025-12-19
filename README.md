@@ -61,6 +61,7 @@ jupyter notebook models.ipynb
 ## 🎯 Quickstart ( Colab )
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/is-leeroy-jenkins/Pogi/blob/main/models.ipynb)
 
+![](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/Pogi-nb.gif)
 ### Option A — Google Colab (no local setup)
 
 ```
