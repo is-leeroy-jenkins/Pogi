@@ -166,15 +166,15 @@ def render_table(
 # Streamlit App
 # ======================================================================================
 
-st.set_page_config(page_title="Pogi — Analytics Workbench", layout="wide")
-st.title("🏛️ Pogi — Analytics Workbench")
+st.set_page_config(page_title="Pogi", layout="wide", page_icon=r'resources/favicon.ico')
+st.title("Analytics Workbench")
 
 # Sidebar ------------------------------------------------------------------------------
 
 st.sidebar.header("📁 Data Input")
 
 use_fallback = st.sidebar.checkbox(
-    "Use fallback data (Account Balances.xlsx)",
+    "Use fallback data",
     value=True,  # PRE-SELECTED
     key="use_fallback",
 )
