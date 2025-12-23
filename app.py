@@ -1,7 +1,7 @@
 # ******************************************************************************************
 #  Assembly:                Pogi
 #  Filename:                app.py
-#  Author:                  Generated (per Terry's specifications)
+#  Author:                  Terry D. Eppler
 #  Created:                 2025-12-18
 #
 #  Purpose:
@@ -37,6 +37,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
 import pandas as pd
+from pathlib import Path
 import streamlit as st
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -65,10 +66,12 @@ from sklearn.model_selection import train_test_split
 from sklearn.neighbors import LocalOutlierFactor
 from sklearn.preprocessing import LabelEncoder, MinMaxScaler, RobustScaler, StandardScaler
 
+FALLBACK_PATH = Path("data/excel/Account Balances.xlsx")
 
 # ======================================================================================
 # Table Rendering (No st.dataframe(Styler); always visible)
 # ======================================================================================
+
 
 def render_table(
     df: pd.DataFrame,
@@ -325,16 +328,49 @@ st.caption("Exploratory Data Analysis")
 
 # Sidebar
 st.sidebar.header("📁 Data Input")
-file = st.sidebar.file_uploader("Upload CSV or Excel", type=["csv", "xlsx"], key="upload")
-if not file:
-    st.info("Upload a CSV or Excel file to begin.")
-    st.stop()
 
-try:
-    df = pd.read_csv(file) if file.name.lower().endswith(".csv") else pd.read_excel(file)
-except Exception as e:
-    st.error(f"Failed to read file: {e}")
-    st.stop()
+use_fallback = st.sidebar.checkbox(
+    "Use fallback data",
+    value=False,
+    key="use_fallback_data",
+)
+
+file = None
+df: Optional[pd.DataFrame] = None
+
+if use_fallback:
+    if not FALLBACK_PATH.exists():
+        st.error(
+            f"Fallback file not found at:\n{FALLBACK_PATH.resolve()}"
+        )
+        st.stop()
+
+    try:
+        df = pd.read_excel(FALLBACK_PATH)
+        st.sidebar.success("Loaded fallback data.")
+    except Exception as e:
+        st.error(f"Failed to load fallback data: {e}")
+        st.stop()
+
+else:
+    file = st.sidebar.file_uploader(
+        "Upload CSV or Excel",
+        type=["csv", "xlsx"],
+        key="upload",
+    )
+
+    if file is None:
+        st.info("Upload a CSV or Excel file, or enable the fallback dataset.")
+        st.stop()
+
+    try:
+        if file.name.lower().endswith(".csv"):
+            df = pd.read_csv(file)
+        else:
+            df = pd.read_excel(file)
+    except Exception as e:
+        st.error(f"Failed to read uploaded file: {e}")
+        st.stop()
 
 numeric_cols = df.select_dtypes(include=[np.number]).columns.tolist()
 non_numeric_cols = [c for c in df.columns if c not in numeric_cols]
