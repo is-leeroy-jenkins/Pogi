@@ -302,14 +302,16 @@ def render_table(
 
 def feature_quality(df: pd.DataFrame) -> pd.DataFrame:
     """
-    Purpose:
-    --------
-    Compute feature quality metrics: completeness, uniqueness, cardinality ratio, variance/entropy.
-
-    Returns:
-    --------
-    pd.DataFrame
-        Feature quality table.
+	    
+	    Purpose:
+	    --------
+	    Compute feature quality metrics: completeness, uniqueness, cardinality ratio, variance/entropy.
+	
+	    Returns:
+	    --------
+	    pd.DataFrame
+	        Feature quality table.
+        
     """
     n = df.shape[0]
     rows: List[Dict[str, Any]] = []
@@ -478,19 +480,21 @@ def corr_with_pvalues(
 
 def vif_table(X: pd.DataFrame) -> pd.DataFrame:
     """
-    Purpose:
-    --------
-    Compute Variance Inflation Factor without statsmodels dependency.
-
-    Parameters:
-    -----------
-    X: pd.DataFrame
-        Numeric design matrix.
-
-    Returns:
-    --------
-    pd.DataFrame
-        VIF per feature.
+	    
+	    Purpose:
+	    --------
+	    Compute Variance Inflation Factor without statsmodels dependency.
+	
+	    Parameters:
+	    -----------
+	    X: pd.DataFrame
+	        Numeric design matrix.
+	
+	    Returns:
+	    --------
+	    pd.DataFrame
+	        VIF per feature.
+        
     """
     Xv = X.values.astype(float)
     n, p = Xv.shape
@@ -590,7 +594,7 @@ preview_rows = st.sidebar.slider("Preview rows", 10, 500, 50, 10, key="preview_r
 dark_tables = st.sidebar.toggle("Use dark tables", value=True, key="dark_tables")
 plot_theme = st.sidebar.selectbox("Plot theme", ["Light", "Dark"], index=1, key="plot_theme")
 humanize_tables = st.sidebar.toggle(
-    "Humanize large numbers in tables",
+    "Humanize large numbers",
     value=True,
     help="Shows large magnitudes as K/M/B/T to keep tables usable.",
     key="humanize_tables",
@@ -598,7 +602,7 @@ humanize_tables = st.sidebar.toggle(
 include_int_as_numeric = st.sidebar.toggle(
     "Include integer-coded columns in numeric analyses",
     value=False,
-    help="Off by default because many integer columns are codes (AgencyIdentifier, MainAccountCode, etc.).",
+    help="Off by default.",
     key="include_int_as_numeric",
 )
 
@@ -684,7 +688,7 @@ with tabs[0]:
         st.pyplot(fig)
 
     st.caption(
-        "Use this page to validate inferred types and quickly identify missingness and ID-like fields before analysis."
+        "Use this page to validate inferred types, quickly identify missingness, and ID-like fields before analysis."
     )
 
 
@@ -698,7 +702,7 @@ with tabs[1]:
     if not numeric_cols:
         st.warning("No numeric columns detected under the current numeric policy.")
     else:
-        st.markdown("### Expanded Numeric Profile (robust stats, outliers, normality tests)")
+        st.markdown("### Numeric Profile (robust stats, outliers, normality tests)")
         prof = descriptive_profile(df, numeric_cols)
         render_table(
             prof,
@@ -707,7 +711,7 @@ with tabs[1]:
             max_rows=500,
             humanize_large=humanize_tables,
             caption=(
-                "Includes robust stats (MAD, trimmed mean), outlier rates (IQR and |z|>3), and normality diagnostics. "
+                "outlier rates (IQR and |z|>3), and normality diagnostics. "
                 "Use Shapiro/D’Agostino p-values as indicators, not absolutes."
             ),
         )
@@ -768,7 +772,7 @@ with tabs[1]:
                     cols_ui[j].pyplot(fig)
 
             # Enhanced Q–Q plots (boundaries improved)
-            st.markdown("### Q–Q Plots (enhanced boundaries)")
+            st.markdown("### Q–Q Plots")
             qq_cols = st.multiselect(
                 "Select features for Q–Q plots",
                 options=chosen,
@@ -801,10 +805,6 @@ with tabs[1]:
                 _apply_plain_ticks(ax, humanize=False)
                 st.pyplot(fig)
 
-            st.caption(
-                "The Q–Q plots are designed for interpretability: thick reference line, strong spines, "
-                "and marker outlines to prevent points blending into the background."
-            )
 
 
 # ======================================================================================
@@ -855,7 +855,7 @@ with tabs[2]:
                     cbar_kws={"shrink": 0.85},
                     ax=ax,
                 )
-                ax.set_title(f"{corr_method.title()} Correlation (annotated)")
+                ax.set_title(f"{corr_method.title()} Correlations")
                 st.pyplot(fig)
 
             with col2:
@@ -906,9 +906,9 @@ with tabs[2]:
                 humanize_large=False,
             )
 
-        st.markdown("### Normality Tests (batch)")
+        st.markdown("### Normality Testing")
         ntest_cols = st.multiselect(
-            "Select numeric features for normality tests",
+            "Select numeric features",
             options=numeric_cols,
             default=numeric_cols[: min(10, len(numeric_cols))],
             key="inf_norm_cols",
@@ -1020,7 +1020,7 @@ with tabs[3]:
     if not numeric_cols:
         st.warning("Feature analysis requires numeric columns.")
     else:
-        st.markdown("### Correlation Heatmap (readable)")
+        st.markdown("### Correlation Heatmap")
         fa_cols = st.multiselect(
             "Select numeric features",
             options=numeric_cols,
@@ -1044,7 +1044,7 @@ with tabs[3]:
                 cbar_kws={"shrink": 0.85},
                 ax=ax,
             )
-            ax.set_title("Correlation Heatmap (annotated)")
+            ax.set_title("Correlation Heatmap")
             st.pyplot(fig)
 
             # Strongest pairs
@@ -1138,7 +1138,7 @@ with tabs[3]:
                 caption="VIF > 5–10 suggests multicollinearity. Consider dropping/recombining features or using PCA.",
             )
 
-        st.markdown("### Pairwise Scatter (small multiple, bounded)")
+        st.markdown("### Pairwise Scatter")
         if len(fa_cols) >= 2:
             scatter_cols = fa_cols[: min(5, len(fa_cols))]
             for i in range(len(scatter_cols)):
@@ -1175,7 +1175,7 @@ with tabs[4]:
     left, right = st.columns(2)
     with left:
         num_feats = st.multiselect(
-            "Numeric features (float by default)",
+            "Numeric features",
             options=numeric_cols,
             default=numeric_cols[: min(10, len(numeric_cols))],
             key="fe_num_feats",
@@ -1244,7 +1244,7 @@ with tabs[4]:
         # Preview table
         render_table(
             X_fe.head(50),
-            title="Feature Matrix Preview (first 50 rows)",
+            title="Feature Matrix Preview",
             dark_mode=dark_tables,
             precision=4,
             max_rows=50,
@@ -1254,7 +1254,7 @@ with tabs[4]:
         # Visual: correlation heatmap of numeric engineered features (subset)
         num_engineered = X_num.columns.tolist()
         if len(num_engineered) >= 2:
-            st.markdown("### Engineered Numeric Correlation (subset)")
+            st.markdown("### Engineered Numeric Correlation")
             sub = num_engineered[: min(20, len(num_engineered))]
             corr = pd.DataFrame(X_num[sub]).corr()
             fig, ax = plt.subplots(figsize=(10, 7))
@@ -1509,7 +1509,7 @@ with tabs[6]:
 
         render_table(
             res_sorted,
-            title="Model Comparison (defaults-only benchmark)",
+            title="Model Comparison",
             dark_mode=dark_tables,
             precision=4,
             max_rows=200,
@@ -1648,7 +1648,7 @@ with tabs[7]:
             render_table(pd.DataFrame(rep).T, dark_mode=dark_tables, precision=4, max_rows=200, humanize_large=False)
 
             # ROC/PR if possible
-            st.markdown("### ROC / Precision–Recall (when score is available)")
+            st.markdown("### ROC / Precision–Recall")
             can_proba = hasattr(model, "predict_proba")
             can_dec = hasattr(model, "decision_function")
             if (can_proba or can_dec) and len(np.unique(y_test)) == 2:
@@ -1676,7 +1676,7 @@ with tabs[7]:
 
             # Permutation importance (if feasible)
             if feature_names:
-                st.markdown("### Permutation Importance (sampled)")
+                st.markdown("### Permutation Importance")
                 try:
                     r = permutation_importance(model, X_test, y_test, n_repeats=5, random_state=42)
                     imp = pd.DataFrame({"feature": feature_names, "importance_mean": r.importances_mean})
