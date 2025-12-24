@@ -184,6 +184,7 @@ def _safe_numeric_series(df: pd.DataFrame, col: str) -> np.ndarray:
 
 def _cardinality_ratio(s: pd.Series) -> float:
     non_missing = int(s.notna().sum())
+    
     if non_missing <= 0:
         return 0.0
     return float(s.nunique(dropna=True) / non_missing)
