@@ -7,8 +7,6 @@
 
 
 
-
-
 ### ![](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/assets/images/github/Appropriation.png) Modeling Budget Execution & Available Resources
 
 #### 📊 Regression
@@ -52,6 +50,7 @@
 ## 🚀 How to Run
 
 ```bash
+
 git clone https://github.com/your-username/pogi.git
 cd pogi
 pip install -r requirements.txt
@@ -117,6 +116,7 @@ jupyter notebook models.ipynb
 - First, clone the Pogi repository from GitHub and navigate into the project directory:
 
 ```bash
+
 git clone https://github.com/<your-org-or-username>/pogi.git
 cd pogi
 ```
@@ -130,6 +130,7 @@ cd pogi
 **Windows (PowerShell):**
 
 ```bash
+
 python -m venv .venv
 .venv\Scripts\Activate.ps1
 ```
@@ -137,6 +138,7 @@ python -m venv .venv
 **macOS / Linux:**
 
 ```bash
+
 python3 -m venv .venv
 source .venv/bin/activate
 ```
@@ -148,6 +150,7 @@ source .venv/bin/activate
 - Install the required Python packages using `pip`:
 
 ```bash
+
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
@@ -161,6 +164,7 @@ pip install -r requirements.txt
 - Start the application using Streamlit:
 
 ```bash
+
 streamlit run app.py
 ```
 
@@ -190,6 +194,7 @@ After the app starts:
 - To stop the Streamlit server, return to the terminal and press:
 
 ```text
+
 CTRL + C
 ```
 
@@ -202,6 +207,7 @@ CTRL + C
 * If installation fails, try:
 
   ```bash
+  
   pip install --no-cache-dir -r requirements.txt
   ```
 

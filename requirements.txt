@@ -9,5 +9,4 @@ pillow
 statsmodels
 scipy
 openai
-streamlit
 openpyxl
