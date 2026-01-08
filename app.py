@@ -6,23 +6,13 @@
 #  --------
 #  Streamlit analytics workbench:
 #    1) Data Overview
-#    2) Descriptive Statistics (expanded)
-#    3) Inferential Statistics (expanded)
+#    2) Descriptive Statistics
+#    3) Inferential Statistics
 #    4) Feature Analysis (expanded)
 #    5) Feature Engineering (non-temporal)
 #    6) Anomaly Detection
 #    7) Modeling (>=10 regression + >=10 classification)
 #    8) Diagnostics
-#
-#  Key Requirements Implemented:
-#  -----------------------------
-#  - Sidebar fallback checkbox (default ON) loading: data/excel/Account Balances.xlsx
-#  - Integer-coded categorical fields excluded from numeric selectors by default
-#  - Q–Q plots boundaries enhanced (spines, marker edges, reference line thickness)
-#  - Heatmaps annotated and readable (font sizing + gridlines)
-#  - Substantially expanded analytics in Descriptive / Inferential / Feature Analysis
-#  - Increased visualization density across all tabs
-#  - Reasonable decimals + humanized large numbers (K/M/B/T) in tables and axis ticks
 # ******************************************************************************************
 
 from __future__ import annotations
