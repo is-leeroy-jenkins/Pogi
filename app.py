@@ -191,29 +191,31 @@ def render_table(
     precision: int = 4,
     dark_mode: bool = True,
     max_rows: int = 500,
-    humanize_large: bool = True,
-) -> None:
+    humanize_large: bool = True ) -> None:
     """
-    Purpose:
-    --------
-    Render a DataFrame as a readable HTML table with sane decimals and optional humanized magnitudes.
-
-    Parameters:
-    -----------
-    df: pd.DataFrame
-        Table to render.
-    title: str | None
-        Optional heading.
-    caption: str | None
-        Optional caption.
-    precision: int
-        Default numeric precision.
-    dark_mode: bool
-        Dark palette if True.
-    max_rows: int
-        Max rows to render.
-    humanize_large: bool
-        If True, large values are shown with suffixes K/M/B/T.
+    
+	    Purpose:
+	    --------
+	    Render a DataFrame as a readable HTML table with sane decimals
+	    and optional humanized magnitudes.
+	
+	    Parameters:
+	    -----------
+	    df: pd.DataFrame
+	        Table to render.
+	    title: str | None
+	        Optional heading.
+	    caption: str | None
+	        Optional caption.
+	    precision: int
+	        Default numeric precision.
+	    dark_mode: bool
+	        Dark palette if True.
+	    max_rows: int
+	        Max rows to render.
+	    humanize_large: bool
+	        If True, large values are shown with suffixes K/M/B/T.
+	        
     """
     if title:
         st.markdown(f"#### {title}")
@@ -289,8 +291,7 @@ def render_table(
 # ======================================================================================
 # Analytical Helpers
 # ======================================================================================
-
-def feature_quality(df: pd.DataFrame) -> pd.DataFrame:
+def feature_quality( df: pd.DataFrame ) -> pd.DataFrame:
     """
 	    
 	    Purpose:
@@ -339,14 +340,16 @@ def feature_quality(df: pd.DataFrame) -> pd.DataFrame:
 
 def descriptive_profile(df: pd.DataFrame, cols: List[str]) -> pd.DataFrame:
     """
-    Purpose:
-    --------
-    Rich descriptive profile: percentiles, robust stats, outlier rates, normality p-values.
-
-    Returns:
-    --------
-    pd.DataFrame
-        Profile table.
+	    
+	    Purpose:
+	    --------
+	    Rich descriptive profile: percentiles, robust stats, outlier rates, normality p-values.
+	
+	    Returns:
+	    --------
+	    pd.DataFrame
+	        Profile table.
+	        
     """
     rows: List[Dict[str, Any]] = []
     n = df.shape[0]
@@ -362,7 +365,6 @@ def descriptive_profile(df: pd.DataFrame, cols: List[str]) -> pd.DataFrame:
 
         q_vals = np.nanpercentile(v, percentiles)
         q = dict(zip(percentiles, q_vals))
-
         mean = float(np.nanmean(v))
         std = float(np.nanstd(v, ddof=0))
         mad = float(stats.median_abs_deviation(v, nan_policy="omit"))
@@ -523,8 +525,8 @@ def vif_table(X: pd.DataFrame) -> pd.DataFrame:
 # ======================================================================================
 
 st.set_page_config(page_title="Pogi", layout="wide", page_icon=r"resources/favicon.ico")
-st.title("🏛️ Analytics Workbench")
-st.caption("Exploratory Data Analysis")
+st.markdown("#### 🏛️ Analytics Workbench")
+st.caption("Exploratory Analysis")
 
 # ======================================================================================
 # Sidebar: Data Input + Global Controls
