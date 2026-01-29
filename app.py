@@ -1,28 +1,52 @@
-# ******************************************************************************************
-#  Assembly:                Pogi
-#  Filename:                app.py
-#
-#  Purpose:
-#  --------
-#  Streamlit analytics workbench:
-#    1) Data Overview
-#    2) Descriptive Statistics
-#    3) Inferential Statistics
-#    4) Feature Analysis (expanded)
-#    5) Feature Engineering (non-temporal)
-#    6) Anomaly Detection
-#    7) Modeling (>=10 regression + >=10 classification)
-#    8) Diagnostics
-# ******************************************************************************************
+'''
+  ******************************************************************************************
+      Assembly:                Name
+      Filename:                name.py
+      Author:                  Terry D. Eppler
+      Created:                 05-31-2022
+      Last Modified By:        Terry D. Eppler
+      Last Modified On:        05-01-2025
+  ******************************************************************************************
+  <copyright file="app.py" company="Terry D. Eppler">
+
+	     app.py
+	     Copyright ©  2022  Terry Eppler
+
+     Permission is hereby granted, free of charge, to any person obtaining a copy
+     of this software and associated documentation files (the “Software”),
+     to deal in the Software without restriction,
+     including without limitation the rights to use,
+     copy, modify, merge, publish, distribute, sublicense,
+     and/or sell copies of the Software,
+     and to permit persons to whom the Software is furnished to do so,
+     subject to the following conditions:
+
+     The above copyright notice and this permission notice shall be included in all
+     copies or substantial portions of the Software.
+
+     THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+     INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+     FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
+     IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+     DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+     ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+     DEALINGS IN THE SOFTWARE.
+
+     You can contact me at:  terryeppler@gmail.com or eppler.terry@epa.gov
+
+  </copyright>
+  <summary>
+    app.py
+  </summary>
+  ******************************************************************************************
+'''
 
 from __future__ import annotations
 
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional, Tuple
-
 import os
 import math
-
 import numpy as np
 import matplotlib.ticker as mticker
 import pandas as pd
@@ -31,9 +55,7 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as mtick
 import seaborn as sns
 import scipy.stats as stats
-
 from scipy.stats.mstats import winsorize
-
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
 from sklearn.ensemble import (
@@ -85,11 +107,16 @@ try:
 except Exception:
     _HAS_DA = False
 
+# -----------------------------------------------------------------------------
+# CONSTANTS
+# -----------------------------------------------------------------------------
+LOGO = r'resources/pogi_logo.ico'
+BLUE_DIVIDER = "<div style='height:2px;align:left;background:#0078FC;margin:6px 0 10px 0;'></div>"
+FAVICON = r'resources/favicon.ico'
 
 # ======================================================================================
 # Display & Formatting Utilities
 # ======================================================================================
-
 def _humanize_number(x: Any, decimals: int = 2) -> str:
     """
     Purpose:
@@ -133,7 +160,6 @@ def _humanize_number(x: Any, decimals: int = 2) -> str:
             return f"{v / base:,.{decimals}f}{suf}"
     return f"{v:,.{decimals}f}"
 
-
 def _apply_plain_ticks(ax: plt.Axes, humanize: bool = True) -> None:
     """
     Purpose:
@@ -162,15 +188,12 @@ def _apply_plain_ticks(ax: plt.Axes, humanize: bool = True) -> None:
         ax.xaxis.set_major_formatter(mticker.FuncFormatter(fmt))
         ax.yaxis.set_major_formatter(mticker.FuncFormatter(fmt))
 
-
 def _enhance_spines(ax: plt.Axes, lw: float = 1.4) -> None:
     for spine in ax.spines.values():
         spine.set_linewidth(lw)
 
-
 def _safe_numeric_series(df: pd.DataFrame, col: str) -> np.ndarray:
     return pd.to_numeric(df[col], errors="coerce").dropna().values.astype(float)
-
 
 def _cardinality_ratio(s: pd.Series) -> float:
     non_missing = int(s.notna().sum())
@@ -179,19 +202,11 @@ def _cardinality_ratio(s: pd.Series) -> float:
         return 0.0
     return float(s.nunique(dropna=True) / non_missing)
 
-
 # ======================================================================================
 # Table Rendering
 # ======================================================================================
-
-def render_table(
-    df: pd.DataFrame,
-    title: str | None = None,
-    caption: str | None = None,
-    precision: int = 4,
-    dark_mode: bool = True,
-    max_rows: int = 500,
-    humanize_large: bool = True ) -> None:
+def render_table( df: pd.DataFrame, title=None, caption=None, precision=4,
+    dark_mode=True, max_rows=500, humanize_large=True ) -> None:
     """
     
 	    Purpose:
@@ -219,7 +234,6 @@ def render_table(
     """
     if title:
         st.markdown(f"#### {title}")
-
     if df is None or df.empty:
         st.info("No data to display.")
         return
@@ -227,9 +241,8 @@ def render_table(
     df_show = df.copy()
     if len(df_show) > max_rows:
         df_show = df_show.head(max_rows)
-
-    # Format numeric columns
-    num_cols = df_show.select_dtypes(include=[np.number]).columns.tolist()
+        
+    num_cols = df_show.select_dtypes( include=[ np.number ] ).columns.tolist( )
 
     def _fmt_cell(v: Any) -> str:
         if humanize_large:
@@ -337,8 +350,7 @@ def feature_quality( df: pd.DataFrame ) -> pd.DataFrame:
     out = pd.DataFrame(rows)
     return out.sort_values(["completeness_pct", "cardinality_ratio"], ascending=[False, False])
 
-
-def descriptive_profile(df: pd.DataFrame, cols: List[str]) -> pd.DataFrame:
+def descriptive_profile( df: pd.DataFrame, cols: List[str] ) -> pd.DataFrame:
     """
 	    
 	    Purpose:
@@ -426,12 +438,7 @@ def descriptive_profile(df: pd.DataFrame, cols: List[str]) -> pd.DataFrame:
         return out
     return out.sort_values(["missing_pct", "outlier_iqr_pct"], ascending=[True, False])
 
-
-def corr_with_pvalues(
-    df: pd.DataFrame,
-    cols: List[str],
-    method: str,
-) -> Tuple[pd.DataFrame, pd.DataFrame]:
+def corr_with_pvalues( df: pd.DataFrame, cols: List[str],  method: str ) -> Tuple[pd.DataFrame, pd.DataFrame]:
     """
     Purpose:
     --------
@@ -468,7 +475,6 @@ def corr_with_pvalues(
             pval.loc[a, b] = float(p)
 
     return corr, pval
-
 
 def vif_table(X: pd.DataFrame) -> pd.DataFrame:
     """
@@ -523,8 +529,8 @@ def vif_table(X: pd.DataFrame) -> pd.DataFrame:
 # ======================================================================================
 # Streamlit Config
 # ======================================================================================
-
-st.set_page_config(page_title="Pogi", layout="wide", page_icon=r"resources/favicon.ico")
+st.logo( LOGO, size='large' )
+st.set_page_config(page_title="Pogi", layout="wide", page_icon=FAVICON )
 st.markdown("#### 🏛️ Analytics Workbench")
 st.caption("Exploratory Analysis")
 
@@ -571,22 +577,18 @@ def load_data() -> pd.DataFrame:
         st.error(f"Failed to read file: {e}")
         st.stop()
 
-df = load_data()
-
-# Column typing policy:
-# - Default numeric = float columns only
-# - User can opt-in to include integer columns if truly quantitative
-float_cols = df.select_dtypes(include=[np.floating]).columns.tolist()
+df = load_data( )
+float_cols = df.select_dtypes(include=[np.floating]).columns.tolist( )
 int_cols = df.select_dtypes(include=[np.integer]).columns.tolist()
 bool_cols = df.select_dtypes(include=[bool]).columns.tolist()
 
-st.sidebar.header("⚙️ Global Controls")
+st.sidebar.subheader("⚙️ Global Controls")
 
 preview_rows = st.sidebar.slider("Preview rows", 10, 500, 50, 10, key="preview_rows")
 dark_tables = st.sidebar.toggle("Use dark tables", value=True, key="dark_tables")
 plot_theme = st.sidebar.selectbox("Plot theme", ["Light", "Dark"], index=1, key="plot_theme")
 humanize_tables = st.sidebar.toggle(
-    "Humanize large numbers",
+    "Humanize Large Numbers",
     value=True,
     help="Shows large magnitudes as K/M/B/T to keep tables usable.",
     key="humanize_tables",
@@ -608,7 +610,6 @@ plt.style.use("dark_background" if plot_theme == "Dark" else "default")
 # ======================================================================================
 # Tabs
 # ======================================================================================
-
 tabs = st.tabs([
     "1) Data Overview",
     "2) Descriptive Statistics",
@@ -624,20 +625,21 @@ tabs = st.tabs([
 # ======================================================================================
 # 1) Data Overview (More visuals)
 # ======================================================================================
-
 with tabs[0]:
-    st.subheader("1) Data Overview")
+    st.markdown("##### 1) Data Overview")
 
-    c1, c2, c3, c4 = st.columns(4)
+    c1, c2, c3, c4 = st.columns( 4, border=True )
     c1.metric("Rows", f"{df.shape[0]:,}")
     c2.metric("Columns", f"{df.shape[1]:,}")
-    c3.metric("Numeric Columns (per policy)", f"{len(numeric_cols):,}")
-    c4.metric("Non-Numeric Columns", f"{len(non_numeric_cols):,}")
+    c3.metric("Numeric Columns", f"{len(numeric_cols):,}")
+    c4.metric("Categorical Columns", f"{len(non_numeric_cols):,}")
 
-    st.markdown("### Preview")
+    st.markdown( BLUE_DIVIDER, unsafe_allow_html=True )
+    st.markdown("##### Data Preview")
     st.dataframe(df.head(int(preview_rows)), use_container_width=True, height=420)
 
-    st.markdown("### Feature Quality (Completeness, Cardinality, Variance/Entropy)")
+    st.markdown( BLUE_DIVIDER, unsafe_allow_html=True )
+    st.markdown("##### Feature Quality")
     fq = feature_quality(df)
     render_table(
         fq,
@@ -651,19 +653,19 @@ with tabs[0]:
         humanize_large=humanize_tables,
     )
 
-    st.markdown("### Missingness Profile")
+    st.markdown( BLUE_DIVIDER, unsafe_allow_html=True )
+    st.markdown("##### Missingness Profile")
     miss = pd.DataFrame({
         "feature": df.columns,
         "missing": [int(df[c].isna().sum()) for c in df.columns],
         "missing_pct": [float(df[c].isna().mean() * 100.0) for c in df.columns],
     }).sort_values("missing_pct", ascending=False)
 
-    colA, colB = st.columns([1, 1])
+    colA, colB = st.columns([1, 1], border=True )
 
     with colA:
         render_table(
             miss,
-            title="Missingness (sorted)",
             dark_mode=dark_tables,
             precision=2,
             max_rows=200,
@@ -683,18 +685,16 @@ with tabs[0]:
         "Use this page to validate inferred types, quickly identify missingness, and ID-like fields before analysis."
     )
 
-
 # ======================================================================================
 # 2) Descriptive Statistics (Substantially expanded models + more visuals)
 # ======================================================================================
-
 with tabs[1]:
-    st.subheader("2) Descriptive Statistics")
+    st.markdown("##### 2) Descriptive Statistics")
 
     if not numeric_cols:
         st.warning("No numeric columns detected under the current numeric policy.")
     else:
-        st.markdown("### Numeric Profile (robust stats, outliers, normality tests)")
+        st.text("Numeric Profile")
         prof = descriptive_profile(df, numeric_cols)
         render_table(
             prof,
@@ -703,11 +703,12 @@ with tabs[1]:
             max_rows=500,
             humanize_large=humanize_tables,
             caption=(
-                "outlier rates (IQR and |z|>3), and normality diagnostics. "
+                "Outlier Rates (IQR and |z|>3), and Normality Diagnostics. "
                 "Use Shapiro/D’Agostino p-values as indicators, not absolutes."
             ),
         )
 
+        st.markdown( BLUE_DIVIDER, unsafe_allow_html=True )
         # Exclude ID-like columns for distribution plotting by default
         cont_cols: List[str] = []
         for c in numeric_cols:
@@ -716,17 +717,16 @@ with tabs[1]:
             if ratio < 0.50:
                 cont_cols.append(c)
 
-        st.markdown("### Distribution Diagnostics (more visuals)")
+        st.markdown("##### Distribution Diagnostics")
         chosen = st.multiselect(
             "Select numeric features to visualize",
             options=cont_cols if cont_cols else numeric_cols,
             default=(cont_cols if cont_cols else numeric_cols)[: min(6, len(cont_cols if cont_cols else numeric_cols))],
             key="desc_chosen",
         )
-        bins = st.slider("Histogram bins", 10, 120, 40, 5, key="desc_bins")
+        bins = st.slider("Histogram Bins", 10, 120, 40, 5, key="desc_bins")
 
         if chosen:
-            # Small multiples: histogram+kde, box, violin, ECDF
             per_row = 2
             for i in range(0, len(chosen), per_row):
                 row = chosen[i:i + per_row]
@@ -739,15 +739,12 @@ with tabs[1]:
 
                     fig, axes = plt.subplots(2, 2, figsize=(10, 7))
                     ax1, ax2, ax3, ax4 = axes.ravel()
-
                     sns.histplot(v, bins=bins, kde=True, ax=ax1, edgecolor="black", linewidth=0.4)
                     ax1.set_title(f"{c}: Histogram + KDE")
                     _apply_plain_ticks(ax1)
-
                     sns.boxplot(x=v, ax=ax2)
                     ax2.set_title("Boxplot")
                     _apply_plain_ticks(ax2)
-
                     sns.violinplot(x=v, ax=ax3, inner="quartile")
                     ax3.set_title("Violin (density + quartiles)")
                     _apply_plain_ticks(ax3)
@@ -762,9 +759,10 @@ with tabs[1]:
 
                     fig.tight_layout()
                     cols_ui[j].pyplot(fig)
-
+    
+            st.markdown( BLUE_DIVIDER, unsafe_allow_html=True )
             # Enhanced Q–Q plots (boundaries improved)
-            st.markdown("### Q–Q Plots")
+            st.markdown("##### Q–Q Plots")
             qq_cols = st.multiselect(
                 "Select features for Q–Q plots",
                 options=chosen,
@@ -792,24 +790,22 @@ with tabs[1]:
                         ax.lines[1].set_linewidth(2.6)
                         ax.lines[1].set_alpha(0.95)
 
+            
                 _enhance_spines(ax, lw=1.6)
                 ax.set_title(f"Q–Q Plot: {c}")
                 _apply_plain_ticks(ax, humanize=False)
                 st.pyplot(fig)
 
-
-
+            st.markdown( BLUE_DIVIDER, unsafe_allow_html=True )
+            
 # ======================================================================================
 # 3) Inferential Statistics (Substantially expanded)
 # ======================================================================================
-
 with tabs[2]:
-    st.subheader("3) Inferential Statistics")
-
     if len(numeric_cols) < 2:
         st.warning("Need at least 2 numeric columns for inferential analysis.")
     else:
-        st.markdown("### Correlation Inference (Pearson / Spearman / Kendall + p-values)")
+        st.markdown("##### Correlation Inference")
         corr_cols = st.multiselect(
             "Select numeric features (subset)",
             options=numeric_cols,
@@ -826,12 +822,10 @@ with tabs[2]:
 
         if len(corr_cols) >= 2:
             corr_mat, p_mat = corr_with_pvalues(df, corr_cols, corr_method)
-
-            # Mask non-significant correlations at alpha
             alpha = st.slider("Significance alpha", 0.001, 0.10, 0.05, 0.001, key="inf_alpha")
             sig_mask = (p_mat.values <= alpha)
 
-            col1, col2 = st.columns(2)
+            col1, col2 = st.columns( 2, border=True )
 
             with col1:
                 fig, ax = plt.subplots(figsize=(10, 7))
@@ -863,9 +857,11 @@ with tabs[2]:
                     cbar_kws={"shrink": 0.85},
                     ax=ax2,
                 )
-                ax2.set_title("Correlation p-values (annotated)")
+                ax2.set_title("Correlation P-values")
                 st.pyplot(fig2)
 
+            st.markdown( BLUE_DIVIDER, unsafe_allow_html=True )
+            
             # Significance mask heatmap
             fig3, ax3 = plt.subplots(figsize=(10, 7))
             sns.heatmap(
@@ -881,26 +877,32 @@ with tabs[2]:
             ax3.set_title(f"Significant pairs (p <= {alpha:.3f})")
             st.pyplot(fig3)
 
+            st.markdown( BLUE_DIVIDER, unsafe_allow_html=True )
+            
             render_table(
                 corr_mat.reset_index().rename(columns={"index": "feature"}),
-                title="Correlation matrix (table)",
+                title="Correlation Matrix",
                 dark_mode=dark_tables,
                 precision=4,
                 max_rows=200,
                 humanize_large=False,
             )
+            
+            st.markdown( BLUE_DIVIDER, unsafe_allow_html=True )
+            
             render_table(
                 p_mat.reset_index().rename(columns={"index": "feature"}),
-                title="p-value matrix (table)",
+                title="P-Value Matrix",
                 dark_mode=dark_tables,
                 precision=6,
                 max_rows=200,
                 humanize_large=False,
             )
 
-        st.markdown("### Normality Testing")
+        st.markdown( BLUE_DIVIDER, unsafe_allow_html=True )
+        st.markdown("##### Normality Testing")
         ntest_cols = st.multiselect(
-            "Select numeric features",
+            "Select Numeric Features",
             options=numeric_cols,
             default=numeric_cols[: min(10, len(numeric_cols))],
             key="inf_norm_cols",
@@ -931,15 +933,16 @@ with tabs[2]:
             humanize_large=False,
         )
 
-        st.markdown("### Two-Group Comparisons (t-test + Welch + Mann–Whitney + effect size)")
+        st.markdown( BLUE_DIVIDER, unsafe_allow_html=True )
+        st.markdown("##### Two-Group Comparisons")
         if non_numeric_cols:
-            num = st.selectbox("Numeric feature", options=numeric_cols, key="inf_2g_num")
-            grp = st.selectbox("Grouping feature (categorical)", options=non_numeric_cols, key="inf_2g_grp")
+            num = st.selectbox("Numeric Feature", options=numeric_cols, key="inf_2g_num")
+            grp = st.selectbox("Grouping Feature (Categorical)", options=non_numeric_cols, key="inf_2g_grp")
             groups = sorted(df[grp].dropna().astype(str).unique().tolist())
 
             if len(groups) >= 2:
                 gsel = st.multiselect(
-                    "Select exactly two groups",
+                    "Select Two Groups",
                     options=groups,
                     default=groups[:2],
                     key="inf_2g_groups",
@@ -948,14 +951,10 @@ with tabs[2]:
                 if len(gsel) == 2:
                     a = pd.to_numeric(df.loc[df[grp].astype(str) == gsel[0], num], errors="coerce").dropna().values
                     b = pd.to_numeric(df.loc[df[grp].astype(str) == gsel[1], num], errors="coerce").dropna().values
-
                     if a.size >= 2 and b.size >= 2:
-                        # Tests
                         t_stat_eq, p_eq = stats.ttest_ind(a, b, equal_var=True)
                         t_stat_w, p_w = stats.ttest_ind(a, b, equal_var=False)
                         u_stat, p_u = stats.mannwhitneyu(a, b, alternative="two-sided")
-
-                        # Cohen's d (pooled)
                         pooled = math.sqrt(((a.size - 1) * np.var(a, ddof=1) + (b.size - 1) * np.var(b, ddof=1)) / max(1, (a.size + b.size - 2)))
                         d = float((np.mean(a) - np.mean(b)) / (pooled + 1e-12))
 
@@ -974,6 +973,7 @@ with tabs[2]:
                             "cohens_d": d,
                         }])
 
+                        st.markdown( BLUE_DIVIDER, unsafe_allow_html=True )
                         render_table(
                             out,
                             dark_mode=dark_tables,
@@ -982,6 +982,7 @@ with tabs[2]:
                             humanize_large=humanize_tables,
                             caption="Includes both parametric (t-tests) and non-parametric (Mann–Whitney) tests plus Cohen's d effect size.",
                         )
+
 
                         fig, ax = plt.subplots(figsize=(10, 4))
                         ax.hist(a, bins=30, alpha=0.45, label=gsel[0], edgecolor="black", linewidth=0.3)
@@ -993,6 +994,7 @@ with tabs[2]:
                         _apply_plain_ticks(ax)
                         st.pyplot(fig)
 
+                        st.markdown( BLUE_DIVIDER, unsafe_allow_html=True )
                         fig2, ax2 = plt.subplots(figsize=(10, 4))
                         sns.kdeplot(a, ax=ax2, label=gsel[0])
                         sns.kdeplot(b, ax=ax2, label=gsel[1])
@@ -1001,18 +1003,14 @@ with tabs[2]:
                         _apply_plain_ticks(ax2)
                         st.pyplot(fig2)
 
-
 # ======================================================================================
 # 4) Feature Analysis (Substantially expanded)
 # ======================================================================================
-
 with tabs[3]:
-    st.subheader("4) Feature Analysis")
-
     if not numeric_cols:
         st.warning("Feature analysis requires numeric columns.")
     else:
-        st.markdown("### Correlation Heatmap")
+        st.markdown("##### Correlation Heatmap")
         fa_cols = st.multiselect(
             "Select numeric features",
             options=numeric_cols,
@@ -1039,6 +1037,7 @@ with tabs[3]:
             ax.set_title("Correlation Heatmap")
             st.pyplot(fig)
 
+            st.markdown( BLUE_DIVIDER, unsafe_allow_html=True )
             # Strongest pairs
             pairs: List[Dict[str, Any]] = []
             for i in range(len(fa_cols)):
@@ -1047,6 +1046,7 @@ with tabs[3]:
                     r = float(corr.loc[a, b])
                     pairs.append({"feature_A": a, "feature_B": b, "corr": r, "abs_corr": abs(r)})
             top_pairs = pd.DataFrame(pairs).sort_values("abs_corr", ascending=False).head(25)
+            
             render_table(
                 top_pairs.drop(columns=["abs_corr"]),
                 title="Top correlated feature pairs",
@@ -1056,7 +1056,9 @@ with tabs[3]:
                 humanize_large=False,
             )
 
-        st.markdown("### PCA + Scree + 2D Projection + k-Means")
+        st.markdown( BLUE_DIVIDER, unsafe_allow_html=True )
+        
+        st.markdown("##### PCA + Scree + 2D Projection + k-Means")
         pca_cols = st.multiselect(
             "Select features for PCA",
             options=numeric_cols,
@@ -1078,6 +1080,9 @@ with tabs[3]:
                 "explained_variance_ratio": pca.explained_variance_ratio_,
                 "cumulative": np.cumsum(pca.explained_variance_ratio_),
             })
+            
+            st.divider( )
+            
             render_table(
                 evr,
                 title="Explained Variance",
@@ -1088,6 +1093,8 @@ with tabs[3]:
                 caption="Use cumulative variance to decide whether a reduced-dimensional representation is viable.",
             )
 
+            st.markdown( BLUE_DIVIDER, unsafe_allow_html=True )
+            
             fig, ax = plt.subplots(figsize=(8, 4))
             ax.plot(np.arange(1, evr.shape[0] + 1), evr["cumulative"].values, marker="o")
             ax.set_title("PCA Cumulative Explained Variance")
@@ -1096,6 +1103,8 @@ with tabs[3]:
             _apply_plain_ticks(ax, humanize=False)
             st.pyplot(fig)
 
+            st.markdown( BLUE_DIVIDER, unsafe_allow_html=True )
+            
             if Z.shape[1] >= 2:
                 fig2, ax2 = plt.subplots(figsize=(8, 6))
                 ax2.scatter(Z[:, 0], Z[:, 1], s=18, edgecolor="black", linewidth=0.3)
@@ -1105,10 +1114,11 @@ with tabs[3]:
                 _apply_plain_ticks(ax2, humanize=False)
                 st.pyplot(fig2)
 
-                k = st.slider("k-Means clusters (PCA space)", 2, 12, 3, 1, key="fa_k")
+                st.divider( )
+                
+                k = st.slider("k-Means Clusters (PCA space)", 2, 12, 3, 1, key="fa_k")
                 km = KMeans(n_clusters=int(k), n_init="auto", random_state=42)
                 labels = km.fit_predict(Z)
-
                 fig3, ax3 = plt.subplots(figsize=(8, 6))
                 ax3.scatter(Z[:, 0], Z[:, 1], c=labels, s=18, edgecolor="black", linewidth=0.3)
                 ax3.set_title("k-Means Clusters (PCA space)")
@@ -1117,7 +1127,9 @@ with tabs[3]:
                 _apply_plain_ticks(ax3, humanize=False)
                 st.pyplot(fig3)
 
-        st.markdown("### Multicollinearity (VIF)")
+        st.markdown( BLUE_DIVIDER, unsafe_allow_html=True )
+        
+        st.markdown("##### Multicollinearity (VIF)")
         if len(fa_cols) >= 2:
             Xv = df[fa_cols].apply(pd.to_numeric, errors="coerce").fillna(df[fa_cols].median(numeric_only=True))
             vt = vif_table(Xv)
@@ -1127,10 +1139,12 @@ with tabs[3]:
                 precision=4,
                 max_rows=50,
                 humanize_large=False,
-                caption="VIF > 5–10 suggests multicollinearity. Consider dropping/recombining features or using PCA.",
+                caption="Consider dropping/recombining features or using PCA.",
             )
 
-        st.markdown("### Pairwise Scatter")
+        st.markdown( BLUE_DIVIDER, unsafe_allow_html=True )
+        
+        st.markdown("##### Pairwise Scatter")
         if len(fa_cols) >= 2:
             scatter_cols = fa_cols[: min(5, len(fa_cols))]
             for i in range(len(scatter_cols)):
@@ -1145,29 +1159,24 @@ with tabs[3]:
                         linewidth=0.3,
                         alpha=0.75,
                     )
+                    
+                    st.markdown( BLUE_DIVIDER, unsafe_allow_html=True )
+                    
                     ax.set_title(f"{a} vs {b}")
                     ax.set_xlabel(a)
                     ax.set_ylabel(b)
                     _apply_plain_ticks(ax)
                     st.pyplot(fig)
-
+        
 
 # ======================================================================================
 # 5) Feature Engineering (non-temporal, not empty, more visuals)
 # ======================================================================================
-
 with tabs[4]:
-    st.subheader("5) Feature Engineering")
-
-    st.markdown(
-        "Build a modeling-ready feature matrix using numeric transforms and optional one-hot encoding. "
-        "This is non-temporal feature engineering (no lags/rolling)."
-    )
-
-    left, right = st.columns(2)
+    left, right = st.columns(2, border=True )
     with left:
         num_feats = st.multiselect(
-            "Numeric features",
+            "Numeric Features",
             options=numeric_cols,
             default=numeric_cols[: min(10, len(numeric_cols))],
             key="fe_num_feats",
@@ -1183,13 +1192,13 @@ with tabs[4]:
 
     with right:
         cat_feats = st.multiselect(
-            "Categorical features (one-hot)",
+            "Categorical Features (One-Hot)",
             options=non_numeric_cols,
             default=non_numeric_cols[: min(6, len(non_numeric_cols))],
             key="fe_cat_feats",
         )
         impute_strategy = st.selectbox(
-            "Numeric imputation",
+            "Numeric Imputation",
             ["median", "mean", "most_frequent"],
             index=0,
             key="fe_impute",
@@ -1197,6 +1206,8 @@ with tabs[4]:
         knn_impute = st.toggle("KNN impute (numeric)", value=False, key="fe_knn")
         knn_k = st.slider("KNN neighbors", 2, 15, 5, 1, key="fe_knn_k")
 
+    st.markdown( BLUE_DIVIDER, unsafe_allow_html=True )
+    
     if st.button("Build Feature Matrix", type="primary", key="fe_build"):
         X_num = df[num_feats].apply(pd.to_numeric, errors="coerce") if num_feats else pd.DataFrame(index=df.index)
 
@@ -1265,23 +1276,19 @@ with tabs[4]:
             ax.set_title("Engineered Numeric Correlation Heatmap")
             st.pyplot(fig)
 
-
 # ======================================================================================
 # 6) Anomaly Detection (not empty, more visuals)
 # ======================================================================================
-
 with tabs[5]:
-    st.subheader("6) Anomaly Detection")
-
-    st.markdown(
-        "Flags potential anomalies using multiple detectors. This does not remove data; it provides candidates for review."
+    st.caption(
+        "Flags potential anomalies using multiple detectors: non-mutating"
     )
 
     if len(numeric_cols) < 2:
         st.warning("Anomaly detection requires at least 2 numeric columns under the current numeric policy.")
     else:
         cols = st.multiselect(
-            "Numeric features for anomaly detection",
+            "Numeric Features for Anomaly Detection",
             options=numeric_cols,
             default=numeric_cols[: min(12, len(numeric_cols))],
             key="ad_cols",
@@ -1291,8 +1298,10 @@ with tabs[5]:
             X = df[cols].apply(pd.to_numeric, errors="coerce")
             X = X.fillna(X.median(numeric_only=True))
 
-            st.markdown("### Detector Controls")
-            c1, c2, c3 = st.columns(3)
+            st.markdown( BLUE_DIVIDER, unsafe_allow_html=True )
+            
+            st.markdown("##### Detector Controls")
+            c1, c2, c3 = st.columns(3, border=True )
 
             with c1:
                 iso_n = st.slider("IsolationForest estimators", 50, 500, 200, 25, key="ad_iso_n")
@@ -1343,6 +1352,8 @@ with tabs[5]:
                     f"({float(flags['is_anomaly'].mean() * 100.0):.2f}%)"
                 )
 
+                st.markdown( BLUE_DIVIDER, unsafe_allow_html=True )
+                
                 # Visual: votes distribution
                 fig, ax = plt.subplots(figsize=(8, 4))
                 vc = flags["anomaly_votes"].value_counts().sort_index()
@@ -1353,6 +1364,8 @@ with tabs[5]:
                 _apply_plain_ticks(ax, humanize=False)
                 st.pyplot(fig)
 
+                st.markdown( BLUE_DIVIDER, unsafe_allow_html=True )
+    
                 # Visual: PCA scatter (colored by anomaly)
                 if Z.shape[1] >= 2:
                     fig2, ax2 = plt.subplots(figsize=(8, 6))
@@ -1363,9 +1376,11 @@ with tabs[5]:
                     _apply_plain_ticks(ax2, humanize=False)
                     st.pyplot(fig2)
 
+                st.markdown( BLUE_DIVIDER, unsafe_allow_html=True )
+    
                 render_table(
                     flags.sort_values(["is_anomaly", "anomaly_votes"], ascending=[False, False]).head(250),
-                    title="Anomaly Flags (Top 250)",
+                    title="Anomaly Flags",
                     dark_mode=dark_tables,
                     precision=4,
                     max_rows=250,
@@ -1373,14 +1388,10 @@ with tabs[5]:
                     caption="Rows flagged by multiple detectors are higher-confidence candidates for review.",
                 )
 
-
 # ======================================================================================
 # 7) Modeling (>=10 regression + >=10 classification)
 # ======================================================================================
-
 with tabs[6]:
-    st.subheader("7) Modeling")
-
     X_fe: Optional[pd.DataFrame] = st.session_state.get("feature_matrix")
     if X_fe is None:
         st.info("No engineered feature matrix found. Using raw numeric features (per current numeric policy).")
@@ -1390,10 +1401,8 @@ with tabs[6]:
 
     target = st.selectbox("Target column", options=df.columns.tolist(), key="model_target")
     task = st.radio("Task type", ["Regression", "Classification"], horizontal=True, key="model_task")
-
     test_size = st.slider("Test size", 0.10, 0.50, 0.25, 0.05, key="model_test")
     seed = st.number_input("Random seed", 0, 10_000, 42, 1, key="model_seed")
-
     y_raw = df[target]
 
     if task == "Regression":
@@ -1477,7 +1486,7 @@ with tabs[6]:
                 preds = m.predict(X_test)
 
                 if task == "Regression":
-                    rmse = float(mean_squared_error(y_test, preds, squared=False))
+                    rmse = float(mean_squared_error(y_test, preds ))
                     mae = float(mean_absolute_error(y_test, preds))
                     r2 = float(r2_score(y_test, preds))
                     rows.append({"model": name, "rmse": rmse, "mae": mae, "r2": r2})
@@ -1491,7 +1500,6 @@ with tabs[6]:
                 rows.append({"model": name, "error": str(e)})
 
         res = pd.DataFrame(rows)
-
         if task == "Regression" and "rmse" in res.columns:
             res_sorted = res.sort_values("rmse", ascending=True)
         elif task == "Classification" and "accuracy" in res.columns:
@@ -1499,6 +1507,8 @@ with tabs[6]:
         else:
             res_sorted = res
 
+        st.markdown( BLUE_DIVIDER, unsafe_allow_html=True )
+        
         render_table(
             res_sorted,
             title="Model Comparison",
@@ -1508,6 +1518,9 @@ with tabs[6]:
             humanize_large=humanize_tables,
         )
 
+
+        st.markdown( BLUE_DIVIDER, unsafe_allow_html=True )
+    
         # choose best model
         best_name: Optional[str] = None
         if task == "Regression" and "rmse" in res_sorted.columns and len(res_sorted) > 0:
@@ -1529,14 +1542,10 @@ with tabs[6]:
             }
             st.success(f"Diagnostics payload saved for best model: {best_name}")
 
-
 # ======================================================================================
 # 8) Diagnostics (more visuals + reasonable formatting)
 # ======================================================================================
-
 with tabs[7]:
-    st.subheader("8) Diagnostics")
-
     payload = st.session_state.get("last_model_payload")
     if not payload:
         st.info("Train models in the Modeling tab to enable diagnostics.")
@@ -1551,12 +1560,14 @@ with tabs[7]:
         X_train = payload.get("X_train")
         y_train = payload.get("y_train")
 
-        st.markdown(f"### Best Model: `{best_name}`")
+        st.markdown( BLUE_DIVIDER, unsafe_allow_html=True )
+    
+        st.markdown(f"##### Best Model: `{best_name}`")
 
         if task == "Regression":
             resid = y_test - preds
 
-            col1, col2 = st.columns(2)
+            col1, col2 = st.columns( 2, border=True )
 
             with col1:
                 fig, ax = plt.subplots(figsize=(7, 4))
@@ -1579,6 +1590,8 @@ with tabs[7]:
                 _enhance_spines(ax2)
                 st.pyplot(fig2)
 
+            st.markdown( BLUE_DIVIDER, unsafe_allow_html=True )
+    
             # Q–Q plot for residuals (enhanced)
             fig3, ax3 = plt.subplots(figsize=(7, 4))
             stats.probplot(resid, dist="norm", plot=ax3)
@@ -1599,9 +1612,12 @@ with tabs[7]:
                 "If residual Q–Q deviates strongly, consider robust models or transformations."
             )
 
+
+            st.markdown( BLUE_DIVIDER, unsafe_allow_html=True )
+    
             # Permutation importance (if feasible)
             if feature_names and X_train is not None and y_train is not None:
-                st.markdown("### Permutation Importance (sampled)")
+                st.markdown("##### Permutation Importance (sampled)")
                 try:
                     r = permutation_importance(model, X_test, y_test, n_repeats=5, random_state=42)
                     imp = pd.DataFrame({"feature": feature_names, "importance_mean": r.importances_mean})
@@ -1625,6 +1641,9 @@ with tabs[7]:
                     st.info(f"Permutation importance not available for this model: {e}")
 
         else:
+        
+            st.markdown( BLUE_DIVIDER, unsafe_allow_html=True )
+            
             # Confusion matrix
             cm = confusion_matrix(y_test, preds)
             fig, ax = plt.subplots(figsize=(6, 4))
@@ -1634,13 +1653,18 @@ with tabs[7]:
             ax.set_ylabel("Actual")
             st.pyplot(fig)
 
+
+            st.markdown( BLUE_DIVIDER, unsafe_allow_html=True )
+            
             # Classification report
-            st.markdown("### Classification Report")
+            st.markdown("##### Classification Report")
             rep = classification_report(y_test, preds, output_dict=True, zero_division=0)
             render_table(pd.DataFrame(rep).T, dark_mode=dark_tables, precision=4, max_rows=200, humanize_large=False)
 
+            st.markdown( BLUE_DIVIDER, unsafe_allow_html=True )
+    
             # ROC/PR if possible
-            st.markdown("### ROC / Precision–Recall")
+            st.markdown("##### ROC / Precision–Recall")
             can_proba = hasattr(model, "predict_proba")
             can_dec = hasattr(model, "decision_function")
             if (can_proba or can_dec) and len(np.unique(y_test)) == 2:
@@ -1668,7 +1692,10 @@ with tabs[7]:
 
             # Permutation importance (if feasible)
             if feature_names:
-                st.markdown("### Permutation Importance")
+            
+                st.markdown( BLUE_DIVIDER, unsafe_allow_html=True )
+                
+                st.markdown("##### Permutation Importance")
                 try:
                     r = permutation_importance(model, X_test, y_test, n_repeats=5, random_state=42)
                     imp = pd.DataFrame({"feature": feature_names, "importance_mean": r.importances_mean})
