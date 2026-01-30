@@ -110,7 +110,7 @@ except Exception:
 # -----------------------------------------------------------------------------
 # CONSTANTS
 # -----------------------------------------------------------------------------
-LOGO = r'resources/pogi_logo.png'
+LOGO = r'resources/pogi_logo.ico'
 BLUE_DIVIDER = "<div style='height:2px;align:left;background:#0078FC;margin:6px 0 10px 0;'></div>"
 FAVICON = r'resources/favicon.ico'
 
