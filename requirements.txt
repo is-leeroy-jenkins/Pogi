@@ -3,8 +3,6 @@ numpy
 matplotlib
 seaborn
 scikit-learn
-FreeSimpleGUI
-fitz
 pillow
 statsmodels
 scipy
