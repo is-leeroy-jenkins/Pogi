@@ -896,10 +896,10 @@ with tabs[ 2 ]:
 				ax2.set_title( 'Correlation P-values' )
 				st.pyplot( fig2 )
 	
-	st.divider( )
-	st.subheader( 'Correlation Matrix' )
-	correlation_data = corr_mat.reset_index( ).rename( columns={ 'index': 'feature' } )
-	st.data_editor( data=correlation_data )
+			st.divider( )
+			st.subheader( 'Correlation Matrix' )
+			correlation_data = corr_mat.reset_index( ).rename( columns={ 'index': 'feature' } )
+			st.data_editor( data=correlation_data )
 	
 	st.divider( )
 	st.subheader( 'Normality Testing' )
