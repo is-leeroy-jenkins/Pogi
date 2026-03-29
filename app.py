@@ -666,7 +666,8 @@ if not use_fallback:
 			)
 
 df = load_data( )
-float_cols = df.select_dtypes( include=[ np.float32 ] ).columns.tolist( )
+float_cols = df.select_dtypes(
+	include=[ np.float64, np.float32, np.float16, np.floating, np.number ] ).columns.tolist( )
 int_cols = df.select_dtypes( include=[ np.integer ] ).columns.tolist( )
 bool_cols = df.select_dtypes( include=[ bool ] ).columns.tolist( )
 
@@ -692,7 +693,7 @@ if st.session_state.get( 'data_source_name' ):
 		st.sidebar.caption( f"Source: {_source_kind} | {_source_name}" )
 
 # Use float-only numeric by default
-numeric_cols = list( float_cols ) + (list( int_cols ) if include_int_as_numeric else [ ])
+numeric_cols = list( float_cols ) if include_int_as_numeric else [ ]
 non_numeric_cols = [ c for c in df.columns if c not in numeric_cols ]
 
 # Plot theme
