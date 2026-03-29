@@ -906,7 +906,7 @@ with tabs[ 2 ]:
 			st.pyplot( fig2 )
 
 # ======================================================================================
-# 4) Feature Analysis (Substantially expanded)
+# 4) Feature Analysis
 # ======================================================================================
 with tabs[ 3 ]:
 	if not numeric_cols:
@@ -1039,89 +1039,95 @@ with tabs[ 3 ]:
 # ======================================================================================
 # 5) Feature Engineering 
 # ======================================================================================
-with tabs[4]:
-    left, right = st.columns(2, border=True )
-    with left:
-        num_feats = st.multiselect( 'Numeric Features', options=numeric_cols,
-            default=numeric_cols[: min(10, len(numeric_cols))],
-            key='fe_num_feats', )
-        
-        scaler_name = st.selectbox( 'Scaler',
-            [ 'None', 'StandardScaler', 'MinMaxScaler', 'RobustScaler' ],
-            index=1, key='fe_scaler',  )
-        
-        winsor = st.toggle('Winsorize (clip extreme tails)', value=False, key='fe_winsor')
-        win_limits = st.slider('Winsorize limits', 0.0, 0.20, (0.01, 0.01), 0.005, key='fe_win_lim')
-
-    with right:
-        cat_feats = st.multiselect( 'Categorical Features (One-Hot)',
-            options=non_numeric_cols, default=non_numeric_cols[: min(6, len(non_numeric_cols))],
-            key='fe_cat_feats', )
-        
-        impute_strategy = st.selectbox( 'Numeric Imputation', ['median', 'mean', 'most_frequent'],
-            index=0,  key='fe_impute', )
-        knn_impute = st.toggle('KNN impute (numeric)', value=False, key='fe_knn')
-        knn_k = st.slider('KNN neighbors', 2, 15, 5, 1, key='fe_knn_k')
-        
-    st.divider( )
-    
-    if st.button( 'Build Feature Matrix', type='primary', key='fe_build' ):
-        X_num = df[num_feats].apply( pd.to_numeric, errors='coerce' ) if num_feats else pd.DataFrame( index=df.index )
-
-        if winsor and not X_num.empty:
-            Xw = X_num.copy( )
-            for c in Xw.columns:
-                v = Xw[c].values.astype( float )
-                if np.isfinite( v ).sum( ) > 0:
-                    Xw[ c ] = winsorize( v, limits=win_limits )
-            X_num = Xw
-
-        if not X_num.empty:
-            if knn_impute:
-                imp = KNNImputer(n_neighbors=int(knn_k))
-                X_num = pd.DataFrame(imp.fit_transform(X_num), columns=X_num.columns, index=X_num.index)
-            else:
-                imp = SimpleImputer(strategy=impute_strategy)
-                X_num = pd.DataFrame(imp.fit_transform(X_num), columns=X_num.columns, index=X_num.index)
-
-            if scaler_name != 'None':
-                if scaler_name == 'StandardScaler':
-                    scaler = StandardScaler()
-                elif scaler_name == 'MinMaxScaler':
-                    scaler = MinMaxScaler()
-                else:
-                    scaler = RobustScaler()
-
-                X_num = pd.DataFrame(scaler.fit_transform(X_num), columns=X_num.columns, index=X_num.index)
-
-        X_cat = pd.get_dummies( df[ cat_feats ].astype( str ), drop_first=False ) if cat_feats else pd.DataFrame( index=df.index )
-
-        X_fe = pd.concat([X_num, X_cat], axis=1)
-        st.session_state['feature_matrix'] = X_fe
-
-        st.success( f'Feature Matrix built: {X_fe.shape[0]:,} rows × {X_fe.shape[1]:,} columns' )
-
-        # Preview table
-        st.divider( )
-        st.subheader( 'Feature Matrix' )
-        st.data_editor( data=X_fe )
-        
-        st.divider( )
-        st.subheader( 'Feature-Engineered Correlations' )
-        num_engineered = X_num.columns.tolist()
-        if len(num_engineered) >= 2:
-            sub = num_engineered[: min(20, len(num_engineered))]
-            corr = pd.DataFrame(X_num[sub]).corr()
-            fig, ax = plt.subplots(figsize=( 8, 6 ) )
-            sns.heatmap( corr, cmap='coolwarm',  center=0.0, annot=True,
-                fmt='.2f', linewidths=0.6, linecolor='black',
-                annot_kws={'size': 8}, cbar_kws={'shrink': 0.85}, ax=ax, )
-            
-            ax.set_title('Engineered Numeric-Correlation Heatmap')
-            st.pyplot(fig)
+with tabs[ 4 ]:
+	left, right = st.columns( 2, border=True )
+	with left:
+		num_feats = st.multiselect( 'Numeric Features', options=numeric_cols,
+			default=numeric_cols[ : min( 10, len( numeric_cols ) ) ], key='fe_num_feats', )
+		
+		scaler_name = st.selectbox( 'Scaler',
+			[ 'None', 'StandardScaler', 'MinMaxScaler', 'RobustScaler' ],
+			index=1, key='fe_scaler', )
+		
+		winsor = st.toggle( 'Winsorize (clip extreme tails)', value=False, key='fe_winsor' )
+		win_limits = st.slider( 'Winsorize limits', 0.0, 0.20, (0.01, 0.01), 0.005, key='fe_win_lim' )
+	
+	with right:
+		cats = non_numeric_cols[ : min( 6, len( non_numeric_cols ) ) ]
+		cat_feats = st.multiselect( 'Categorical Features (One-Hot)',
+			options=non_numeric_cols, default=cats, key='fe_cat_feats', )
+		
+		impute_strategy = st.selectbox( 'Numeric Imputation', [ 'median', 'mean', 'most_frequent' ],
+			index=0, key='fe_impute', )
+		knn_impute = st.toggle( 'kNN Impute (numeric)', value=False, key='fe_knn' )
+		knn_k = st.slider( 'kNN Neighbors', 2, 15, 5, 1, key='fe_knn_k' )
+	
+	st.divider( )
+	
+	if st.button( 'Build Feature Matrix', type='primary', key='fe_build' ):
+		matrix = df[ num_feats ].apply( pd.to_numeric, errors='ignore' )
+		X_num = matrix if num_feats else pd.DataFrame( index=df.index )
+		
+		if winsor and not X_num.empty:
+			Xw = X_num.copy( )
+			for c in Xw.columns:
+				v = Xw[ c ].values.astype( float )
+				if np.isfinite( v ).sum( ) > 0:
+					Xw[ c ] = winsorize( v, limits=win_limits )
+			X_num = Xw
+		
+		if not X_num.empty:
+			if knn_impute:
+				imp = KNNImputer( n_neighbors=int( knn_k ) )
+				X_num = pd.DataFrame( imp.fit_transform( X_num ), columns=X_num.columns,
+					index=X_num.index )
+			else:
+				imp = SimpleImputer( strategy=impute_strategy )
+				X_num = pd.DataFrame( imp.fit_transform( X_num ), columns=X_num.columns,
+					index=X_num.index )
+			
+			if scaler_name != 'None':
+				if scaler_name == 'StandardScaler':
+					scaler = StandardScaler( )
+				elif scaler_name == 'MinMaxScaler':
+					scaler = MinMaxScaler( )
+				else:
+					scaler = RobustScaler( )
+				
+				X_num = pd.DataFrame( scaler.fit_transform( X_num ), columns=X_num.columns,
+					index=X_num.index )
+		
+		X_cat = pd.get_dummies( df[
+			cat_feats ].astype( str ), drop_first=False ) if cat_feats else pd.DataFrame(
+			index=df.index )
+		
+		X_fe = pd.concat( [ X_num, X_cat ], axis=1 )
+		st.session_state[ 'feature_matrix' ] = X_fe
+		
+		st.success( f'Feature Matrix built: {X_fe.shape[ 0 ]:,} rows × '
+		            f'{X_fe.shape[ 1 ]:,} columns' )
+		
+		# Preview table
+		st.divider( )
+		st.subheader( 'Feature Matrix' )
+		st.data_editor( data=X_fe )
+		
+		st.divider( )
+		st.subheader( 'Feature-Engineered Correlations' )
+		num_engineered = X_num.columns.tolist( )
+		if len( num_engineered ) >= 2:
+			sub = num_engineered[ : min( 20, len( num_engineered ) ) ]
+			corr = pd.DataFrame( X_num[ sub ] ).corr( )
+			fig, ax = plt.subplots( figsize=(8, 6) )
+			sns.heatmap( corr, cmap='coolwarm', center=0.0, annot=True,
+				fmt='.2f', linewidths=0.6, linecolor='black',
+				annot_kws={ 'size': 8 }, cbar_kws={ 'shrink': 0.85 }, ax=ax, )
+			
+			ax.set_title( 'Engineered Numeric-Correlation Heatmap' )
+			st.pyplot( fig )
 
 # ======================================================================================
-# 6) Anomaly Detection (not empty, more visuals)
+# 6) Anomaly Detection
 # ======================================================================================
 with tabs[5]:
     st.caption( 'Flags potential anomalies using multiple detectors: non-mutating' )
@@ -1182,8 +1188,8 @@ with tabs[5]:
                 flags[ 'pca_far' ] = (dist >= thr).astype( int )
                 flags[ 'pca_distance' ] = dist
 
-                flags['anomaly_votes'] = (
-                    flags['isolationforest_anomaly'] + flags['lof_anomaly'] + flags['pca_far']  )
+                flags['anomaly_votes'] = ( flags['isolationforest_anomaly']
+                                           + flags['lof_anomaly'] + flags['pca_far']  )
                 
                 flags['is_anomaly'] = (flags['anomaly_votes'] >= 2).astype(int)
 
@@ -1193,7 +1199,7 @@ with tabs[5]:
                     f'({float(flags['is_anomaly'].mean() * 100.0):.2f}%)'  )
 
                 st.divider( )
-                
+                st.subheader( 'Anomaly Flags')
                 # Visual: votes distribution
                 fig, ax = plt.subplots(figsize=(8, 4))
                 vc = flags['anomaly_votes'].value_counts().sort_index()
@@ -1205,8 +1211,8 @@ with tabs[5]:
                 st.pyplot(fig)
 
                 st.divider( )
-    
-                # Visual: PCA scatter ( colored by anomaly )
+                st.subheader( 'PCA Scatter' )
+                # Visual: PCA scatter
                 if Z.shape[1] >= 2:
                     fig2, ax2 = plt.subplots( figsize=( 8, 6 ) )
                     ax2.scatter( Z[:, 0], Z[:, 1], c=flags[ 'is_anomaly' ].values,
@@ -1218,13 +1224,11 @@ with tabs[5]:
                     st.pyplot(fig2)
 
                 st.divider( )
-    
-                render_table( flags.sort_values(['is_anomaly', 'anomaly_votes'],
-	                ascending=[False, False]).head(250), title='Anomaly Flags',
-                    dark_mode=dark_tables, precision=4, max_rows=250,
-                    humanize_large=humanize_tables,
-                    caption='Rows flagged by multiple detectors are higher-confidence candidates for review.',
-                )
+                st.subheader( 'Flagged Data' )
+                sorted_data = flags.sort_values( [ 'is_anomaly', 'anomaly_votes' ],
+	                ascending=[ False, False ] )
+                
+                st.data_editor( data=sorted_data )
 
 # ======================================================================================
 # 7) Modeling (>=10 regression + >=10 classification)
