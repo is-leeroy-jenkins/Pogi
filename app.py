@@ -1129,7 +1129,7 @@ with tabs[ 4 ]:
 # ======================================================================================
 # 6) Anomaly Detection
 # ======================================================================================
-with tabs[5]:
+with tabs[ 5 ]:
     st.caption( 'Flags potential anomalies using multiple detectors: non-mutating' )
 
     if len(numeric_cols) < 2:
@@ -1382,7 +1382,7 @@ with tabs[ 6 ]:
 # ======================================================================================
 # 8) Diagnostics (more visuals + reasonable formatting)
 # ======================================================================================
-with tabs[7]:
+with tabs[ 7 ]:
     payload = st.session_state.get('last_model_payload')
     if not payload:
         st.info('Train models in the Modeling tab to enable diagnostics.')
