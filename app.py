@@ -1160,7 +1160,7 @@ with tabs[5]:
 	                0.001, 0.20, 0.02, 0.001, key='ad_lof_c' )
 
             with c3:
-                pca_comp = st.slider( 'PCA components (viz)', 2,
+                pca_comp = st.slider( 'PCA Components', 2,
 	                min(6, X.shape[1]), 2, 1, key='ad_pca_comp' )
 
             if st.button( 'Run Detectors', type='primary', key='ad_run' ):
@@ -1197,27 +1197,25 @@ with tabs[5]:
                 
                 st.success( f'Flagged anomalies: {int(flags['is_anomaly'].sum()):,} '
                     f'({float(flags['is_anomaly'].mean() * 100.0):.2f}%)'  )
-
-                st.divider( )
-                st.subheader( 'Anomaly Flags')
+                
                 # Visual: votes distribution
+                st.divider( )
+                st.subheader( 'Anomaly Distribution')
                 fig, ax = plt.subplots(figsize=(8, 4))
                 vc = flags['anomaly_votes'].value_counts().sort_index()
                 ax.bar(vc.index.astype(int), vc.values.astype(int), edgecolor='black', linewidth=0.4)
-                ax.set_title('Anomaly vote counts')
                 ax.set_xlabel('Votes (0–3)')
                 ax.set_ylabel('Rows')
                 _apply_plain_ticks(ax, humanize=False)
                 st.pyplot(fig)
-
+                
+                # Visual: PCA scatter
                 st.divider( )
                 st.subheader( 'PCA Scatter' )
-                # Visual: PCA scatter
                 if Z.shape[1] >= 2:
                     fig2, ax2 = plt.subplots( figsize=( 8, 6 ) )
                     ax2.scatter( Z[:, 0], Z[:, 1], c=flags[ 'is_anomaly' ].values,
 	                    s=16, edgecolor='black', linewidth=0.3 )
-                    ax2.set_title( 'PCA space (colored by anomaly flag)' )
                     ax2.set_xlabel( 'PC1' )
                     ax2.set_ylabel( 'PC2' )
                     _apply_plain_ticks( ax2, humanize=False )
