@@ -573,7 +573,6 @@ def vif_table( X: pd.DataFrame ) -> pd.DataFrame:
 st.logo( LOGO, size='large' )
 st.set_page_config( page_title="Pogi", layout="wide", page_icon=FAVICON )
 st.header( '🛠️ Analytics Workbench' )
-st.caption( 'Exploratory Analysis' )
 
 # ======================================================================================
 # Sidebar: Data Input + Global Controls
