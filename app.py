@@ -777,274 +777,265 @@ with tabs[ 1 ]:
 # ======================================================================================
 # 3) Inferential Statistics
 # ======================================================================================
-with tabs[2]:
-    if len(numeric_cols) < 2:
-        st.warning('Need at least 2 numeric columns for inferential analysis.')
-    else:
-        st.subheader( 'Correlation Inference' )
-        corr_cols = st.multiselect( 'Select numeric features (subset)',
-            options=numeric_cols, default=numeric_cols[: min(12, len(numeric_cols))],
-            key='inf_corr_cols', )
-
-        corr_method = st.selectbox( 'Method', ['pearson', 'spearman', 'kendall'],
-            index=0, key='inf_corr_method', )
-
-        if len(corr_cols) >= 2:
-            corr_mat, p_mat = corr_with_pvalues(df, corr_cols, corr_method)
-            alpha = st.slider('Significance alpha', 0.001, 0.10, 0.05, 0.001, key='inf_alpha')
-            sig_mask = (p_mat.values <= alpha)
-
-            col1, col2 = st.columns( 2, border=True )
-
-            with col1:
-                fig, ax = plt.subplots( figsize=( 10, 7 ) )
-                sns.heatmap( corr_mat, cmap='coolwarm', center=0.0, annot=True, fmt='.2f',
-	                linewidths=0.6, linecolor='black', annot_kws={'size': 8},
-	                cbar_kws={'shrink': 0.85}, ax=ax, )
-                
-                ax.set_title( f'{corr_method.title()} Correlations' )
-                st.pyplot( fig )
-
-            with col2:
-                fig2, ax2 = plt.subplots(figsize=(10, 7))
-                sns.heatmap( p_mat, cmap='viridis_r', annot=True, fmt='.3f', linewidths=0.6,
-	                linecolor='black', annot_kws={'size': 8}, cbar_kws={'shrink': 0.85},
-                    ax=ax2,  )
-                ax2.set_title('Correlation P-values')
-                st.pyplot(fig2)
-
-    st.divider( )
-    
-    st.subheader( 'Correlation Matrix' )
-    correlation_data = corr_mat.reset_index( ).rename( columns={ 'index': 'feature' } )
-    st.data_editor( data=correlation_data )
-    
-    st.divider( )
-    
-    st.subheader('Normality Testing')
-    ntest_cols = st.multiselect( 'Select Numeric Features', options=numeric_cols,
-        default=numeric_cols[: min(10, len(numeric_cols))], key='inf_norm_cols', )
-    rows: List[Dict[str, Any]] = []
-    for c in ntest_cols:
-        v = _safe_numeric_series(df, c)
-        if v.size >= 8:
-            sh_p = np.nan
-            dag_p = np.nan
-            ad_stat = np.nan
-            try:
-                if v.size <= 5000:
-                    sh_p = float(stats.shapiro(v)[1])
-                if v.size >= 20:
-                    dag_p = float(stats.normaltest(v[:5000] if v.size > 5000 else v)[1])
-                ad_stat = float(stats.anderson(v, dist='norm').statistic)
-            except Exception:
-                pass
-            rows.append({'feature': c, 'n': int(v.size), 'shapiro_p': sh_p, 'dagostino_p': dag_p, 'anderson_stat': ad_stat})
-
-        st.data_editor( data=pd.DataFrame( rows ) )
-        
-        st.divider( )
-        
-        st.subheader('Two-Group Comparisons')
-        
-    if non_numeric_cols:
-        num = st.selectbox('Numeric Feature', options=numeric_cols, key='inf_2g_num')
-        grp = st.selectbox('Grouping Feature (Categorical)', options=non_numeric_cols, key='inf_2g_grp')
-        groups = sorted(df[grp].dropna().astype(str).unique().tolist())
-
-        if len(groups) >= 2:
-            gsel = st.multiselect(  'Select Two Groups', options=groups,
-                default=groups[:2],  key='inf_2g_groups', )
-
-        if len(gsel) == 2:
-            a = pd.to_numeric(df.loc[df[grp].astype(str) == gsel[0], num], errors='coerce').dropna().values
-            b = pd.to_numeric(df.loc[df[grp].astype(str) == gsel[1], num], errors='coerce').dropna().values
-            if a.size >= 2 and b.size >= 2:
-                t_stat_eq, p_eq = stats.ttest_ind(a, b, equal_var=True)
-                t_stat_w, p_w = stats.ttest_ind(a, b, equal_var=False)
-                u_stat, p_u = stats.mannwhitneyu(a, b, alternative='two-sided')
-                pooled = math.sqrt(((a.size - 1) * np.var(a, ddof=1) + (b.size - 1) * np.var(b, ddof=1)) / max(1, (a.size + b.size - 2)))
-                d = float((np.mean(a) - np.mean(b)) / (pooled + 1e-12))
-
-                out = pd.DataFrame([{
-                    'group_A': gsel[0],
-                    'group_B': gsel[1],
-                    'n_A': int(a.size),
-                    'n_B': int(b.size),
-                    'mean_A': float(np.mean(a)),
-                    'mean_B': float(np.mean(b)),
-                    'median_A': float(np.median(a)),
-                    'median_B': float(np.median(b)),
-                    't_equalvar_p': float(p_eq),
-                    't_welch_p': float(p_w),
-                    'mannwhitney_p': float(p_u),
-                    'cohens_d': d,
-                }])
-                st.divider( )
-                
-                st.data_editor( data=out, key='testing_table')
-	            
-            st.divider( )
-            
-            fig, ax = plt.subplots(figsize=(8, 4))
-            ax.hist(a, bins=30, alpha=0.45, label=gsel[0], edgecolor='black', linewidth=0.3)
-            ax.hist(b, bins=30, alpha=0.45, label=gsel[1], edgecolor='black', linewidth=0.3)
-            ax.set_title(f'{num} by {grp} (two groups)')
-            ax.set_xlabel(num)
-            ax.set_ylabel('Count')
-            ax.legend()
-            _apply_plain_ticks(ax)
-            st.pyplot(fig)
+with tabs[ 2 ]:
+	if len( numeric_cols ) < 2:
+		st.warning( 'Need at least 2 numeric columns for inferential analysis.' )
+	else:
+		st.subheader( 'Correlation Inference' )
+		corr_cols = st.multiselect( 'Select numeric features (subset)',
+			options=numeric_cols, default=numeric_cols[ : min( 12, len( numeric_cols ) ) ],
+			key='inf_corr_cols', )
+		
+		corr_method = st.selectbox( 'Method', [ 'pearson', 'spearman', 'kendall' ],
+			index=0, key='inf_corr_method', )
+		
+		if len( corr_cols ) >= 2:
+			corr_mat, p_mat = corr_with_pvalues( df, corr_cols, corr_method )
+			alpha = st.slider( 'Significance alpha', 0.001, 0.10, 0.05, 0.001, key='inf_alpha' )
+			sig_mask = (p_mat.values <= alpha)
+			col1, col2 = st.columns( 2, border=True )
+			with col1:
+				fig, ax = plt.subplots( figsize=(10, 7) )
+				sns.heatmap( corr_mat, cmap='coolwarm', center=0.0, annot=True, fmt='.2f',
+					linewidths=0.6, linecolor='black', annot_kws={ 'size': 8 },
+					cbar_kws={ 'shrink': 0.85 }, ax=ax, )
+				
+				ax.set_title( f'{corr_method.title( )} Correlations' )
+				st.pyplot( fig )
+			
+			with col2:
+				fig2, ax2 = plt.subplots( figsize=(10, 7) )
+				sns.heatmap( p_mat, cmap='viridis_r', annot=True, fmt='.3f', linewidths=0.6,
+					linecolor='black', annot_kws={ 'size': 8 }, cbar_kws={ 'shrink': 0.85 },
+					ax=ax2, )
+				ax2.set_title( 'Correlation P-values' )
+				st.pyplot( fig2 )
 	
-            st.divider( )
-            
-            fig2, ax2 = plt.subplots(figsize=(8, 4))
-            sns.kdeplot(a, ax=ax2, label=gsel[0])
-            sns.kdeplot(b, ax=ax2, label=gsel[1])
-            ax2.set_title('KDE comparison (shape differences)')
-            ax2.legend()
-            _apply_plain_ticks(ax2)
-            st.pyplot(fig2)
+	st.divider( )
+	st.subheader( 'Correlation Matrix' )
+	correlation_data = corr_mat.reset_index( ).rename( columns={ 'index': 'feature' } )
+	st.data_editor( data=correlation_data )
+	
+	st.divider( )
+	st.subheader( 'Normality Testing' )
+	ntest_cols = st.multiselect( 'Select Numeric Features', options=numeric_cols,
+		default=numeric_cols[ : min( 10, len( numeric_cols ) ) ], key='inf_norm_cols', )
+	rows: List[ Dict[ str, Any ] ] = [ ]
+	for c in ntest_cols:
+		v = _safe_numeric_series( df, c )
+		if v.size >= 8:
+			sh_p = np.nan
+			dag_p = np.nan
+			ad_stat = np.nan
+			try:
+				if v.size <= 5000:
+					sh_p = float( stats.shapiro( v )[ 1 ] )
+				if v.size >= 20:
+					dag_p = float( stats.normaltest( v[ :5000 ] if v.size > 5000 else v )[ 1 ] )
+				ad_stat = float( stats.anderson( v, dist='norm' ).statistic )
+			except Exception:
+				pass
+			rows.append( { 'feature': c, 'n': int( v.size ), 'shapiro_p': sh_p,
+			               'dagostino_p': dag_p, 'anderson_stat': ad_stat } )
+		
+		st.data_editor( data=pd.DataFrame( rows ) )
+		
+		st.divider( )
+		st.subheader( 'Two-Group Comparisons' )
+	if non_numeric_cols:
+		num = st.selectbox( 'Numeric Feature', options=numeric_cols, key='inf_2g_num' )
+		grp = st.selectbox( 'Grouping Feature (Categorical)', options=non_numeric_cols,
+			key='inf_2g_grp' )
+		groups = sorted( df[ grp ].dropna( ).astype( str ).unique( ).tolist( ) )
+		
+		if len( groups ) >= 2:
+			gsel = st.multiselect( 'Select Two Groups', options=groups,
+				default=groups[ :2 ], key='inf_2g_groups', )
+		
+		if len( gsel ) == 2:
+			a = pd.to_numeric( df.loc[
+				df[ grp ].astype( str ) == gsel[ 0 ], num ], errors='coerce' ).dropna( ).values
+			b = pd.to_numeric( df.loc[
+				df[ grp ].astype( str ) == gsel[ 1 ], num ], errors='coerce' ).dropna( ).values
+			if a.size >= 2 and b.size >= 2:
+				t_stat_eq, p_eq = stats.ttest_ind( a, b, equal_var=True )
+				t_stat_w, p_w = stats.ttest_ind( a, b, equal_var=False )
+				u_stat, p_u = stats.mannwhitneyu( a, b, alternative='two-sided' )
+				pooled = math.sqrt( ((a.size - 1) * np.var( a, ddof=1 ) + (
+							b.size - 1) * np.var( b, ddof=1 )) / max( 1, (a.size + b.size - 2) ) )
+				d = float( (np.mean( a ) - np.mean( b )) / (pooled + 1e-12) )
+				
+				out = pd.DataFrame( [ {
+						'group_A': gsel[ 0 ],
+						'group_B': gsel[ 1 ],
+						'n_A': int( a.size ),
+						'n_B': int( b.size ),
+						'mean_A': float( np.mean( a ) ),
+						'mean_B': float( np.mean( b ) ),
+						'median_A': float( np.median( a ) ),
+						'median_B': float( np.median( b ) ),
+						't_equalvar_p': float( p_eq ),
+						't_welch_p': float( p_w ),
+						'mannwhitney_p': float( p_u ),
+						'cohens_d': d,
+				} ] )
+				
+				st.divider( )
+				st.data_editor( data=out, key='testing_table' )
+			
+			st.divider( )
+			
+			fig, ax = plt.subplots( figsize=(8, 4) )
+			ax.hist( a, bins=30, alpha=0.45, label=gsel[ 0 ], edgecolor='black', linewidth=0.3 )
+			ax.hist( b, bins=30, alpha=0.45, label=gsel[ 1 ], edgecolor='black', linewidth=0.3 )
+			ax.set_title( f'{num} by {grp} (two groups)' )
+			ax.set_xlabel( num )
+			ax.set_ylabel( 'Count' )
+			ax.legend( )
+			_apply_plain_ticks( ax )
+			st.pyplot( fig )
+			
+			st.divider( )
+			st.subheader( 'Kernel-Density Estimates')
+			fig2, ax2 = plt.subplots( figsize=(8, 4) )
+			sns.kdeplot( a, ax=ax2, label=gsel[ 0 ] )
+			sns.kdeplot( b, ax=ax2, label=gsel[ 1 ] )
+			ax2.set_title( 'KDE Comparison (shape differences)' )
+			ax2.legend( )
+			_apply_plain_ticks( ax2 )
+			st.pyplot( fig2 )
 
 # ======================================================================================
 # 4) Feature Analysis (Substantially expanded)
 # ======================================================================================
-with tabs[3]:
-    if not numeric_cols:
-        st.warning('Feature analysis requires numeric columns.')
-    else:
-        st.subheader( 'Correlation Heatmap' )
-        fa_cols = st.multiselect( 'Select numeric features', options=numeric_cols,
-            default=numeric_cols[: min(15, len(numeric_cols))], key='fa_cols', )
-
-        if len(fa_cols) >= 2:
-            corr = df[fa_cols].corr()
-
-            fig, ax = plt.subplots(figsize=(10, 7))
-            sns.heatmap( corr, cmap='coolwarm',
-                center=0.0,
-                annot=True,
-                fmt='.2f',
-                linewidths=0.6,
-                linecolor='black',
-                annot_kws={'size': 8},
-                cbar_kws={'shrink': 0.85},
-                ax=ax, )
-            
-            ax.set_title('Correlations')
-            
-            st.pyplot(fig)
-            
-            st.divider( )
-            
-            # Strongest pairs
-            pairs: List[Dict[str, Any]] = [ ]
-            for i in range(len(fa_cols)):
-                for j in range(i + 1, len(fa_cols)):
-                    a, b = fa_cols[i], fa_cols[j]
-                    r = float(corr.loc[a, b])
-                    pairs.append({'feature_A': a, 'feature_B': b, 'corr': r, 'abs_corr': abs(r)})
-            top_pairs = pd.DataFrame(pairs).sort_values('abs_corr', ascending=False).head(25)
-            
-            pairs = top_pairs.drop( columns=[ 'abs_corr' ] )
-            st.data_editor( pairs )
-            
-        st.divider( )
+with tabs[ 3 ]:
+	if not numeric_cols:
+		st.warning( 'Feature analysis requires numeric columns.' )
+	else:
+		st.subheader( 'Correlation Heatmap' )
+		fa_cols = st.multiselect( 'Select numeric features', options=numeric_cols,
+			default=numeric_cols[ : min( 15, len( numeric_cols ) ) ], key='fa_cols', )
+		
+		if len( fa_cols ) >= 2:
+			corr = df[ fa_cols ].corr( )
+			fig, ax = plt.subplots( figsize=(10, 7) )
+			sns.heatmap( corr, cmap='coolwarm', center=0.0, annot=True, fmt='.2f',
+				linewidths=0.6, linecolor='black', annot_kws={ 'size': 8 },
+				cbar_kws={ 'shrink': 0.85 }, ax=ax, )
+			
+			ax.set_title( 'Correlations' )
+			st.pyplot( fig )
+			
+			st.divider( )
+			st.subheader( 'Correlated Feature-Pairs' )
+			pairs: List[ Dict[ str, Any ] ] = [ ]
+			for i in range( len( fa_cols ) ):
+				for j in range( i + 1, len( fa_cols ) ):
+					a, b = fa_cols[ i ], fa_cols[ j ]
+					r = float( corr.loc[ a, b ] )
+					pairs.append( { 'feature_A': a, 'feature_B': b, 'corr': r,
+					                'abs_corr': abs( r ) } )
+			top_pairs = pd.DataFrame( pairs ).sort_values( 'abs_corr', ascending=False ).head( 25 )
+			
+			pairs = top_pairs.drop( columns=[ 'abs_corr' ] )
+			st.data_editor( pairs )
+		
+		st.divider( )
+		
+		st.subheader( 'PCA 2D-Projection + k-Means' )
+		
+		pca_cols = st.multiselect( 'Select features for PCA',
+			options=numeric_cols, default=numeric_cols[ : min( 12, len( numeric_cols ) ) ],
+			key='fa_pca_cols', )
+		
+		if len( pca_cols ) >= 2:
+			X = df[ pca_cols ].apply( pd.to_numeric, errors='coerce' )
+			X = X.fillna( X.median( numeric_only=True ) )
+			Xs = StandardScaler( ).fit_transform( X.values )
+			
+			n_comp = st.slider( 'PCA components', 2, min( 10, len( pca_cols ) ), 3, 1,
+				key='fa_pca_comp' )
+			pca = PCA( n_components=int( n_comp ), random_state=42 )
+			Z = pca.fit_transform( Xs )
+			
+			evr = pd.DataFrame( {
+					'component': [ f'PC{i + 1}' for i in
+					               range( len( pca.explained_variance_ratio_ ) ) ],
+					'explained_variance_ratio': pca.explained_variance_ratio_,
+					'cumulative': np.cumsum( pca.explained_variance_ratio_ ),
+			} )
+			
+			st.divider( )
+			
+			st.subheader( 'Top-Correlated Pairs' )
+			h = ('Use cumulative variance to decide whether a reduced-dimensional representation is '
+			     'viable.')
+			st.caption( h )
+			st.data_editor( evr )
+			
+			st.divider( )
+			
+			fig, ax = plt.subplots( figsize=(8, 4) )
+			ax.plot( np.arange( 1, evr.shape[ 0 ] + 1 ), evr[ 'cumulative' ].values, marker='o' )
+			ax.set_title( 'PCA Cumulative Explained Variance' )
+			ax.set_xlabel( 'Components' )
+			ax.set_ylabel( 'Cumulative Variance' )
+			_apply_plain_ticks( ax, humanize=False )
+			st.pyplot( fig )
+			
+			st.divider( )
+			st.subheader( 'PCA Projection' )
+			if Z.shape[ 1 ] >= 2:
+				fig2, ax2 = plt.subplots( figsize=(8, 6) )
+				ax2.scatter( Z[ :, 0 ], Z[ :, 1 ], s=18, edgecolor='black', linewidth=0.3 )
+				ax2.set_title( 'PCA Projection (PC1 vs PC2)' )
+				ax2.set_xlabel( 'PC1' )
+				ax2.set_ylabel( 'PC2' )
+				_apply_plain_ticks( ax2, humanize=False )
+				st.pyplot( fig2 )
+				
+				st.divider( )
+				st.subheader( 'k-Means Clustering' )
+				k = st.slider( 'k-Means Clusters (PCA space)', 2, 12, 3, 1, key='fa_k' )
+				km = KMeans( n_clusters=int( k ), n_init='auto', random_state=42 )
+				labels = km.fit_predict( Z )
+				fig3, ax3 = plt.subplots( figsize=(8, 6) )
+				ax3.scatter(
+					Z[ :, 0 ], Z[ :, 1 ], c=labels, s=18, edgecolor='black', linewidth=0.3 )
+				ax3.set_title( 'k-Means Clusters (PCA space)' )
+				ax3.set_xlabel( 'PC1' )
+				ax3.set_ylabel( 'PC2' )
+				_apply_plain_ticks( ax3, humanize=False )
+				st.pyplot( fig3 )
+		
+		st.divider( )
+		st.subheader( 'Multi-Collinearity (VIF)' )
+		if len( fa_cols ) >= 2:
+			Xv = df[ fa_cols ].apply( pd.to_numeric, errors='coerce' ).fillna(
+				df[ fa_cols ].median( numeric_only=True ) )
+			vt = vif_table( Xv )
+			st.data_editor( data=vt, key='vt_table' )
+			st.divider( )
+		
+		st.subheader( 'Pairwise Scatter' )
+		if len( fa_cols ) >= 2:
+			scatter_cols = fa_cols[ : min( 5, len( fa_cols ) ) ]
+			for i in range( len( scatter_cols ) ):
+				for j in range( i + 1, len( scatter_cols ) ):
+					a, b = scatter_cols[ i ], scatter_cols[ j ]
+					fig, ax = plt.subplots( figsize=(6, 4) )
+					ax.scatter( pd.to_numeric( df[ a ], errors="coerce" ),
+						pd.to_numeric( df[ b ], errors="coerce" ), s=12, edgecolor="black",
+						linewidth=0.3, alpha=0.75, )
+					
+					st.markdown( BLUE_DIVIDER, unsafe_allow_html=True )
+					
+					ax.set_title( f"{a} vs {b}" )
+					ax.set_xlabel( a )
+					ax.set_ylabel( b )
+					_apply_plain_ticks( ax )
+					st.pyplot( fig )
         
-        st.subheader( 'PCA + Scree + 2D Projection + k-Means' )
-        
-        pca_cols = st.multiselect( 'Select features for PCA',
-            options=numeric_cols, default=numeric_cols[ : min( 12, len( numeric_cols ) ) ],
-            key='fa_pca_cols', )
-
-        if len( pca_cols ) >= 2:
-            X = df[pca_cols].apply(pd.to_numeric, errors='coerce')
-            X = X.fillna(X.median(numeric_only=True))
-            Xs = StandardScaler().fit_transform(X.values)
-
-            n_comp = st.slider('PCA components', 2, min(10, len(pca_cols)), 3, 1, key='fa_pca_comp')
-            pca = PCA(n_components=int(n_comp), random_state=42)
-            Z = pca.fit_transform(Xs)
-
-            evr = pd.DataFrame( {
-                'component': [f'PC{i+1}' for i in range(len(pca.explained_variance_ratio_))],
-                'explained_variance_ratio': pca.explained_variance_ratio_,
-                'cumulative': np.cumsum( pca.explained_variance_ratio_ ),
-            } )
-            
-            st.divider( )
-        
-            st.subheader( 'Top-Correlated Features' )
-            h = 'Use cumulative variance to decide whether a reduced-dimensional representation is viable.'
-            st.caption( h )
-            st.data_editor( evr )
-
-            st.divider( )
-            
-            fig, ax = plt.subplots( figsize=( 8, 4 ) )
-            ax.plot( np.arange( 1, evr.shape[0] + 1 ), evr[ 'cumulative' ].values, marker='o' )
-            ax.set_title( 'PCA Cumulative Explained Variance' )
-            ax.set_xlabel( 'Components' )
-            ax.set_ylabel( 'Cumulative variance' )
-            _apply_plain_ticks( ax, humanize=False )
-            st.pyplot( fig )
-            
-            st.divider( )
-            
-            st.subheader( 'PCA Projection' )
-            if Z.shape[1] >= 2:
-                fig2, ax2 = plt.subplots(figsize=(8, 6))
-                ax2.scatter(Z[:, 0], Z[:, 1], s=18, edgecolor='black', linewidth=0.3)
-                ax2.set_title( 'PCA Projection (PC1 vs PC2)' )
-                ax2.set_xlabel( 'PC1' )
-                ax2.set_ylabel( 'PC2' )
-                _apply_plain_ticks( ax2, humanize=False )
-                st.pyplot(fig2)
-
-                st.divider( )
-            
-                st.subheader( 'k-Means Clustering' )
-                k = st.slider('k-Means Clusters (PCA space)', 2, 12, 3, 1, key='fa_k')
-                km = KMeans( n_clusters=int( k ), n_init='auto', random_state=42 )
-                labels = km.fit_predict(Z)
-                fig3, ax3 = plt.subplots(figsize=(8, 6))
-                ax3.scatter( Z[:, 0], Z[:, 1], c=labels, s=18, edgecolor='black', linewidth=0.3 )
-                ax3.set_title( 'k-Means Clusters (PCA space)' )
-                ax3.set_xlabel( 'PC1' )
-                ax3.set_ylabel( 'PC2' )
-                _apply_plain_ticks( ax3, humanize=False )
-                st.pyplot(fig3)
-            
-        st.divider( )
-        
-        st.subheader( 'Multicollinearity (VIF)' )
-        if len(fa_cols) >= 2:
-            Xv = df[fa_cols].apply(pd.to_numeric, errors='coerce').fillna(df[fa_cols].median(numeric_only=True))
-            vt = vif_table(Xv)
-            st.data_editor( data=vt, key='vt_table' )
-            st.divider( )
-        
-        st.subheader( 'Pairwise Scatter' )
-        
-        if len(fa_cols) >= 2:
-            scatter_cols = fa_cols[: min(5, len(fa_cols))]
-            for i in range(len(scatter_cols)):
-                for j in range(i + 1, len(scatter_cols)):
-                    a, b = scatter_cols[i], scatter_cols[j]
-                    fig, ax = plt.subplots(figsize=(6, 4))
-                    ax.scatter( pd.to_numeric(df[a], errors="coerce"),
-                        pd.to_numeric(df[b], errors="coerce"),  s=12,  edgecolor="black",
-                        linewidth=0.3, alpha=0.75,  )
-        
-                    st.divider( )
-                    
-                    ax.set_title(f"{a} vs {b}")
-                    ax.set_xlabel(a)
-                    ax.set_ylabel(b)
-                    _apply_plain_ticks(ax)
-                    st.pyplot(fig)
-        
-
 # ======================================================================================
 # 5) Feature Engineering 
 # ======================================================================================
@@ -1108,33 +1099,32 @@ with tabs[4]:
         X_fe = pd.concat([X_num, X_cat], axis=1)
         st.session_state['feature_matrix'] = X_fe
 
-        st.success( f'Feature matrix built: {X_fe.shape[0]:,} rows × {X_fe.shape[1]:,} columns' )
+        st.success( f'Feature Matrix built: {X_fe.shape[0]:,} rows × {X_fe.shape[1]:,} columns' )
 
         # Preview table
-        render_table( X_fe.head( 50 ), title='Feature Matrix Preview', dark_mode=dark_tables,
-            precision=4,  max_rows=50, humanize_large=humanize_tables, )
-
-        # Visual: correlation heatmap of numeric engineered features (subset)
+        st.divider( )
+        st.subheader( 'Feature Matrix' )
+        st.data_editor( data=X_fe )
+        
+        st.divider( )
+        st.subheader( 'Feature-Engineered Correlations' )
         num_engineered = X_num.columns.tolist()
         if len(num_engineered) >= 2:
-            st.markdown('### Engineered Numeric Correlation')
             sub = num_engineered[: min(20, len(num_engineered))]
             corr = pd.DataFrame(X_num[sub]).corr()
-            fig, ax = plt.subplots(figsize=(10, 7))
+            fig, ax = plt.subplots(figsize=( 8, 6 ) )
             sns.heatmap( corr, cmap='coolwarm',  center=0.0, annot=True,
                 fmt='.2f', linewidths=0.6, linecolor='black',
                 annot_kws={'size': 8}, cbar_kws={'shrink': 0.85}, ax=ax, )
             
-            ax.set_title('Engineered Numeric Correlation Heatmap')
+            ax.set_title('Engineered Numeric-Correlation Heatmap')
             st.pyplot(fig)
 
 # ======================================================================================
 # 6) Anomaly Detection (not empty, more visuals)
 # ======================================================================================
 with tabs[5]:
-    st.caption(
-        'Flags potential anomalies using multiple detectors: non-mutating'
-    )
+    st.caption( 'Flags potential anomalies using multiple detectors: non-mutating' )
 
     if len(numeric_cols) < 2:
         st.warning('Anomaly detection requires at least 2 numeric columns under the current numeric policy.')
