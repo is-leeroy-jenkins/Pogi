@@ -566,6 +566,62 @@ def vif_table( X: pd.DataFrame ) -> pd.DataFrame:
 	out = pd.DataFrame( rows ).sort_values( "vif", ascending=False )
 	return out
 
+def _get_uploaded_sheet_names( uploaded_file: Any ) -> List[ str ]:
+	"""
+		
+		Purpose:
+		--------
+		Returns worksheet names from an uploaded spreadsheet when the file format supports
+		multiple worksheets.
+		
+		Parameters:
+		-----------
+		uploaded_file: Any
+			The Streamlit uploaded file object.
+		
+		Returns:
+		--------
+		List[str]
+			The discovered worksheet names, or an empty list when no worksheets apply.
+		
+	"""
+	try:
+		if uploaded_file is None:
+			return [ ]
+		
+		file_name = str( getattr( uploaded_file, "name", "" ) ).lower( )
+		uploaded_file.seek( 0 )
+		
+		if file_name.endswith( ".xlsx" ) or file_name.endswith( ".xlsm" ):
+			with pd.ExcelFile( uploaded_file, engine="openpyxl" ) as xl:
+				uploaded_file.seek( 0 )
+				return list( xl.sheet_names )
+		
+		if file_name.endswith( ".xlsb" ):
+			with pd.ExcelFile( uploaded_file, engine="pyxlsb" ) as xl:
+				uploaded_file.seek( 0 )
+				return list( xl.sheet_names )
+		
+		if file_name.endswith( ".ods" ):
+			with pd.ExcelFile( uploaded_file, engine="odf" ) as xl:
+				uploaded_file.seek( 0 )
+				return list( xl.sheet_names )
+		
+		if file_name.endswith( ".xls" ):
+			with pd.ExcelFile( uploaded_file ) as xl:
+				uploaded_file.seek( 0 )
+				return list( xl.sheet_names )
+		
+		uploaded_file.seek( 0 )
+		return [ ]
+	except Exception:
+		try:
+			uploaded_file.seek( 0 )
+		except Exception:
+			pass
+		
+		return [ ]
+	
 # ======================================================================================
 # Streamlit Config
 # ======================================================================================
@@ -582,35 +638,65 @@ style_subheaders( )
 st.sidebar.subheader( '📤 Data Input' )
 
 use_fallback = st.sidebar.checkbox( 'Use fallback data', value=True,
-    help='Loads data/excel/Account Balances.xlsx when enabled.',  key='use_fallback', )
+	help='Loads data/excel/Account Balances.xlsx when enabled.', key='use_fallback', )
 
 uploaded = None
+selected_sheet = None
+sheet_names: List[ str ] = [ ]
+
 if not use_fallback:
-    uploaded = st.sidebar.file_uploader( 'Upload CSV or Excel', type=['csv', 'xlsx'],
-        key='upload', )
+	uploaded = st.sidebar.file_uploader(
+		'Browse for local spreadsheet or CSV',
+		type=[ 'csv', 'xls', 'xlsx', 'xlsm', 'xlsb', 'ods' ],
+		key='upload',
+		help='Browse locally for a CSV or spreadsheet workbook and load its data into the application.',
+	)
+	
+	if uploaded is not None:
+		st.sidebar.caption( f'Loaded file: {uploaded.name}' )
+		sheet_names = _get_uploaded_sheet_names( uploaded )
+		
+		if sheet_names:
+			selected_sheet = st.sidebar.selectbox(
+				'Worksheet',
+				options=sheet_names,
+				index=0,
+				key='upload_sheet',
+				help='Select the worksheet to import from the uploaded workbook.',
+			)
 
 df = load_data( )
-float_cols = df.select_dtypes(include=[np.floating]).columns.tolist( )
-int_cols = df.select_dtypes(include=[np.integer]).columns.tolist()
-bool_cols = df.select_dtypes(include=[bool]).columns.tolist()
+float_cols = df.select_dtypes( include=[ np.floating ] ).columns.tolist( )
+int_cols = df.select_dtypes( include=[ np.integer ] ).columns.tolist( )
+bool_cols = df.select_dtypes( include=[ bool ] ).columns.tolist( )
 
 st.sidebar.subheader( '🎮 Global Controls' )
 
 preview_rows = st.sidebar.slider( 'Preview rows', 10, 500, 50, 10, key='preview_rows' )
 dark_tables = st.sidebar.toggle( 'Use dark tables', value=True, key='dark_tables' )
-plot_theme = st.sidebar.selectbox( 'Plot theme', ['Light', 'Dark'], index=1, key='plot_theme' )
+plot_theme = st.sidebar.selectbox( 'Plot theme', [ 'Light', 'Dark' ], index=1, key='plot_theme' )
 humanize_tables = st.sidebar.toggle( 'Humanize Large Numbers', value=True,
-    help='Shows large magnitudes as K/M/B/T to keep tables usable.',  key='humanize_tables', )
+	help='Shows large magnitudes as K/M/B/T to keep tables usable.', key='humanize_tables', )
 
 include_int_as_numeric = st.sidebar.toggle( 'Include integer-coded columns in numeric analyses',
-    value=False, help='Off by default.', key='include_int_as_numeric', )
+	value=False, help='Off by default.', key='include_int_as_numeric', )
+
+if st.session_state.get( 'data_source_name' ):
+	_source_kind = st.session_state.get( 'data_source_kind' )
+	_source_name = st.session_state.get( 'data_source_name' )
+	_source_sheet = st.session_state.get( 'data_source_sheet' )
+	
+	if _source_sheet:
+		st.sidebar.caption( f"Source: {_source_kind} | {_source_name} | Sheet: {_source_sheet}" )
+	else:
+		st.sidebar.caption( f"Source: {_source_kind} | {_source_name}" )
 
 # Use float-only numeric by default
-numeric_cols = list(float_cols) + (list(int_cols) if include_int_as_numeric else [])
-non_numeric_cols = [c for c in df.columns if c not in numeric_cols]
+numeric_cols = list( float_cols ) + (list( int_cols ) if include_int_as_numeric else [ ])
+non_numeric_cols = [ c for c in df.columns if c not in numeric_cols ]
 
 # Plot theme
-plt.style.use('dark_background' if plot_theme == 'Dark' else 'default')
+plt.style.use( 'dark_background' if plot_theme == 'Dark' else 'default' )
 
 # ======================================================================================
 # Tabs
