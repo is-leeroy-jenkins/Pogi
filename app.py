@@ -666,7 +666,7 @@ if not use_fallback:
 			)
 
 df = load_data( )
-float_cols = df.select_dtypes( include=[ np.floating ] ).columns.tolist( )
+float_cols = df.select_dtypes( include=[ np.number ] ).columns.tolist( )
 int_cols = df.select_dtypes( include=[ np.integer ] ).columns.tolist( )
 bool_cols = df.select_dtypes( include=[ bool ] ).columns.tolist( )
 
