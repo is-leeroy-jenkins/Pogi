@@ -821,7 +821,7 @@ tabs = st.tabs( [ 'Data Overview', 'Descriptive Statistics', 'Inferential Statis
 
 # ======================================================================================
 # Data Overview
-# ======================================================================================
+# # ======================================================================================
 with tabs[0]:
     st.subheader( 'Data Overview' )
 
@@ -1427,7 +1427,7 @@ with tabs[ 5 ]:
                 st.data_editor( data=sorted_data )
 
 # ======================================================================================
-# 7) Modeling (>=10 regression + >=10 classification)
+# 7) Modeling
 # ======================================================================================
 with tabs[ 6 ]:
     X_fe: Optional[ pd.DataFrame ] = st.session_state.get( 'feature_matrix' )
@@ -1578,7 +1578,7 @@ with tabs[ 6 ]:
             st.success(f'Diagnostics payload saved for best model: {best_name}')
 
 # ======================================================================================
-# 8) Diagnostics (more visuals + reasonable formatting)
+# 8) Diagnostics
 # ======================================================================================
 with tabs[ 7 ]:
     payload = st.session_state.get('last_model_payload')
