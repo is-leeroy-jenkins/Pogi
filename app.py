@@ -694,7 +694,7 @@ if st.session_state.get( 'data_source_name' ):
 		st.sidebar.caption( f"Source: {_source_kind} | {_source_name}" )
 
 # Use float-only numeric by default
-numeric_cols = list( float_cols ) if include_int_as_numeric else [ ]
+numeric_cols = list( float_cols ) + (list( int_cols ) if include_int_as_numeric else [ ])
 non_numeric_cols = [ c for c in df.columns if c not in numeric_cols ]
 
 # Plot theme
