@@ -117,50 +117,6 @@ FAVICON = r'resources/favicon.ico'
 # ======================================================================================
 # Utilities
 # ======================================================================================
-def style_subheaders( ) -> None:
-	"""
-	
-		Purpose:
-		_________
-		Sets the style of subheaders in the main UI
-		
-	"""
-	st.markdown(
-		"""
-		<style>
-		div[data-testid="stMarkdownContainer"] h2,
-		div[data-testid="stMarkdownContainer"] h3,
-		div[data-testid="stChatMessage"] div[data-testid="stMarkdownContainer"] h2,
-		div[data-testid="stChatMessage"] div[data-testid="stMarkdownContainer"] h3 {
-			color: rgb(0, 120, 252) !important;
-		}
-		</style>
-		""",
-		unsafe_allow_html=True,
-	)
-
-def load_data( ) -> pd.DataFrame:
-	if use_fallback:
-		fallback_path = os.path.join( "data", "excel", "Account Balances.xlsx" )
-		if not os.path.exists( fallback_path ):
-			st.error( f"Fallback file not found: {fallback_path}" )
-			st.stop( )
-		try:
-			return pd.read_excel( fallback_path )
-		except Exception as e:
-			st.error( f"Failed to read fallback file: {e}" )
-			st.stop( )
-	
-	if not uploaded:
-		st.info( "Upload a CSV or Excel file to begin, or enable fallback loading." )
-		st.stop( )
-	
-	try:
-		return pd.read_csv( uploaded ) if uploaded.name.lower( ).endswith( ".csv" ) else pd.read_excel( uploaded )
-	except Exception as e:
-		st.error( f"Failed to read file: {e}" )
-		st.stop( )
-		
 def _humanize_number( x: Any, decimals: int = 2 ) -> str:
 	"""
 	Purpose:
@@ -246,6 +202,7 @@ def _cardinality_ratio( s: pd.Series ) -> float:
 		return 0.0
 	return float( s.nunique( dropna=True ) / non_missing )
 
+# ------------ Table Rendering
 def render_table( df: pd.DataFrame, title=None, caption=None, precision=4,
 		dark_mode=True, max_rows=500, humanize_large=True ) -> None:
 	"""
@@ -344,6 +301,7 @@ def render_table( df: pd.DataFrame, title=None, caption=None, precision=4,
 	if caption:
 		st.caption( caption )
 
+# ------------ Analytical Helpers
 def feature_quality( df: pd.DataFrame ) -> pd.DataFrame:
 	"""
 		
@@ -371,7 +329,7 @@ def feature_quality( df: pd.DataFrame ) -> pd.DataFrame:
 		entropy = np.nan
 		
 		if pd.api.types.is_numeric_dtype( s ):
-			v = pd.to_numeric( s, errors='coerce' ).dropna( ).values.astype( float )
+			v = pd.to_numeric( s, errors="coerce" ).dropna( ).values.astype( float )
 			variance = float( np.var( v ) ) if v.size else np.nan
 		else:
 			vc = s.dropna( ).astype( str ).value_counts( normalize=True )
@@ -383,8 +341,8 @@ def feature_quality( df: pd.DataFrame ) -> pd.DataFrame:
 				"completeness_pct": completeness,
 				"unique_values": uniq,
 				"cardinality_ratio": card_ratio,
-				"variance": _humanize_number( variance ),
-				"entropy": _humanize_number( entropy ),
+				"variance": variance,
+				"entropy": entropy,
 		} )
 	
 	out = pd.DataFrame( rows )
@@ -565,62 +523,6 @@ def vif_table( X: pd.DataFrame ) -> pd.DataFrame:
 	
 	out = pd.DataFrame( rows ).sort_values( "vif", ascending=False )
 	return out
-
-def _get_uploaded_sheet_names( uploaded_file: Any ) -> List[ str ]:
-	"""
-		
-		Purpose:
-		--------
-		Returns worksheet names from an uploaded spreadsheet when the file format supports
-		multiple worksheets.
-		
-		Parameters:
-		-----------
-		uploaded_file: Any
-			The Streamlit uploaded file object.
-		
-		Returns:
-		--------
-		List[str]
-			The discovered worksheet names, or an empty list when no worksheets apply.
-		
-	"""
-	try:
-		if uploaded_file is None:
-			return [ ]
-		
-		file_name = str( getattr( uploaded_file, "name", "" ) ).lower( )
-		uploaded_file.seek( 0 )
-		
-		if file_name.endswith( ".xlsx" ) or file_name.endswith( ".xlsm" ):
-			with pd.ExcelFile( uploaded_file, engine="openpyxl" ) as xl:
-				uploaded_file.seek( 0 )
-				return list( xl.sheet_names )
-		
-		if file_name.endswith( ".xlsb" ):
-			with pd.ExcelFile( uploaded_file, engine="pyxlsb" ) as xl:
-				uploaded_file.seek( 0 )
-				return list( xl.sheet_names )
-		
-		if file_name.endswith( ".ods" ):
-			with pd.ExcelFile( uploaded_file, engine="odf" ) as xl:
-				uploaded_file.seek( 0 )
-				return list( xl.sheet_names )
-		
-		if file_name.endswith( ".xls" ):
-			with pd.ExcelFile( uploaded_file ) as xl:
-				uploaded_file.seek( 0 )
-				return list( xl.sheet_names )
-		
-		uploaded_file.seek( 0 )
-		return [ ]
-	except Exception:
-		try:
-			uploaded_file.seek( 0 )
-		except Exception:
-			pass
-		
-		return [ ]
 	
 # ======================================================================================
 # Streamlit Config
