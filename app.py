@@ -708,10 +708,8 @@ selected_sheet = None
 sheet_names: List[ str ] = [ ]
 
 if not use_fallback:
-	uploaded = st.sidebar.file_uploader(
-		'Browse for local spreadsheet or CSV',
-		type=[ 'csv', 'xls', 'xlsx', 'xlsm', 'xlsb', 'ods' ],
-		key='upload',
+	uploaded = st.sidebar.file_uploader( 'Browse for local spreadsheet or CSV',
+		type=[ 'csv', 'xls', 'xlsx', 'xlsm', 'xlsb', 'ods' ], key='upload',
 		help='Browse locally for a CSV or spreadsheet workbook and load its data into the application.',
 	)
 	
