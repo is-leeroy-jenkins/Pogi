@@ -623,7 +623,70 @@ def _get_uploaded_sheet_names( uploaded_file: Any ) -> List[ str ]:
 			pass
 		
 		return [ ]
+
+df = load_data( )
+
+def _coerce_numeric_like_columns( df_data: pd.DataFrame,
+		threshold: float = 0.90 ) -> pd.DataFrame:
+	"""
+		
+		Purpose:
+		--------
+		Promote object columns that are predominantly numeric-like into true numeric dtype
+		without disturbing clearly categorical fields.
+		
+		Parameters:
+		-----------
+		df_data: pd.DataFrame
+			The source dataframe.
+		threshold: float
+			Minimum share of non-null values that must parse as numeric before the column is
+			converted.
+		
+		Returns:
+		--------
+		pd.DataFrame
+			A dataframe with numeric-like columns converted where appropriate.
+		
+	"""
+	df_out = df_data.copy( )
 	
+	for col in df_out.columns:
+		series = df_out[ col ]
+		
+		if pd.api.types.is_numeric_dtype( series ) or pd.api.types.is_bool_dtype( series ):
+			continue
+		
+		if not pd.api.types.is_object_dtype( series ) and not pd.api.types.is_string_dtype( series ):
+			continue
+		
+		text = series.astype( str ).str.strip( )
+		text = text.replace( {
+				"": np.nan,
+				"nan": np.nan,
+				"None": np.nan,
+				"null": np.nan,
+				"-": np.nan,
+				"—": np.nan,
+		} )
+		
+		text = text.str.replace( ",", "", regex=False )
+		text = text.str.replace( "$", "", regex=False )
+		text = text.str.replace( "(", "-", regex=False )
+		text = text.str.replace( ")", "", regex=False )
+		
+		parsed = pd.to_numeric( text, errors="coerce" )
+		
+		non_null = text.notna( ).sum( )
+		if non_null <= 0:
+			continue
+		
+		parse_ratio = float( parsed.notna( ).sum( ) / non_null )
+		if parse_ratio >= threshold:
+			df_out[ col ] = parsed
+	
+	return df_out
+
 # ======================================================================================
 # Streamlit Config
 # ======================================================================================
@@ -637,7 +700,7 @@ st.header( '🛠️ Analytics Workbench' )
 # ======================================================================================
 
 style_subheaders( )
-st.sidebar.subheader( '📤 Data Input' )
+st.sidebar.subheader( '🎮 Global Controls' )
 
 use_fallback = st.sidebar.checkbox( 'Use fallback data', value=True,
 	help='Loads data/excel/Account Balances.xlsx when enabled.', key='use_fallback', )
@@ -667,13 +730,11 @@ if not use_fallback:
 				help='Select the worksheet to import from the uploaded workbook.',
 			)
 
-df = load_data( )
-float_cols = df.select_dtypes( include=[  np.floating ] ).columns.tolist( )
+df = _coerce_numeric_like_columns( df )
+
+float_cols = df.select_dtypes( include=[ np.floating ] ).columns.tolist( )
 int_cols = df.select_dtypes( include=[ np.integer ] ).columns.tolist( )
 bool_cols = df.select_dtypes( include=[ bool ] ).columns.tolist( )
-
-st.sidebar.subheader( '🎮 Global Controls' )
-
 preview_rows = st.sidebar.slider( 'Preview rows', 10, 500, 50, 10, key='preview_rows' )
 dark_tables = st.sidebar.toggle( 'Use dark tables', value=True, key='dark_tables' )
 plot_theme = st.sidebar.selectbox( 'Plot theme', [ 'Light', 'Dark' ], index=1, key='plot_theme' )
@@ -693,7 +754,6 @@ if st.session_state.get( 'data_source_name' ):
 	else:
 		st.sidebar.caption( f"Source: {_source_kind} | {_source_name}" )
 
-# Use float-only numeric by default
 numeric_cols = list( float_cols ) + (list( int_cols ) if include_int_as_numeric else [ ])
 non_numeric_cols = [ c for c in df.columns if c not in numeric_cols ]
 
