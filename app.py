@@ -718,13 +718,9 @@ if not use_fallback:
 		sheet_names = _get_uploaded_sheet_names( uploaded )
 		
 		if sheet_names:
-			selected_sheet = st.sidebar.selectbox(
-				'Worksheet',
-				options=sheet_names,
-				index=0,
-				key='upload_sheet',
-				help='Select the worksheet to import from the uploaded workbook.',
-			)
+			selected_sheet = st.sidebar.selectbox( 'Worksheet', options=sheet_names,
+				index=0, key='upload_sheet',
+				help='Select the worksheet to import from the uploaded workbook.', )
 
 df = load_data( )
 
