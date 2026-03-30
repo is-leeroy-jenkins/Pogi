@@ -624,8 +624,6 @@ def _get_uploaded_sheet_names( uploaded_file: Any ) -> List[ str ]:
 		
 		return [ ]
 
-df = load_data( )
-
 def _coerce_numeric_like_columns( df_data: pd.DataFrame,
 		threshold: float = 0.90 ) -> pd.DataFrame:
 	"""
@@ -730,6 +728,68 @@ if not use_fallback:
 				help='Select the worksheet to import from the uploaded workbook.',
 			)
 
+df = load_data( )
+
+def _coerce_numeric_like_columns( df_data: pd.DataFrame, threshold: float=0.90 ) -> pd.DataFrame:
+	"""
+		
+		Purpose:
+		--------
+		Promote object columns that are predominantly numeric-like into true numeric dtype
+		without disturbing clearly categorical fields.
+		
+		Parameters:
+		-----------
+		df_data: pd.DataFrame
+			The source dataframe.
+		threshold: float
+			Minimum share of non-null values that must parse as numeric before the column is
+			converted.
+		
+		Returns:
+		--------
+		pd.DataFrame
+			A dataframe with numeric-like columns converted where appropriate.
+		
+	"""
+	df_out = df_data.copy( )
+	
+	for col in df_out.columns:
+		series = df_out[ col ]
+		
+		if pd.api.types.is_numeric_dtype( series ) or pd.api.types.is_bool_dtype( series ):
+			continue
+		
+		if not pd.api.types.is_object_dtype( series ) and not pd.api.types.is_string_dtype( series ):
+			continue
+		
+		text = series.astype( str ).str.strip( )
+		text = text.replace( {
+				"": np.nan,
+				"nan": np.nan,
+				"None": np.nan,
+				"null": np.nan,
+				"-": np.nan,
+				"—": np.nan,
+		} )
+		
+		text = text.str.replace( ",", "", regex=False )
+		text = text.str.replace( "$", "", regex=False )
+		text = text.str.replace( "(", "-", regex=False )
+		text = text.str.replace( ")", "", regex=False )
+		
+		parsed = pd.to_numeric( text, errors="coerce" )
+		
+		non_null = text.notna( ).sum( )
+		if non_null <= 0:
+			continue
+		
+		parse_ratio = float( parsed.notna( ).sum( ) / non_null )
+		if parse_ratio >= threshold:
+			df_out[ col ] = parsed
+	
+	return df_out
+
 df = _coerce_numeric_like_columns( df )
 
 float_cols = df.select_dtypes( include=[ np.floating ] ).columns.tolist( )
@@ -742,19 +802,10 @@ humanize_tables = st.sidebar.toggle( 'Humanize Large Numbers', value=True,
 	help='Shows large magnitudes as K/M/B/T to keep tables usable.', key='humanize_tables', )
 
 include_int_as_numeric = st.sidebar.toggle( 'Include integer-coded columns in numeric analyses',
-	value=False, help='Off by default.', key='include_int_as_numeric', )
+	value=True, help='On by default for budget and accounting data.',
+	key='include_int_as_numeric', )
 
-if st.session_state.get( 'data_source_name' ):
-	_source_kind = st.session_state.get( 'data_source_kind' )
-	_source_name = st.session_state.get( 'data_source_name' )
-	_source_sheet = st.session_state.get( 'data_source_sheet' )
-	
-	if _source_sheet:
-		st.sidebar.caption( f"Source: {_source_kind} | {_source_name} | Sheet: {_source_sheet}" )
-	else:
-		st.sidebar.caption( f"Source: {_source_kind} | {_source_name}" )
-
-numeric_cols = list( float_cols ) + (list( int_cols ) if include_int_as_numeric else [ ])
+numeric_cols = list( float_cols ) + list( int_cols )
 non_numeric_cols = [ c for c in df.columns if c not in numeric_cols ]
 
 # Plot theme
