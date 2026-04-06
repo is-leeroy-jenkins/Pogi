@@ -6,5 +6,7 @@ scikit-learn
 pillow
 statsmodels
 scipy
-openai
 openpyxl
+streamlit
+streamlit-extras
+
