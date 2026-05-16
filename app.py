@@ -1387,8 +1387,8 @@ with tabs[ 5 ]:
 
                 st.session_state[ 'anomaly_flags' ] = flags
                 
-                st.success( f'Flagged anomalies: {int(flags['is_anomaly'].sum()):,} '
-                    f'({float(flags['is_anomaly'].mean() * 100.0):.2f}%)'  )
+                anomaly_count = int( flags[ 'is_anomaly' ].sum( ) )
+                st.success( f"Flagged anomalies: {anomaly_count};" )
                 
                 # Visual: votes distribution
                 st.divider( )
