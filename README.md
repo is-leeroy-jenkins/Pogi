@@ -5,7 +5,7 @@
 - Project federal balances using generative ai
 - Analyze funding metrics with classification and regression models
 
-## 🎦 Demo
+## 🎥 Demo
 ![](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/pogi-demo.gif)
 
 
