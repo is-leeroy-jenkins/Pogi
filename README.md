@@ -8,6 +8,15 @@
 ## 🎥 Demo
 ![](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/pogi-demo.gif)
 
+## 🧱 Databricks
+[![Databricks Notebook](https://img.shields.io/badge/Databricks%20Repo-Pogi--Py-FF3621?logo=databricks&logoColor=white)](https://dbc-a0c21f80-7bb3.cloud.databricks.com/editor/notebooks/1460524320197769?o=7474645703081351)
+- A data engineering, analytics, and artificial intelligence collaborative workspace
+- Codebase
+
+## ☁️ Google (Cloud)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/is-leeroy-jenkins/Pogi/blob/main/models.ipynb)
+
+![](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/Pogi-nb.gif)  
 
 ### ![](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/assets/images/github/Appropriation.png) Modeling Budget Execution & Available Resources
 
@@ -59,10 +68,7 @@ pip install -r requirements.txt
 jupyter notebook models.ipynb
 ```
 
-## 🎯 Quickstart ( Colab )
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/is-leeroy-jenkins/Pogi/blob/main/models.ipynb)
 
-![](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/Pogi-nb.gif)
 ### Option A — Google Colab (no local setup)
 
 ```
