@@ -1,9 +1,5 @@
 ###### Pogi
 ![](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/git/pogi_project.png)
-# SF-133 Forecasting Tool
-- A machine-learning pipeline for forecasting and reporting Treasury Account Symbol balances using active data.
-- Project federal balances using generative ai
-- Analyze funding metrics with classification and regression models
 
 ## 🎥 Demo
 ![](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/pogi-demo.gif)
@@ -19,6 +15,11 @@
 ![](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/Pogi-nb.gif)  
 
 ### ![](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/assets/images/github/Appropriation.png) Modeling Budget Execution & Available Resources
+
+## SF-133 Forecasting Tool
+- A machine-learning pipeline for forecasting and reporting Treasury Account Symbol balances using active data.
+- Project federal balances using generative ai
+- Analyze funding metrics with classification and regression models
 
 #### 📊 Regression
 - Linear, Ridge, Lasso, ElasticNet
