@@ -5,24 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5c3bbae2-9a9f-49ac-8163-0ba44ab811c4" name="Changes" comment="update">
-      <change afterPath="$PROJECT_DIR$/docs/img/favicon.ico" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/img/pogi-py.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/img/pogi_logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/user-guide/anomaly-detection.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/user-guide/data-loading.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/user-guide/data-overview.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/user-guide/descriptive-statistics.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/user-guide/diagnostics.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/user-guide/feature-analysis.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/user-guide/feature-engineering.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/user-guide/index.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/user-guide/inferential-statistics.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/user-guide/installation.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/user-guide/modeling.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mkdocs.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/booger.py" beforeDir="false" afterPath="$PROJECT_DIR$/booger.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,7 +88,7 @@
       <workItem from="1778890550581" duration="910000" />
       <workItem from="1778892491929" duration="812000" />
       <workItem from="1781635790241" duration="2602000" />
-      <workItem from="1781653129176" duration="2947000" />
+      <workItem from="1781653129176" duration="3023000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <option name="closed" value="true" />
@@ -339,7 +322,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778892702389</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="update">
+      <option name="closed" value="true" />
+      <created>1781656176805</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1781656176805</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
