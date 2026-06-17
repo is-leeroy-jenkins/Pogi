@@ -1,0 +1,3089 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for the Pogi SF-133 analytics and forecasting workbench.">
+      
+      
+        <meta name="author" content="Terry D. Eppler">
+      
+      
+        <link rel="canonical" href="https://is-leeroy-jenkins.github.io/Pogi/api/">
+      
+      
+        <link rel="prev" href="../user-guide/diagnostics/">
+      
+      
+        <link rel="next" href="app/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Overview - Pogi Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../assets/css/pogi.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#purpose" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Pogi Documentation" class="md-header__button md-logo" aria-label="Pogi Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Pogi Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Overview
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="blue"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/is-leeroy-jenkins/Pogi" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    is-leeroy-jenkins/Pogi
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../architecture/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Architecture
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../data-sources/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Data Sources
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../user-guide/" class="md-tabs__link">
+          
+  
+  
+  User Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../development/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Development
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Pogi Documentation" class="md-nav__button md-logo" aria-label="Pogi Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Pogi Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/is-leeroy-jenkins/Pogi" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    is-leeroy-jenkins/Pogi
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-sources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Sources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User Guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    User Guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/data-loading/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Loading
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/data-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/descriptive-statistics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Descriptive Statistics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/inferential-statistics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inferential Statistics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/feature-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Feature Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/feature-engineering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Feature Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/anomaly-detection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Anomaly Detection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/modeling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modeling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/diagnostics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diagnostics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧭 Purpose
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧱 Workflow Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-1-application-startup-and-controls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 Workflow 1: Application Startup and Controls
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#global-controls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎮 Global Controls
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-2-data-source-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🗃️ Workflow 2: Data Source Selection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🗃️ Workflow 2: Data Source Selection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fallback-data-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fallback Data Workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uploaded-data-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uploaded Data Workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supported-file-inputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📥 Supported File Inputs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-3-data-loading-and-preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧹 Workflow 3: Data Loading and Preparation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#numeric-like-coercion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔢 Numeric-Like Coercion
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#column-classification-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧬 Column Classification Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-4-data-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 Workflow 4: Data Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-overview-outputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧾 Data Overview Outputs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-5-descriptive-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📈 Workflow 5: Descriptive Statistics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#descriptive-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📐 Descriptive Profile
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#distribution-diagnostics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📉 Distribution Diagnostics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-6-inferential-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧪 Workflow 6: Inferential Statistics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#correlation-inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔗 Correlation Inference
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#group-comparison-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚖️ Group Comparison Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-7-feature-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 Workflow 7: Feature Analysis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pca-and-clustering-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 PCA and Clustering Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vif-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧮 VIF Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-8-feature-engineering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ Workflow 8: Feature Engineering
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feature-matrix-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧱 Feature Matrix Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-9-anomaly-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚠️ Workflow 9: Anomaly Detection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#anomaly-voting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧯 Anomaly Voting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-10-modeling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🤖 Workflow 10: Modeling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#regression-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📉 Regression Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classification-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Classification Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#model-payload-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 Model Payload Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-11-diagnostics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧾 Workflow 11: Diagnostics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#regression-diagnostics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 Regression Diagnostics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classification-diagnostics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 Classification Diagnostics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cross-workflow-state-contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔄 Cross-Workflow State Contract
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#budget-analysis-use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏛️ Budget Analysis Use Cases
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommended-end-to-end-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Recommended End-to-End Sequence
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚠️ Workflow Limitations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📌 Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="app/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Application
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧭 Purpose
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧱 Workflow Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-1-application-startup-and-controls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 Workflow 1: Application Startup and Controls
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#global-controls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎮 Global Controls
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-2-data-source-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🗃️ Workflow 2: Data Source Selection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🗃️ Workflow 2: Data Source Selection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fallback-data-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fallback Data Workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uploaded-data-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uploaded Data Workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supported-file-inputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📥 Supported File Inputs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-3-data-loading-and-preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧹 Workflow 3: Data Loading and Preparation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#numeric-like-coercion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔢 Numeric-Like Coercion
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#column-classification-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧬 Column Classification Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-4-data-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 Workflow 4: Data Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-overview-outputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧾 Data Overview Outputs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-5-descriptive-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📈 Workflow 5: Descriptive Statistics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#descriptive-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📐 Descriptive Profile
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#distribution-diagnostics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📉 Distribution Diagnostics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-6-inferential-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧪 Workflow 6: Inferential Statistics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#correlation-inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔗 Correlation Inference
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#group-comparison-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚖️ Group Comparison Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-7-feature-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 Workflow 7: Feature Analysis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pca-and-clustering-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 PCA and Clustering Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vif-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧮 VIF Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-8-feature-engineering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ Workflow 8: Feature Engineering
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feature-matrix-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧱 Feature Matrix Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-9-anomaly-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚠️ Workflow 9: Anomaly Detection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#anomaly-voting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧯 Anomaly Voting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-10-modeling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🤖 Workflow 10: Modeling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#regression-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📉 Regression Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classification-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Classification Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#model-payload-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 Model Payload Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-11-diagnostics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧾 Workflow 11: Diagnostics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#regression-diagnostics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 Regression Diagnostics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classification-diagnostics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 Classification Diagnostics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cross-workflow-state-contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔄 Cross-Workflow State Contract
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#budget-analysis-use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏛️ Budget Analysis Use Cases
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommended-end-to-end-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Recommended End-to-End Sequence
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚠️ Workflow Limitations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📌 Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>Overview</h1>
+
+<p><img alt="" src="../img/pogi-workflows.png" /></p>
+<hr />
+<p>Pogi is organized around a practical analytical workflow for federal budget execution and
+account-balance analysis. The application guides the user from data loading through data inspection,
+statistical exploration, feature engineering, anomaly detection, model training, and diagnostic
+review.</p>
+<p>Each workflow stage is exposed through the Streamlit interface and supports a specific analytical
+purpose. The stages are designed to work independently when needed, but they are most effective when
+used in sequence.</p>
+<h2 id="purpose">🧭 Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
+<p>This page explains the major workflows in the Pogi application.</p>
+<p>The application supports eight core workflows:</p>
+<ol>
+<li>Application startup and global controls.</li>
+<li>Data source selection.</li>
+<li>Data loading and preparation.</li>
+<li>Data overview and quality review.</li>
+<li>Descriptive and inferential statistics.</li>
+<li>Feature analysis and feature engineering.</li>
+<li>Anomaly detection.</li>
+<li>Modeling, diagnostics, and outputs.</li>
+</ol>
+<p>Together, these workflows provide a repeatable path from raw tabular data to review-ready analytical
+findings.</p>
+<h2 id="workflow-overview">🧱 Workflow Overview<a class="headerlink" href="#workflow-overview" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Application Startup
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├── Configure sidebar controls
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>├── Select fallback or uploaded data
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>├── Apply table and plot preferences
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>▼
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>Data Sources
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>│
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>├── Fallback workbook
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>├── CSV upload
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>└── Excel upload
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>│
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>▼
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Data Loading and Preparation
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>│
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>├── Load dataframe
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>├── Select worksheet when needed
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>├── Coerce numeric-like columns
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>├── Separate numeric and non-numeric fields
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>└── Prepare dataset for analysis
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>│
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>▼
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>Analytical Tabs
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>│
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>├── Data Overview
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>├── Descriptive Statistics
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>├── Inferential Statistics
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>├── Feature Analysis
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>├── Feature Engineering
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>├── Anomaly Detection
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>├── Modeling
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>└── Diagnostics
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>│
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>▼
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>Outputs
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>│
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>├── Tables
+<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a>├── Metrics
+<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a>├── Charts
+<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a>├── Anomaly flags
+<a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a>├── Model comparisons
+<a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a>└── Diagnostic findings
+</code></pre></div>
+<h2 id="workflow-1-application-startup-and-controls">🚀 Workflow 1: Application Startup and Controls<a class="headerlink" href="#workflow-1-application-startup-and-controls" title="Permanent link">&para;</a></h2>
+<p>The first workflow initializes the Streamlit application and prepares the global user controls.</p>
+<p>At startup, Pogi configures:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Page configuration</td>
+<td>Sets the application title, layout, and icon</td>
+</tr>
+<tr>
+<td>Logo</td>
+<td>Displays the project identity</td>
+</tr>
+<tr>
+<td>Header</td>
+<td>Presents the main Analytics Workbench title</td>
+</tr>
+<tr>
+<td>Sidebar</td>
+<td>Exposes global controls for data loading, preview size, tables, plots, and numeric handling</td>
+</tr>
+<tr>
+<td>Tabs</td>
+<td>Organizes the analytical workflow into major stages</td>
+</tr>
+</tbody>
+</table>
+<p>The sidebar is the control center for the full application.</p>
+<h2 id="global-controls">🎮 Global Controls<a class="headerlink" href="#global-controls" title="Permanent link">&para;</a></h2>
+<p>The sidebar controls determine how data is loaded, displayed, and interpreted.</p>
+<table>
+<thead>
+<tr>
+<th>Control</th>
+<th>Workflow Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Use fallback data</td>
+<td>Loads the bundled workbook instead of requiring a user upload</td>
+</tr>
+<tr>
+<td>File uploader</td>
+<td>Allows a local CSV or Excel file to be loaded</td>
+</tr>
+<tr>
+<td>Worksheet selector</td>
+<td>Selects a worksheet from a multi-sheet workbook</td>
+</tr>
+<tr>
+<td>Preview rows</td>
+<td>Controls how many records appear in the preview table</td>
+</tr>
+<tr>
+<td>Use dark tables</td>
+<td>Controls HTML table styling</td>
+</tr>
+<tr>
+<td>Plot theme</td>
+<td>Switches plots between light and dark rendering</td>
+</tr>
+<tr>
+<td>Humanize large numbers</td>
+<td>Converts large values into readable K/M/B/T formats</td>
+</tr>
+<tr>
+<td>Include integer-coded columns</td>
+<td>Determines whether integer fields participate in numeric analysis</td>
+</tr>
+</tbody>
+</table>
+<p>These controls should be reviewed before beginning analysis because they affect downstream tabs.</p>
+<h2 id="workflow-2-data-source-selection">🗃️ Workflow 2: Data Source Selection<a class="headerlink" href="#workflow-2-data-source-selection" title="Permanent link">&para;</a></h2>
+<p>Pogi supports two primary data-source workflows.</p>
+<h3 id="fallback-data-workflow">Fallback Data Workflow<a class="headerlink" href="#fallback-data-workflow" title="Permanent link">&para;</a></h3>
+<p>The fallback workflow uses the local workbook included with the project.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Use fallback data = enabled
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>│
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>▼
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>Load data/excel/Account Balances.xlsx
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>│
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>▼
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>Continue to data preparation
+</code></pre></div>
+<p>Fallback mode is useful for demonstrations, local testing, documentation screenshots, and training.</p>
+<h3 id="uploaded-data-workflow">Uploaded Data Workflow<a class="headerlink" href="#uploaded-data-workflow" title="Permanent link">&para;</a></h3>
+<p>The upload workflow allows the user to bring a local dataset into the application.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Use fallback data = disabled
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>│
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>▼
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>Upload CSV or Excel file
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>│
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>▼
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>Select worksheet when applicable
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>│
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>▼
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>Continue to data preparation
+</code></pre></div>
+<p>Uploaded data can be a CSV file or a supported Excel workbook format.</p>
+<h2 id="supported-file-inputs">📥 Supported File Inputs<a class="headerlink" href="#supported-file-inputs" title="Permanent link">&para;</a></h2>
+<p>Pogi supports common tabular formats.</p>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>Workflow Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CSV</td>
+<td>Simple flat-file data import</td>
+</tr>
+<tr>
+<td>XLS</td>
+<td>Legacy Excel workbook import</td>
+</tr>
+<tr>
+<td>XLSX</td>
+<td>Standard Excel workbook import</td>
+</tr>
+<tr>
+<td>XLSM</td>
+<td>Macro-enabled Excel workbook import</td>
+</tr>
+<tr>
+<td>XLSB</td>
+<td>Binary Excel workbook import</td>
+</tr>
+<tr>
+<td>ODS</td>
+<td>OpenDocument spreadsheet import</td>
+</tr>
+</tbody>
+</table>
+<p>The application is intended for structured tabular data where rows represent records and columns
+represent features, measures, identifiers, categories, or targets.</p>
+<h2 id="workflow-3-data-loading-and-preparation">🧹 Workflow 3: Data Loading and Preparation<a class="headerlink" href="#workflow-3-data-loading-and-preparation" title="Permanent link">&para;</a></h2>
+<p>After the source is selected, Pogi loads the data into a dataframe and prepares the columns for
+analysis.</p>
+<p>The preparation workflow includes:</p>
+<ol>
+<li>Reading the source file.</li>
+<li>Selecting a worksheet when needed.</li>
+<li>Loading the active dataframe.</li>
+<li>Coercing numeric-like text into numeric values.</li>
+<li>Identifying floating-point, integer, boolean, numeric, and non-numeric columns.</li>
+<li>Preparing the column lists used by all analytical tabs.</li>
+</ol>
+<h2 id="numeric-like-coercion">🔢 Numeric-Like Coercion<a class="headerlink" href="#numeric-like-coercion" title="Permanent link">&para;</a></h2>
+<p>Federal budget and accounting datasets often store numeric amounts as text. Pogi attempts to convert
+numeric-like object columns into numeric columns when the values are predominantly parseable.</p>
+<p>The coercion process is designed to handle common financial formatting.</p>
+<table>
+<thead>
+<tr>
+<th>Example Input</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>1,250,000</code></td>
+<td>Numeric amount</td>
+</tr>
+<tr>
+<td><code>$450,000</code></td>
+<td>Numeric amount</td>
+</tr>
+<tr>
+<td><code>(25,000)</code></td>
+<td>Negative amount</td>
+</tr>
+<tr>
+<td><code>-</code></td>
+<td>Placeholder or missing value</td>
+</tr>
+<tr>
+<td>blank</td>
+<td>Missing value</td>
+</tr>
+</tbody>
+</table>
+<p>This workflow improves downstream analysis by making numeric fields available for profiling,
+statistics, feature engineering, anomaly detection, and modeling.</p>
+<h2 id="column-classification-workflow">🧬 Column Classification Workflow<a class="headerlink" href="#column-classification-workflow" title="Permanent link">&para;</a></h2>
+<p>Once the dataframe is loaded and cleaned, Pogi classifies columns by type.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Loaded DataFrame
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>│
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>├── Floating-point columns
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>├── Integer columns
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>├── Boolean columns
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>├── Numeric columns
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>└── Non-numeric columns
+</code></pre></div>
+<p>These column groups drive the rest of the application.</p>
+<table>
+<thead>
+<tr>
+<th>Column Group</th>
+<th>Used By</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Numeric columns</td>
+<td>Descriptive statistics, correlations, PCA, anomaly detection, modeling</td>
+</tr>
+<tr>
+<td>Non-numeric columns</td>
+<td>Group comparisons and categorical encoding</td>
+</tr>
+<tr>
+<td>Integer columns</td>
+<td>Numeric analyses when enabled by the sidebar</td>
+</tr>
+<tr>
+<td>Boolean columns</td>
+<td>Identified separately from continuous measures</td>
+</tr>
+</tbody>
+</table>
+<p>The analyst should verify inferred types before modeling.</p>
+<h2 id="workflow-4-data-overview">📊 Workflow 4: Data Overview<a class="headerlink" href="#workflow-4-data-overview" title="Permanent link">&para;</a></h2>
+<p>The Data Overview workflow provides the first quality-control checkpoint.</p>
+<p>This tab answers basic but essential questions:</p>
+<ol>
+<li>How many rows loaded?</li>
+<li>How many columns loaded?</li>
+<li>How many fields are numeric?</li>
+<li>How many fields are categorical?</li>
+<li>Which columns have missing values?</li>
+<li>Which columns are high-cardinality?</li>
+<li>Which columns may be low-information?</li>
+<li>Which fields may need review before modeling?</li>
+</ol>
+<h2 id="data-overview-outputs">🧾 Data Overview Outputs<a class="headerlink" href="#data-overview-outputs" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Output</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Row metric</td>
+<td>Confirms record count</td>
+</tr>
+<tr>
+<td>Column metric</td>
+<td>Confirms feature count</td>
+</tr>
+<tr>
+<td>Numeric column metric</td>
+<td>Confirms analytical measure count</td>
+</tr>
+<tr>
+<td>Categorical column metric</td>
+<td>Confirms grouping or encoding candidates</td>
+</tr>
+<tr>
+<td>Data preview</td>
+<td>Allows direct inspection of records</td>
+</tr>
+<tr>
+<td>Feature quality table</td>
+<td>Reviews completeness, uniqueness, cardinality, variance, and entropy</td>
+</tr>
+<tr>
+<td>Missingness profile</td>
+<td>Identifies null-heavy fields</td>
+</tr>
+<tr>
+<td>Missingness chart</td>
+<td>Visualizes the largest missingness rates</td>
+</tr>
+</tbody>
+</table>
+<p>This workflow should normally be completed before descriptive statistics or modeling.</p>
+<h2 id="workflow-5-descriptive-statistics">📈 Workflow 5: Descriptive Statistics<a class="headerlink" href="#workflow-5-descriptive-statistics" title="Permanent link">&para;</a></h2>
+<p>The Descriptive Statistics workflow profiles numeric fields.</p>
+<p>It helps the analyst understand:</p>
+<ol>
+<li>Central tendency.</li>
+<li>Dispersion.</li>
+<li>Quantiles.</li>
+<li>Distribution shape.</li>
+<li>Outlier behavior.</li>
+<li>Normality assumptions.</li>
+</ol>
+<h2 id="descriptive-profile">📐 Descriptive Profile<a class="headerlink" href="#descriptive-profile" title="Permanent link">&para;</a></h2>
+<p>The descriptive profile includes a broad set of measures.</p>
+<table>
+<thead>
+<tr>
+<th>Metric Type</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Count and missingness</td>
+<td>count, missing percentage</td>
+</tr>
+<tr>
+<td>Central tendency</td>
+<td>mean, trimmed mean, median</td>
+</tr>
+<tr>
+<td>Dispersion</td>
+<td>standard deviation, median absolute deviation, interquartile range</td>
+</tr>
+<tr>
+<td>Quantiles</td>
+<td>minimum, first quartile, third quartile, maximum</td>
+</tr>
+<tr>
+<td>Shape</td>
+<td>skewness, kurtosis</td>
+</tr>
+<tr>
+<td>Outlier indicators</td>
+<td>IQR outlier rate, z-score outlier rate</td>
+</tr>
+<tr>
+<td>Normality indicators</td>
+<td>Shapiro p-value, D’Agostino p-value, Anderson-Darling statistic</td>
+</tr>
+</tbody>
+</table>
+<p>This profile is useful for understanding whether variables are skewed, sparse, volatile, or
+outlier-prone.</p>
+<h2 id="distribution-diagnostics">📉 Distribution Diagnostics<a class="headerlink" href="#distribution-diagnostics" title="Permanent link">&para;</a></h2>
+<p>The Descriptive Statistics workflow includes several visual diagnostics.</p>
+<table>
+<thead>
+<tr>
+<th>Visual</th>
+<th>Analytical Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Histogram</td>
+<td>Shows frequency distribution</td>
+</tr>
+<tr>
+<td>KDE curve</td>
+<td>Shows smoothed density</td>
+</tr>
+<tr>
+<td>Boxplot</td>
+<td>Highlights median, spread, and outliers</td>
+</tr>
+<tr>
+<td>Violin plot</td>
+<td>Shows distribution shape and density</td>
+</tr>
+<tr>
+<td>ECDF</td>
+<td>Shows cumulative distribution</td>
+</tr>
+<tr>
+<td>Q-Q plot</td>
+<td>Compares observed values to a normal distribution</td>
+</tr>
+</tbody>
+</table>
+<p>These visuals help identify whether transformations, robust models, or outlier review may be
+necessary.</p>
+<h2 id="workflow-6-inferential-statistics">🧪 Workflow 6: Inferential Statistics<a class="headerlink" href="#workflow-6-inferential-statistics" title="Permanent link">&para;</a></h2>
+<p>The Inferential Statistics workflow tests relationships and group differences.</p>
+<p>It supports:</p>
+<ol>
+<li>Correlation analysis.</li>
+<li>P-value review.</li>
+<li>Normality testing.</li>
+<li>Two-group comparisons.</li>
+<li>Effect-size estimation.</li>
+</ol>
+<h2 id="correlation-inference">🔗 Correlation Inference<a class="headerlink" href="#correlation-inference" title="Permanent link">&para;</a></h2>
+<p>Pogi supports multiple correlation methods.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pearson</td>
+<td>Linear relationships between numeric variables</td>
+</tr>
+<tr>
+<td>Spearman</td>
+<td>Rank-based monotonic relationships</td>
+</tr>
+<tr>
+<td>Kendall</td>
+<td>Ordinal or rank-based associations</td>
+</tr>
+</tbody>
+</table>
+<p>For selected numeric columns, Pogi produces:</p>
+<ol>
+<li>A correlation matrix.</li>
+<li>A p-value matrix.</li>
+<li>Heatmaps for visual review.</li>
+<li>A table version of the correlation results.</li>
+</ol>
+<p>This workflow helps identify candidate predictors, redundant fields, and potentially meaningful
+variable relationships.</p>
+<h2 id="group-comparison-workflow">⚖️ Group Comparison Workflow<a class="headerlink" href="#group-comparison-workflow" title="Permanent link">&para;</a></h2>
+<p>When a categorical grouping field exists, Pogi can compare a numeric measure across two selected
+groups.</p>
+<p>The workflow produces:</p>
+<table>
+<thead>
+<tr>
+<th>Test or Metric</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Equal-variance t-test</td>
+<td>Compares means under equal variance assumption</td>
+</tr>
+<tr>
+<td>Welch t-test</td>
+<td>Compares means without equal variance assumption</td>
+</tr>
+<tr>
+<td>Mann-Whitney U test</td>
+<td>Non-parametric group comparison</td>
+</tr>
+<tr>
+<td>Cohen’s d</td>
+<td>Measures standardized effect size</td>
+</tr>
+<tr>
+<td>Group histograms</td>
+<td>Shows distributional differences</td>
+</tr>
+<tr>
+<td>KDE comparison</td>
+<td>Shows distribution-shape differences</td>
+</tr>
+</tbody>
+</table>
+<p>This workflow helps determine whether group differences are both visible and statistically
+meaningful.</p>
+<h2 id="workflow-7-feature-analysis">🔍 Workflow 7: Feature Analysis<a class="headerlink" href="#workflow-7-feature-analysis" title="Permanent link">&para;</a></h2>
+<p>The Feature Analysis workflow evaluates relationships, dimensionality, clustering behavior, and
+multicollinearity.</p>
+<p>It includes:</p>
+<ol>
+<li>Correlation heatmaps.</li>
+<li>Top correlated feature pairs.</li>
+<li>Principal Component Analysis.</li>
+<li>k-Means clustering.</li>
+<li>Variance Inflation Factor analysis.</li>
+<li>Pairwise scatterplots.</li>
+</ol>
+<h2 id="pca-and-clustering-workflow">🧠 PCA and Clustering Workflow<a class="headerlink" href="#pca-and-clustering-workflow" title="Permanent link">&para;</a></h2>
+<p>The PCA workflow transforms selected numeric features into principal components.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Selected numeric features
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>│
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>▼
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>Missing values filled with medians
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>│
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>▼
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>StandardScaler
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>│
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>▼
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>PCA projection
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>│
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>├── explained variance table
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>├── cumulative variance chart
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>└── PC1 vs PC2 scatterplot
+</code></pre></div>
+<p>The clustering workflow applies k-Means in PCA space.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>PCA representation
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>│
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>▼
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>k-Means clustering
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>│
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>▼
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>Cluster scatterplot
+</code></pre></div>
+<p>This workflow helps determine whether records naturally group into meaningful clusters.</p>
+<h2 id="vif-workflow">🧮 VIF Workflow<a class="headerlink" href="#vif-workflow" title="Permanent link">&para;</a></h2>
+<p>Variance Inflation Factor analysis identifies multicollinearity among selected numeric features.</p>
+<p>High VIF values suggest that a feature may be strongly explained by other features. This can make
+regression coefficients unstable and may complicate interpretation.</p>
+<p>The VIF workflow is useful before building regression models or interpreting feature importance.</p>
+<h2 id="workflow-8-feature-engineering">🛠️ Workflow 8: Feature Engineering<a class="headerlink" href="#workflow-8-feature-engineering" title="Permanent link">&para;</a></h2>
+<p>The Feature Engineering workflow creates the model-ready feature matrix.</p>
+<p>Supported transformations include:</p>
+<table>
+<thead>
+<tr>
+<th>Transformation</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Numeric imputation</td>
+<td>Fills missing numeric values</td>
+</tr>
+<tr>
+<td>kNN imputation</td>
+<td>Uses neighboring records to estimate missing values</td>
+</tr>
+<tr>
+<td>Scaling</td>
+<td>Standardizes or normalizes numeric fields</td>
+</tr>
+<tr>
+<td>Winsorization</td>
+<td>Clips extreme tails</td>
+</tr>
+<tr>
+<td>One-hot encoding</td>
+<td>Converts categorical variables into indicator columns</td>
+</tr>
+</tbody>
+</table>
+<p>The output is stored in session state:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>st.session_state[&quot;feature_matrix&quot;]
+</code></pre></div>
+<p>This output is consumed by the Modeling workflow.</p>
+<h2 id="feature-matrix-workflow">🧱 Feature Matrix Workflow<a class="headerlink" href="#feature-matrix-workflow" title="Permanent link">&para;</a></h2>
+<p>The feature matrix is built as follows:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Selected numeric features
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>│
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>├── optional winsorization
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>├── imputation
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>└── optional scaling
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>        │
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>        ▼
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>Numeric matrix
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>Selected categorical features
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>        │
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>        ▼
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>One-hot encoded matrix
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>Numeric matrix + encoded categorical matrix
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>        │
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>        ▼
+<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>Feature matrix
+<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>        │
+<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>        ▼
+<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>st.session_state[&quot;feature_matrix&quot;]
+</code></pre></div>
+<p>This workflow allows analysts to prepare predictors without leaving the Streamlit interface.</p>
+<h2 id="workflow-9-anomaly-detection">⚠️ Workflow 9: Anomaly Detection<a class="headerlink" href="#workflow-9-anomaly-detection" title="Permanent link">&para;</a></h2>
+<p>The Anomaly Detection workflow flags records that may warrant further review.</p>
+<p>Pogi uses multiple detectors and combines their results through voting.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>Selected numeric features
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>│
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>▼
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>Clean numeric matrix
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>│
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>├── Isolation Forest
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>├── Local Outlier Factor
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>└── PCA distance proxy
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>        │
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>        ▼
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>Detector flags
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>        │
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>        ▼
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>Anomaly vote count
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>        │
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>        ▼
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>Final anomaly indicator
+</code></pre></div>
+<p>The output is stored in session state:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>st.session_state[&quot;anomaly_flags&quot;]
+</code></pre></div>
+<h2 id="anomaly-voting">🧯 Anomaly Voting<a class="headerlink" href="#anomaly-voting" title="Permanent link">&para;</a></h2>
+<p>Pogi does not rely on only one anomaly detector. It creates a consensus-style anomaly signal.</p>
+<table>
+<thead>
+<tr>
+<th>Detector</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Isolation Forest</td>
+<td><code>isolationforest_anomaly</code></td>
+</tr>
+<tr>
+<td>Local Outlier Factor</td>
+<td><code>lof_anomaly</code></td>
+</tr>
+<tr>
+<td>PCA distance proxy</td>
+<td><code>pca_far</code></td>
+</tr>
+<tr>
+<td>Vote aggregation</td>
+<td><code>anomaly_votes</code></td>
+</tr>
+<tr>
+<td>Final flag</td>
+<td><code>is_anomaly</code></td>
+</tr>
+</tbody>
+</table>
+<p>A record is treated as an anomaly when it receives enough detector votes. This gives the analyst a
+practical triage list rather than a final determination.</p>
+<h2 id="workflow-10-modeling">🤖 Workflow 10: Modeling<a class="headerlink" href="#workflow-10-modeling" title="Permanent link">&para;</a></h2>
+<p>The Modeling workflow trains and compares regression or classification models.</p>
+<p>The workflow uses the engineered feature matrix when available. If the feature matrix has not been
+built, Pogi falls back to raw numeric features.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Feature matrix available?
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>│
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>├── Yes
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>│   └── Use st.session_state[&quot;feature_matrix&quot;]
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>│
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>└── No
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>    └── Use raw numeric features
+</code></pre></div>
+<p>The user selects:</p>
+<ol>
+<li>Target column.</li>
+<li>Task type.</li>
+<li>Test size.</li>
+<li>Random seed.</li>
+<li>Models to train.</li>
+</ol>
+<h2 id="regression-workflow">📉 Regression Workflow<a class="headerlink" href="#regression-workflow" title="Permanent link">&para;</a></h2>
+<p>Regression is used when the target is numeric.</p>
+<p>Available model families include:</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Linear Regression</td>
+</tr>
+<tr>
+<td>Ridge</td>
+</tr>
+<tr>
+<td>Lasso</td>
+</tr>
+<tr>
+<td>ElasticNet</td>
+</tr>
+<tr>
+<td>Bayesian Ridge</td>
+</tr>
+<tr>
+<td>SGD Regressor</td>
+</tr>
+<tr>
+<td>Decision Tree Regressor</td>
+</tr>
+<tr>
+<td>Random Forest Regressor</td>
+</tr>
+<tr>
+<td>Gradient Boosting Regressor</td>
+</tr>
+<tr>
+<td>Extra Trees Regressor</td>
+</tr>
+<tr>
+<td>KNeighbors Regressor</td>
+</tr>
+<tr>
+<td>SVR</td>
+</tr>
+</tbody>
+</table>
+<p>Regression model comparison uses:</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RMSE</td>
+<td>Penalizes larger prediction errors</td>
+</tr>
+<tr>
+<td>MAE</td>
+<td>Measures average absolute error</td>
+</tr>
+<tr>
+<td>R²</td>
+<td>Measures explained variance</td>
+</tr>
+</tbody>
+</table>
+<h2 id="classification-workflow">✅ Classification Workflow<a class="headerlink" href="#classification-workflow" title="Permanent link">&para;</a></h2>
+<p>Classification is used when the target is categorical or converted into classes.</p>
+<p>Available model families include:</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Logistic Regression</td>
+</tr>
+<tr>
+<td>Linear SVC</td>
+</tr>
+<tr>
+<td>SVC RBF</td>
+</tr>
+<tr>
+<td>SGD Classifier</td>
+</tr>
+<tr>
+<td>Decision Tree Classifier</td>
+</tr>
+<tr>
+<td>Random Forest Classifier</td>
+</tr>
+<tr>
+<td>Gradient Boosting Classifier</td>
+</tr>
+<tr>
+<td>Extra Trees Classifier</td>
+</tr>
+<tr>
+<td>KNeighbors Classifier</td>
+</tr>
+<tr>
+<td>Gaussian Naive Bayes</td>
+</tr>
+<tr>
+<td>Linear Discriminant Analysis, when available</td>
+</tr>
+<tr>
+<td>Quadratic Discriminant Analysis, when available</td>
+</tr>
+</tbody>
+</table>
+<p>Classification model comparison uses accuracy as the primary ranking metric in the current workflow.</p>
+<h2 id="model-payload-workflow">🧠 Model Payload Workflow<a class="headerlink" href="#model-payload-workflow" title="Permanent link">&para;</a></h2>
+<p>After training, Pogi identifies the best available model and stores a diagnostics payload.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>Model training
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>│
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>▼
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>Model comparison table
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>│
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>▼
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>Select best model
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>│
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>▼
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>st.session_state[&quot;last_model_payload&quot;]
+</code></pre></div>
+<p>The payload contains:</p>
+<table>
+<thead>
+<tr>
+<th>Payload Field</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>task</code></td>
+<td>Regression or classification</td>
+</tr>
+<tr>
+<td><code>best_name</code></td>
+<td>Name of the selected model</td>
+</tr>
+<tr>
+<td><code>best_model</code></td>
+<td>Fitted estimator</td>
+</tr>
+<tr>
+<td><code>X_test</code></td>
+<td>Test features</td>
+</tr>
+<tr>
+<td><code>y_test</code></td>
+<td>Actual test target values</td>
+</tr>
+<tr>
+<td><code>preds</code></td>
+<td>Model predictions</td>
+</tr>
+<tr>
+<td><code>feature_names</code></td>
+<td>Feature labels</td>
+</tr>
+<tr>
+<td><code>X_train</code></td>
+<td>Training features</td>
+</tr>
+<tr>
+<td><code>y_train</code></td>
+<td>Training target values</td>
+</tr>
+</tbody>
+</table>
+<p>The Diagnostics workflow depends on this payload.</p>
+<h2 id="workflow-11-diagnostics">🧾 Workflow 11: Diagnostics<a class="headerlink" href="#workflow-11-diagnostics" title="Permanent link">&para;</a></h2>
+<p>The Diagnostics workflow evaluates the best trained model.</p>
+<p>If no model has been trained, the Diagnostics tab prompts the user to train models first.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>last_model_payload exists?
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>│
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>├── No
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>│   └── Prompt user to train a model
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>│
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>└── Yes
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>    └── Render diagnostics for best model
+</code></pre></div>
+<h2 id="regression-diagnostics">📊 Regression Diagnostics<a class="headerlink" href="#regression-diagnostics" title="Permanent link">&para;</a></h2>
+<p>For regression models, Pogi displays:</p>
+<table>
+<thead>
+<tr>
+<th>Diagnostic</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Residuals vs predicted</td>
+<td>Detects nonlinearity, bias, and heteroskedasticity</td>
+</tr>
+<tr>
+<td>Residual histogram</td>
+<td>Shows residual distribution</td>
+</tr>
+<tr>
+<td>Residual Q-Q plot</td>
+<td>Reviews residual normality</td>
+</tr>
+<tr>
+<td>Permutation importance</td>
+<td>Estimates feature contribution</td>
+</tr>
+</tbody>
+</table>
+<p>Regression diagnostics help determine whether a model is reliable, biased, or potentially
+misspecified.</p>
+<h2 id="classification-diagnostics">📋 Classification Diagnostics<a class="headerlink" href="#classification-diagnostics" title="Permanent link">&para;</a></h2>
+<p>For classification models, Pogi displays:</p>
+<table>
+<thead>
+<tr>
+<th>Diagnostic</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Confusion matrix</td>
+<td>Shows correct and incorrect predictions</td>
+</tr>
+<tr>
+<td>Classification report</td>
+<td>Shows precision, recall, F1 score, and support</td>
+</tr>
+<tr>
+<td>ROC curve</td>
+<td>Evaluates binary classifier discrimination</td>
+</tr>
+<tr>
+<td>Precision-recall curve</td>
+<td>Evaluates performance under class imbalance</td>
+</tr>
+<tr>
+<td>Permutation importance</td>
+<td>Estimates feature contribution</td>
+</tr>
+</tbody>
+</table>
+<p>Classification diagnostics help determine whether a model performs well across classes and whether
+errors are concentrated in specific categories.</p>
+<h2 id="cross-workflow-state-contract">🔄 Cross-Workflow State Contract<a class="headerlink" href="#cross-workflow-state-contract" title="Permanent link">&para;</a></h2>
+<p>Several workflows produce outputs that later workflows consume.</p>
+<table>
+<thead>
+<tr>
+<th>State Key</th>
+<th>Created By</th>
+<th>Used By</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>feature_matrix</code></td>
+<td>Feature Engineering</td>
+<td>Modeling</td>
+<td>Stores model-ready predictors</td>
+</tr>
+<tr>
+<td><code>anomaly_flags</code></td>
+<td>Anomaly Detection</td>
+<td>Analyst review</td>
+<td>Stores detector outputs and final anomaly flags</td>
+</tr>
+<tr>
+<td><code>last_model_payload</code></td>
+<td>Modeling</td>
+<td>Diagnostics</td>
+<td>Stores fitted model and test data for diagnostics</td>
+</tr>
+</tbody>
+</table>
+<p>This state contract should be preserved during development.</p>
+<h2 id="budget-analysis-use-cases">🏛️ Budget Analysis Use Cases<a class="headerlink" href="#budget-analysis-use-cases" title="Permanent link">&para;</a></h2>
+<p>The Pogi workflows support several budget-analysis use cases.</p>
+<table>
+<thead>
+<tr>
+<th>Use Case</th>
+<th>Relevant Workflows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Budget execution review</td>
+<td>Data Overview, Descriptive Statistics, Feature Analysis</td>
+</tr>
+<tr>
+<td>SF-133 exploration</td>
+<td>Data Loading, Statistics, Modeling</td>
+</tr>
+<tr>
+<td>TAS-level analysis</td>
+<td>Feature Analysis, Anomaly Detection, Modeling</td>
+</tr>
+<tr>
+<td>Audit preparation</td>
+<td>Missingness, Feature Quality, Anomaly Detection, Diagnostics</td>
+</tr>
+<tr>
+<td>Spend-out analysis</td>
+<td>Regression Modeling, Residual Diagnostics</td>
+</tr>
+<tr>
+<td>Classification of account behavior</td>
+<td>Classification Modeling, Confusion Matrix, Feature Importance</td>
+</tr>
+<tr>
+<td>Data-quality review</td>
+<td>Data Overview, Missingness, Feature Quality</td>
+</tr>
+<tr>
+<td>Outlier triage</td>
+<td>Descriptive Statistics, Anomaly Detection</td>
+</tr>
+</tbody>
+</table>
+<h2 id="recommended-end-to-end-sequence">✅ Recommended End-to-End Sequence<a class="headerlink" href="#recommended-end-to-end-sequence" title="Permanent link">&para;</a></h2>
+<p>Use this sequence for a complete Pogi analysis:</p>
+<ol>
+<li>Start the application.</li>
+<li>Select fallback data or upload a file.</li>
+<li>Confirm the correct dataframe loaded.</li>
+<li>Review the Data Overview tab.</li>
+<li>Inspect missingness and feature quality.</li>
+<li>Review descriptive statistics and distributions.</li>
+<li>Run inferential statistics where appropriate.</li>
+<li>Use Feature Analysis to inspect correlation, PCA, clustering, and VIF.</li>
+<li>Build a feature matrix.</li>
+<li>Run anomaly detection.</li>
+<li>Train regression or classification models.</li>
+<li>Review diagnostics.</li>
+<li>Record findings for further review or validation.</li>
+</ol>
+<h2 id="workflow-limitations">⚠️ Workflow Limitations<a class="headerlink" href="#workflow-limitations" title="Permanent link">&para;</a></h2>
+<p>Pogi is an exploratory analytics workbench. It should not be treated as an official financial system
+of record.</p>
+<table>
+<thead>
+<tr>
+<th>Limitation</th>
+<th>Practical Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Flexible schema</td>
+<td>Analyst must validate columns and data types</td>
+</tr>
+<tr>
+<td>Local session state</td>
+<td>Outputs are not automatically persisted</td>
+</tr>
+<tr>
+<td>Single-file application</td>
+<td>Source is easy to inspect but harder to test at scale</td>
+</tr>
+<tr>
+<td>Model comparison is exploratory</td>
+<td>Results require analyst validation</td>
+</tr>
+<tr>
+<td>Anomaly detection is triage-oriented</td>
+<td>Flags are not final audit findings</td>
+</tr>
+<tr>
+<td>Uploaded data quality varies</td>
+<td>Poor source data can produce misleading outputs</td>
+</tr>
+</tbody>
+</table>
+<p>The application supports analysis, but final decisions should be validated against authoritative
+budget and accounting systems.</p>
+<h2 id="summary">📌 Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<p>Pogi’s application workflows move the analyst from data loading to review-ready analytical outputs.
+The workflow begins with file selection and data preparation, then proceeds through quality review,
+descriptive statistics, inferential statistics, feature analysis, feature engineering, anomaly
+detection, modeling, and diagnostics.</p>
+<p>The recommended approach is sequential: validate the dataset first, understand the distributions and
+relationships second, engineer features third, and only then run anomaly detection or model
+training. This structure keeps the analysis disciplined, explainable, and easier to validate.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.copy", "content.code.select"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../assets/js/pogi.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,52 @@
+﻿/*
+ * ==========================================================================================
+ *  Pogi Documentation Theme
+ *  File: docs/assets/css/pogi.css
+ *
+ *  Purpose:
+ *      Provides project-specific styling for the Pogi MkDocs Material documentation site.
+ * ==========================================================================================
+ */
+
+:root {
+    --pogi-blue: #024FA3;
+    --pogi-blue-dark: #00254C;
+    --pogi-blue-bright: #0078FC;
+    --pogi-bg: #141414;
+    --pogi-surface: #242424;
+    --pogi-border: #565557;
+    --pogi-text: #FFFFFF;
+}
+
+[data-md-color-scheme="slate"] {
+    --md-default-bg-color: var(--pogi-bg);
+    --md-primary-fg-color: var(--pogi-blue);
+    --md-accent-fg-color: var(--pogi-blue-bright);
+    --md-typeset-a-color: #4DA3FF;
+}
+
+.md-header,
+.md-tabs {
+    background: linear-gradient(90deg, var(--pogi-blue-dark), var(--pogi-blue), var(--pogi-blue-dark));
+}
+
+.md-grid,
+.md-main__inner {
+    max-width: 94rem;
+}
+
+.md-typeset table:not([class]) {
+    border: 1px solid var(--pogi-border);
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.md-typeset table:not([class]) th {
+    background-color: var(--pogi-blue-dark);
+    color: var(--pogi-text);
+}
+
+.md-typeset img {
+    border-radius: 14px;
+    border: 1px solid var(--pogi-border);
+}

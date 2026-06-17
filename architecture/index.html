@@ -1,0 +1,2935 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for the Pogi SF-133 analytics and forecasting workbench.">
+      
+      
+        <meta name="author" content="Terry D. Eppler">
+      
+      
+        <link rel="canonical" href="https://is-leeroy-jenkins.github.io/Pogi/architecture/">
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../data-sources/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Architecture - Pogi Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../assets/css/pogi.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#purpose" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Pogi Documentation" class="md-header__button md-logo" aria-label="Pogi Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Pogi Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Architecture
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="blue"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/is-leeroy-jenkins/Pogi" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    is-leeroy-jenkins/Pogi
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Architecture
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../data-sources/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Data Sources
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../user-guide/" class="md-tabs__link">
+          
+  
+  
+  User Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../api/" class="md-tabs__link">
+          
+  
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../development/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Development
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Pogi Documentation" class="md-nav__button md-logo" aria-label="Pogi Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Pogi Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/is-leeroy-jenkins/Pogi" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    is-leeroy-jenkins/Pogi
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧭 Purpose
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧱 System Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#application-layers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 Application Layers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#source-organization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🗂️ Source Organization
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runtime-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔄 Runtime Flow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔄 Runtime Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-application-startup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Application startup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-data-loading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Data loading
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-data-typing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Data typing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#analytical-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧪 Analytical Workflow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧪 Analytical Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#descriptive-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Descriptive Statistics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inferential-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inferential Statistics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#feature-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Feature Analysis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#feature-engineering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Feature Engineering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#anomaly-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Anomaly Detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modeling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modeling
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Modeling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#regression-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regression models
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#classification-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Classification models
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diagnostics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagnostics
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#session-state-contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 Session State Contract
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧮 Data Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visualization-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 Visualization Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#government-budget-analysis-positioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏛️ Government Budget Analysis Positioning
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 Documentation Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependency-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔌 Dependency Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design-strengths" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛡️ Design Strengths
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architectural-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚠️ Architectural Constraints
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommended-future-module-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧭 Recommended Future Module Layout
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommended-operational-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Recommended Operational Sequence
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-and-documentation-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧾 Build and Documentation Notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📌 Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-sources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Sources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User Guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    User Guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/data-loading/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Loading
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/data-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/descriptive-statistics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Descriptive Statistics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/inferential-statistics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inferential Statistics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/feature-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Feature Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/feature-engineering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Feature Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/anomaly-detection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Anomaly Detection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/modeling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modeling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/diagnostics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diagnostics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/app/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Application
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧭 Purpose
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧱 System Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#application-layers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 Application Layers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#source-organization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🗂️ Source Organization
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runtime-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔄 Runtime Flow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔄 Runtime Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-application-startup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Application startup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-data-loading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Data loading
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-data-typing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Data typing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#analytical-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧪 Analytical Workflow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧪 Analytical Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#descriptive-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Descriptive Statistics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inferential-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inferential Statistics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#feature-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Feature Analysis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#feature-engineering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Feature Engineering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#anomaly-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Anomaly Detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modeling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modeling
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Modeling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#regression-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regression models
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#classification-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Classification models
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diagnostics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagnostics
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#session-state-contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 Session State Contract
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧮 Data Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visualization-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 Visualization Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#government-budget-analysis-positioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏛️ Government Budget Analysis Positioning
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 Documentation Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependency-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔌 Dependency Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design-strengths" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛡️ Design Strengths
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architectural-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚠️ Architectural Constraints
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommended-future-module-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧭 Recommended Future Module Layout
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommended-operational-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Recommended Operational Sequence
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-and-documentation-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧾 Build and Documentation Notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📌 Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>Architecture</h1>
+
+<p><img alt="" src="../img/pogi-architecture.png" /></p>
+<hr />
+<p>Pogi is a Streamlit-based analytics workbench for exploring, profiling, engineering, modeling, and
+diagnosing federal budget execution data. The application is organized around a single interactive
+<code>app.py</code> workflow that loads tabular data, prepares numeric and categorical features, performs
+statistical analysis, runs anomaly detection, trains regression or classification models, and
+presents diagnostics through Streamlit tables and Matplotlib/Seaborn visualizations.</p>
+<p>The current architecture is intentionally direct. The application keeps the user interface,
+analytical helpers, model orchestration, and visualization workflow in one Streamlit entry point.
+This keeps the project easy to run and inspect while still supporting a structured MkDocs
+documentation site.</p>
+<h2 id="purpose">🧭 Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
+<p>The architecture supports a practical budget-analysis workflow:</p>
+<ol>
+<li>Load CSV or Excel data.</li>
+<li>Coerce numeric-like fields into usable numeric types.</li>
+<li>Inspect feature quality and missingness.</li>
+<li>Run descriptive and inferential statistics.</li>
+<li>Analyze relationships, dimensionality, and multicollinearity.</li>
+<li>Build engineered feature matrices.</li>
+<li>Detect potential anomalies.</li>
+<li>Train regression or classification models.</li>
+<li>Review model diagnostics and feature importance.</li>
+</ol>
+<p>Pogi is built for exploratory analysis, forecasting support, fiscal behavior review, anomaly
+detection, and model comparison over structured financial datasets such as SF-133, Treasury Account
+Symbol, File A, or other account-balance data.</p>
+<h2 id="system-overview">🧱 System Overview<a class="headerlink" href="#system-overview" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>┌──────────────────────────────────────────────────────────────────────────────┐
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│                                  Pogi                                        │
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>│                     Streamlit Analytics Workbench                            │
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>└──────────────────────────────────────────────────────────────────────────────┘
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        ┌──────────────────────┐
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>        │   Data Sources        │
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>        │──────────────────────│
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>        │ CSV Upload            │
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>        │ Excel Upload          │
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        │ Worksheet Selection   │
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>        │ Fallback Workbook     │
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>        └──────────┬───────────┘
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>                   │
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>                   ▼
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>        ┌──────────────────────┐
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>        │   Data Loading        │
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>        │──────────────────────│
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>        │ load_data             │
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>        │ sheet discovery       │
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>        │ local file parsing    │
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>        └──────────┬───────────┘
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>                   │
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>                   ▼
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>        ┌──────────────────────┐
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>        │ Data Preparation      │
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>        │──────────────────────│
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>        │ numeric coercion      │
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>        │ dtype separation      │
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>        │ missingness profile   │
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>        │ feature quality       │
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>        └──────────┬───────────┘
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>                   │
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>                   ▼
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>        ┌──────────────────────────────────────────────────────────────┐
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>        │                    Streamlit Tab Workflow                    │
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>        │──────────────────────────────────────────────────────────────│
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>        │ Data Overview                                                │
+<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a>        │ Descriptive Statistics                                       │
+<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a>        │ Inferential Statistics                                       │
+<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a>        │ Feature Analysis                                             │
+<a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a>        │ Feature Engineering                                          │
+<a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a>        │ Anomaly Detection                                            │
+<a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a>        │ Modeling                                                     │
+<a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a>        │ Diagnostics                                                  │
+<a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a>        └──────────┬───────────────────────────────────────────────────┘
+<a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a>                   │
+<a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a>                   ▼
+<a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a>        ┌──────────────────────┐
+<a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a>        │   Outputs             │
+<a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a>        │──────────────────────│
+<a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a>        │ tables                │
+<a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a>        │ metrics               │
+<a id="__codelineno-0-54" name="__codelineno-0-54" href="#__codelineno-0-54"></a>        │ plots                 │
+<a id="__codelineno-0-55" name="__codelineno-0-55" href="#__codelineno-0-55"></a>        │ anomaly flags         │
+<a id="__codelineno-0-56" name="__codelineno-0-56" href="#__codelineno-0-56"></a>        │ model comparison      │
+<a id="__codelineno-0-57" name="__codelineno-0-57" href="#__codelineno-0-57"></a>        │ diagnostics payload   │
+<a id="__codelineno-0-58" name="__codelineno-0-58" href="#__codelineno-0-58"></a>        └──────────────────────┘
+</code></pre></div>
+<h2 id="application-layers">🧩 Application Layers<a class="headerlink" href="#application-layers" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Responsibility</th>
+<th>Primary Components</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Presentation Layer</td>
+<td>Displays controls, tabs, tables, metrics, and charts</td>
+<td>Streamlit sidebar, tabs, <code>st.data_editor</code>, <code>st.pyplot</code></td>
+</tr>
+<tr>
+<td>Data Input Layer</td>
+<td>Loads local CSV/Excel data or fallback workbook</td>
+<td><code>load_data</code>, <code>_get_uploaded_sheet_names</code></td>
+</tr>
+<tr>
+<td>Data Preparation Layer</td>
+<td>Converts numeric-like fields and separates numeric/categorical columns</td>
+<td><code>_coerce_numeric_like_columns</code>, dtype detection</td>
+</tr>
+<tr>
+<td>Utility Layer</td>
+<td>Formats numbers, improves plot readability, extracts numeric arrays</td>
+<td><code>_humanize_number</code>, <code>_apply_plain_ticks</code>, <code>_safe_numeric_series</code></td>
+</tr>
+<tr>
+<td>Statistical Layer</td>
+<td>Computes profiles, correlations, p-values, VIF, and normality tests</td>
+<td><code>feature_quality</code>, <code>descriptive_profile</code>, <code>corr_with_pvalues</code>, <code>vif_table</code></td>
+</tr>
+<tr>
+<td>Feature Engineering Layer</td>
+<td>Builds a model-ready feature matrix</td>
+<td>imputation, scaling, winsorization, one-hot encoding</td>
+</tr>
+<tr>
+<td>Anomaly Layer</td>
+<td>Detects suspicious observations through multiple detectors</td>
+<td>Isolation Forest, Local Outlier Factor, PCA distance</td>
+</tr>
+<tr>
+<td>Modeling Layer</td>
+<td>Trains and compares regression/classification estimators</td>
+<td>scikit-learn model families</td>
+</tr>
+<tr>
+<td>Diagnostics Layer</td>
+<td>Evaluates trained models and feature importance</td>
+<td>residuals, confusion matrix, ROC/PR curves, permutation importance</td>
+</tr>
+</tbody>
+</table>
+<h2 id="source-organization">🗂️ Source Organization<a class="headerlink" href="#source-organization" title="Permanent link">&para;</a></h2>
+<p>Pogi currently uses a single-file application structure.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Pogi/
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>├── app.py
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>├── requirements.txt
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>├── README.md
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>├── resources/
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>├── data/
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>│   └── excel/
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>│       └── Account Balances.xlsx
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>├── docs/
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>│   ├── index.md
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>│   ├── architecture.md
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>│   ├── data-sources.md
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>│   ├── development.md
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>│   ├── user-guide/
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>│   ├── api/
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>│   └── assets/
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>└── mkdocs.yml
+</code></pre></div>
+<p>The Streamlit application is contained in <code>app.py</code>. The documentation site is contained under
+<code>docs/</code> and rendered through MkDocs Material.</p>
+<h2 id="runtime-flow">🔄 Runtime Flow<a class="headerlink" href="#runtime-flow" title="Permanent link">&para;</a></h2>
+<h3 id="1-application-startup">1. Application startup<a class="headerlink" href="#1-application-startup" title="Permanent link">&para;</a></h3>
+<p>At startup, Pogi configures the Streamlit page, logo, favicon, global styles, and sidebar controls.</p>
+<p>The global controls determine:</p>
+<table>
+<thead>
+<tr>
+<th>Control</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Use fallback data</td>
+<td>Loads the bundled workbook instead of an uploaded file</td>
+</tr>
+<tr>
+<td>File uploader</td>
+<td>Accepts CSV and supported Excel workbook formats</td>
+</tr>
+<tr>
+<td>Worksheet selector</td>
+<td>Allows worksheet selection for multi-sheet workbooks</td>
+</tr>
+<tr>
+<td>Preview rows</td>
+<td>Controls displayed preview volume</td>
+</tr>
+<tr>
+<td>Dark tables</td>
+<td>Controls dark table rendering</td>
+</tr>
+<tr>
+<td>Plot theme</td>
+<td>Switches Matplotlib between light and dark styles</td>
+</tr>
+<tr>
+<td>Humanize large numbers</td>
+<td>Displays large numeric values with K/M/B/T suffixes</td>
+</tr>
+<tr>
+<td>Include integer-coded columns</td>
+<td>Includes integer columns in numeric analysis</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-data-loading">2. Data loading<a class="headerlink" href="#2-data-loading" title="Permanent link">&para;</a></h3>
+<p>The data loading path supports two operating modes.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Fallback Mode
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>└── data/excel/Account Balances.xlsx
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>Upload Mode
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>├── .csv
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>├── .xls
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>├── .xlsx
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>├── .xlsm
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>├── .xlsb
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>└── .ods
+</code></pre></div>
+<p>After data is loaded, Pogi attempts to promote object/string columns that are predominantly numeric
+into real numeric columns. This helps budget and accounting data where values may arrive as strings
+with commas, dollar signs, parentheses, blanks, or dash placeholders.</p>
+<h3 id="3-data-typing">3. Data typing<a class="headerlink" href="#3-data-typing" title="Permanent link">&para;</a></h3>
+<p>After numeric coercion, Pogi separates the dataframe columns into:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>float_cols
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>int_cols
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>bool_cols
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>numeric_cols
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>non_numeric_cols
+</code></pre></div>
+<p>These lists drive the tab controls and determine which features are eligible for descriptive
+statistics, correlations, feature engineering, anomaly detection, modeling, and diagnostics.</p>
+<h2 id="analytical-workflow">🧪 Analytical Workflow<a class="headerlink" href="#analytical-workflow" title="Permanent link">&para;</a></h2>
+<h3 id="data-overview">Data Overview<a class="headerlink" href="#data-overview" title="Permanent link">&para;</a></h3>
+<p>The Data Overview tab provides the first quality-control checkpoint.</p>
+<table>
+<thead>
+<tr>
+<th>Output</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Row count</td>
+<td>Confirms record volume</td>
+</tr>
+<tr>
+<td>Column count</td>
+<td>Confirms feature volume</td>
+</tr>
+<tr>
+<td>Numeric column count</td>
+<td>Confirms available quantitative fields</td>
+</tr>
+<tr>
+<td>Categorical column count</td>
+<td>Confirms available grouping fields</td>
+</tr>
+<tr>
+<td>Data preview</td>
+<td>Allows direct inspection of imported records</td>
+</tr>
+<tr>
+<td>Feature quality</td>
+<td>Shows completeness, uniqueness, cardinality ratio, variance, and entropy</td>
+</tr>
+<tr>
+<td>Missingness profile</td>
+<td>Identifies columns with null values</td>
+</tr>
+<tr>
+<td>Missingness chart</td>
+<td>Visualizes the largest missingness rates</td>
+</tr>
+</tbody>
+</table>
+<p>This tab is the recommended first stop before modeling.</p>
+<h3 id="descriptive-statistics">Descriptive Statistics<a class="headerlink" href="#descriptive-statistics" title="Permanent link">&para;</a></h3>
+<p>The Descriptive Statistics tab computes rich numeric profiles for selected fields.</p>
+<table>
+<thead>
+<tr>
+<th>Metric Group</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Central tendency</td>
+<td>mean, trimmed mean, median</td>
+</tr>
+<tr>
+<td>Dispersion</td>
+<td>standard deviation, MAD, IQR</td>
+</tr>
+<tr>
+<td>Quantiles</td>
+<td>min, q1, q3, max, percentiles</td>
+</tr>
+<tr>
+<td>Shape</td>
+<td>skewness, kurtosis</td>
+</tr>
+<tr>
+<td>Outlier rates</td>
+<td>IQR outliers, z-score outliers</td>
+</tr>
+<tr>
+<td>Normality</td>
+<td>Shapiro, D’Agostino, Anderson-Darling</td>
+</tr>
+</tbody>
+</table>
+<p>The tab also provides histograms, KDE curves, boxplots, violin plots, ECDF charts, and Q-Q plots.</p>
+<h3 id="inferential-statistics">Inferential Statistics<a class="headerlink" href="#inferential-statistics" title="Permanent link">&para;</a></h3>
+<p>The Inferential Statistics tab supports statistical relationship testing.</p>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pearson correlation</td>
+<td>Linear association</td>
+</tr>
+<tr>
+<td>Spearman correlation</td>
+<td>Rank-based monotonic association</td>
+</tr>
+<tr>
+<td>Kendall correlation</td>
+<td>Ordinal association</td>
+</tr>
+<tr>
+<td>P-value matrix</td>
+<td>Statistical significance review</td>
+</tr>
+<tr>
+<td>Normality testing</td>
+<td>Distributional assumption testing</td>
+</tr>
+<tr>
+<td>Two-group comparison</td>
+<td>Mean/median comparison between categorical groups</td>
+</tr>
+<tr>
+<td>t-tests</td>
+<td>Equal variance and Welch tests</td>
+</tr>
+<tr>
+<td>Mann-Whitney U</td>
+<td>Non-parametric two-group comparison</td>
+</tr>
+<tr>
+<td>Cohen’s d</td>
+<td>Effect size estimation</td>
+</tr>
+</tbody>
+</table>
+<p>This tab helps analysts move beyond descriptive summaries and assess whether observed differences or
+relationships are statistically meaningful.</p>
+<h3 id="feature-analysis">Feature Analysis<a class="headerlink" href="#feature-analysis" title="Permanent link">&para;</a></h3>
+<p>The Feature Analysis tab focuses on relationships and dimensionality.</p>
+<table>
+<thead>
+<tr>
+<th>Analysis</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Correlation heatmap</td>
+<td>Identify highly related numeric features</td>
+</tr>
+<tr>
+<td>Top correlated pairs</td>
+<td>Rank strongest feature relationships</td>
+</tr>
+<tr>
+<td>PCA explained variance</td>
+<td>Evaluate dimensionality reduction potential</td>
+</tr>
+<tr>
+<td>PCA projection</td>
+<td>Visualize observations in principal-component space</td>
+</tr>
+<tr>
+<td>k-Means clustering</td>
+<td>Explore natural grouping patterns</td>
+</tr>
+<tr>
+<td>VIF table</td>
+<td>Detect multicollinearity</td>
+</tr>
+<tr>
+<td>Pairwise scatterplots</td>
+<td>Inspect bivariate relationships</td>
+</tr>
+</tbody>
+</table>
+<p>This tab supports feature selection, multicollinearity review, and early modeling decisions.</p>
+<h3 id="feature-engineering">Feature Engineering<a class="headerlink" href="#feature-engineering" title="Permanent link">&para;</a></h3>
+<p>The Feature Engineering tab builds the model-ready feature matrix.</p>
+<table>
+<thead>
+<tr>
+<th>Transformation</th>
+<th>Implementation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Numeric imputation</td>
+<td><code>SimpleImputer</code></td>
+</tr>
+<tr>
+<td>kNN imputation</td>
+<td><code>KNNImputer</code></td>
+</tr>
+<tr>
+<td>Scaling</td>
+<td><code>StandardScaler</code>, <code>MinMaxScaler</code>, <code>RobustScaler</code></td>
+</tr>
+<tr>
+<td>Winsorization</td>
+<td>Tail clipping through <code>winsorize</code></td>
+</tr>
+<tr>
+<td>Categorical encoding</td>
+<td>One-hot encoding with <code>pandas.get_dummies</code></td>
+</tr>
+</tbody>
+</table>
+<p>The engineered matrix is stored in Streamlit session state:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>st.session_state[&quot;feature_matrix&quot;]
+</code></pre></div>
+<p>The Modeling tab consumes this matrix when available. If the matrix is not available, the Modeling
+tab falls back to raw numeric features.</p>
+<h3 id="anomaly-detection">Anomaly Detection<a class="headerlink" href="#anomaly-detection" title="Permanent link">&para;</a></h3>
+<p>The Anomaly Detection tab flags potential anomalous records using multiple detectors.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Isolation Forest
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>        │
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>        ├── isolationforest_anomaly
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>        │
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>Local Outlier Factor
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>        │
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>        ├── lof_anomaly
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>        │
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>PCA Distance Proxy
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>        │
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>        ├── pca_far
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>        │
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>        ▼
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>Anomaly Vote Aggregation
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>        │
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>        ├── anomaly_votes
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>        └── is_anomaly
+</code></pre></div>
+<p>A record is flagged as an anomaly when it receives at least two anomaly votes.</p>
+<p>The anomaly output is stored in:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>st.session_state[&quot;anomaly_flags&quot;]
+</code></pre></div>
+<p>This design avoids relying on a single detector and gives the analyst a simple consensus-based
+review flag.</p>
+<h3 id="modeling">Modeling<a class="headerlink" href="#modeling" title="Permanent link">&para;</a></h3>
+<p>The Modeling tab supports both regression and classification.</p>
+<h4 id="regression-models">Regression models<a class="headerlink" href="#regression-models" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Linear Regression</td>
+</tr>
+<tr>
+<td>Ridge</td>
+</tr>
+<tr>
+<td>Lasso</td>
+</tr>
+<tr>
+<td>ElasticNet</td>
+</tr>
+<tr>
+<td>Bayesian Ridge</td>
+</tr>
+<tr>
+<td>SGD Regressor</td>
+</tr>
+<tr>
+<td>Decision Tree Regressor</td>
+</tr>
+<tr>
+<td>Random Forest Regressor</td>
+</tr>
+<tr>
+<td>Gradient Boosting Regressor</td>
+</tr>
+<tr>
+<td>Extra Trees Regressor</td>
+</tr>
+<tr>
+<td>KNeighbors Regressor</td>
+</tr>
+<tr>
+<td>SVR</td>
+</tr>
+</tbody>
+</table>
+<h4 id="classification-models">Classification models<a class="headerlink" href="#classification-models" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Logistic Regression</td>
+</tr>
+<tr>
+<td>Linear SVC</td>
+</tr>
+<tr>
+<td>SVC RBF</td>
+</tr>
+<tr>
+<td>SGD Classifier</td>
+</tr>
+<tr>
+<td>Decision Tree Classifier</td>
+</tr>
+<tr>
+<td>Random Forest Classifier</td>
+</tr>
+<tr>
+<td>Gradient Boosting Classifier</td>
+</tr>
+<tr>
+<td>Extra Trees Classifier</td>
+</tr>
+<tr>
+<td>KNeighbors Classifier</td>
+</tr>
+<tr>
+<td>Gaussian Naive Bayes</td>
+</tr>
+<tr>
+<td>Linear Discriminant Analysis, when available</td>
+</tr>
+<tr>
+<td>Quadratic Discriminant Analysis, when available</td>
+</tr>
+</tbody>
+</table>
+<p>The Modeling tab stores the best model payload in:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>st.session_state[&quot;last_model_payload&quot;]
+</code></pre></div>
+<p>That payload is consumed by the Diagnostics tab.</p>
+<h3 id="diagnostics">Diagnostics<a class="headerlink" href="#diagnostics" title="Permanent link">&para;</a></h3>
+<p>The Diagnostics tab depends on a trained model payload.</p>
+<p>For regression models, it displays:</p>
+<table>
+<thead>
+<tr>
+<th>Diagnostic</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Residuals vs predicted</td>
+<td>Detect heteroskedasticity and model misspecification</td>
+</tr>
+<tr>
+<td>Residual histogram</td>
+<td>Inspect residual distribution</td>
+</tr>
+<tr>
+<td>Residual Q-Q plot</td>
+<td>Evaluate approximate normality</td>
+</tr>
+<tr>
+<td>Permutation importance</td>
+<td>Estimate feature contribution</td>
+</tr>
+</tbody>
+</table>
+<p>For classification models, it displays:</p>
+<table>
+<thead>
+<tr>
+<th>Diagnostic</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Confusion matrix</td>
+<td>Inspect correct and incorrect classifications</td>
+</tr>
+<tr>
+<td>Classification report</td>
+<td>Review precision, recall, F1, and support</td>
+</tr>
+<tr>
+<td>ROC curve</td>
+<td>Evaluate binary classifier discrimination</td>
+</tr>
+<tr>
+<td>Precision-recall curve</td>
+<td>Evaluate performance under class imbalance</td>
+</tr>
+<tr>
+<td>Permutation importance</td>
+<td>Estimate feature contribution</td>
+</tr>
+</tbody>
+</table>
+<h2 id="session-state-contract">🧠 Session State Contract<a class="headerlink" href="#session-state-contract" title="Permanent link">&para;</a></h2>
+<p>Pogi uses Streamlit session state to pass outputs between tabs.</p>
+<table>
+<thead>
+<tr>
+<th>Session Key</th>
+<th>Producer</th>
+<th>Consumer</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>feature_matrix</code></td>
+<td>Feature Engineering tab</td>
+<td>Modeling tab</td>
+<td>Stores engineered features for model training</td>
+</tr>
+<tr>
+<td><code>anomaly_flags</code></td>
+<td>Anomaly Detection tab</td>
+<td>User review / potential downstream use</td>
+<td>Stores anomaly vote outputs</td>
+</tr>
+<tr>
+<td><code>last_model_payload</code></td>
+<td>Modeling tab</td>
+<td>Diagnostics tab</td>
+<td>Stores best trained model and diagnostic inputs</td>
+</tr>
+</tbody>
+</table>
+<p>This contract is important because Streamlit tabs are executed in a shared application session.
+Later tabs rely on state created by earlier actions.</p>
+<h2 id="data-architecture">🧮 Data Architecture<a class="headerlink" href="#data-architecture" title="Permanent link">&para;</a></h2>
+<p>Pogi expects tabular data with a mix of numeric and categorical fields.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>Input DataFrame
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>│
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>├── Numeric-like object columns
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>│   └── cleaned and coerced when parse ratio meets threshold
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>│
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>├── Numeric columns
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>│   ├── descriptive statistics
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>│   ├── correlations
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>│   ├── feature engineering
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>│   ├── anomaly detection
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>│   └── modeling
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>│
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>└── Non-numeric columns
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>    ├── grouping variables
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>    ├── two-group comparisons
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>    └── one-hot encoded features
+</code></pre></div>
+<p>The application does not require a fixed schema. This makes it flexible for exploratory analysis,
+but it also means analysts should validate inferred types before training models.</p>
+<h2 id="visualization-architecture">📊 Visualization Architecture<a class="headerlink" href="#visualization-architecture" title="Permanent link">&para;</a></h2>
+<p>Pogi uses Streamlit for layout and Matplotlib/Seaborn for visualization.</p>
+<table>
+<thead>
+<tr>
+<th>Visualization Type</th>
+<th>Library</th>
+<th>Used For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Metrics</td>
+<td>Streamlit</td>
+<td>Row, column, feature counts</td>
+</tr>
+<tr>
+<td>Editable tables</td>
+<td>Streamlit</td>
+<td>Data preview, profiles, model outputs</td>
+</tr>
+<tr>
+<td>Histograms</td>
+<td>Seaborn / Matplotlib</td>
+<td>Distribution analysis</td>
+</tr>
+<tr>
+<td>KDE plots</td>
+<td>Seaborn</td>
+<td>Density comparison</td>
+</tr>
+<tr>
+<td>Boxplots</td>
+<td>Seaborn</td>
+<td>Outlier review</td>
+</tr>
+<tr>
+<td>Violin plots</td>
+<td>Seaborn</td>
+<td>Distribution shape</td>
+</tr>
+<tr>
+<td>ECDF plots</td>
+<td>Seaborn</td>
+<td>Empirical cumulative distributions</td>
+</tr>
+<tr>
+<td>Heatmaps</td>
+<td>Seaborn</td>
+<td>Correlation and p-value matrices</td>
+</tr>
+<tr>
+<td>Scatterplots</td>
+<td>Matplotlib</td>
+<td>PCA, pairwise features, residuals</td>
+</tr>
+<tr>
+<td>Bar charts</td>
+<td>Matplotlib</td>
+<td>Missingness, anomaly votes, feature importance</td>
+</tr>
+<tr>
+<td>Q-Q plots</td>
+<td>SciPy / Matplotlib</td>
+<td>Normality diagnostics</td>
+</tr>
+<tr>
+<td>ROC/PR curves</td>
+<td>scikit-learn / Matplotlib</td>
+<td>Classification diagnostics</td>
+</tr>
+</tbody>
+</table>
+<p>Plot formatting is centralized through helper functions that apply readable ticks, gridlines, and
+spine styling.</p>
+<h2 id="government-budget-analysis-positioning">🏛️ Government Budget Analysis Positioning<a class="headerlink" href="#government-budget-analysis-positioning" title="Permanent link">&para;</a></h2>
+<p>Pogi is designed around financial, budgetary, and account-level analytics.</p>
+<table>
+<thead>
+<tr>
+<th>Use Case</th>
+<th>Architectural Support</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Budget execution review</td>
+<td>Data overview, descriptive statistics, missingness analysis</td>
+</tr>
+<tr>
+<td>SF-133 trend exploration</td>
+<td>Numeric profiling, correlations, modeling</td>
+</tr>
+<tr>
+<td>Treasury Account Symbol analysis</td>
+<td>Feature selection, modeling, diagnostics</td>
+</tr>
+<tr>
+<td>Anomaly detection</td>
+<td>Isolation Forest, LOF, PCA-distance voting</td>
+</tr>
+<tr>
+<td>Audit preparation</td>
+<td>Outlier tables, feature quality, model diagnostics</td>
+</tr>
+<tr>
+<td>Spend-out analysis</td>
+<td>Regression modeling and residual diagnostics</td>
+</tr>
+<tr>
+<td>Classification of account behavior</td>
+<td>Classification models and confusion matrix review</td>
+</tr>
+</tbody>
+</table>
+<p>Pogi is not an authoritative financial system of record. It is an analytical workbench intended to
+help analysts inspect data, test hypotheses, compare models, and identify records that warrant
+further review.</p>
+<h2 id="documentation-architecture">📚 Documentation Architecture<a class="headerlink" href="#documentation-architecture" title="Permanent link">&para;</a></h2>
+<p>The MkDocs documentation site is organized around the application workflow.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>docs/
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>├── index.md
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>├── architecture.md
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>├── data-sources.md
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>├── development.md
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>├── user-guide/
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>│   ├── index.md
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>│   ├── installation.md
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>│   ├── data-loading.md
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>│   ├── data-overview.md
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>│   ├── descriptive-statistics.md
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>│   ├── inferential-statistics.md
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>│   ├── feature-analysis.md
+<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>│   ├── feature-engineering.md
+<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>│   ├── anomaly-detection.md
+<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>│   ├── modeling.md
+<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>│   └── diagnostics.md
+<a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>├── api/
+<a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a>│   ├── index.md
+<a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a>│   └── app.md
+<a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>└── assets/
+<a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a>    ├── css/
+<a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a>    │   └── pogi.css
+<a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a>    └── js/
+<a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a>        └── pogi.js
+</code></pre></div>
+<p>The documentation model has three purposes:</p>
+<ol>
+<li>Explain the analytical workflow to end users.</li>
+<li>Document the source-generated API from Python docstrings.</li>
+<li>Provide development and deployment guidance for maintaining the project.</li>
+</ol>
+<h2 id="dependency-architecture">🔌 Dependency Architecture<a class="headerlink" href="#dependency-architecture" title="Permanent link">&para;</a></h2>
+<p>Pogi relies on a compact scientific Python stack.</p>
+<table>
+<thead>
+<tr>
+<th>Dependency</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Streamlit</td>
+<td>Web application framework</td>
+</tr>
+<tr>
+<td>pandas</td>
+<td>Dataframe operations</td>
+</tr>
+<tr>
+<td>numpy</td>
+<td>Numeric computation</td>
+</tr>
+<tr>
+<td>scipy</td>
+<td>Statistical tests and probability plots</td>
+</tr>
+<tr>
+<td>scikit-learn</td>
+<td>Modeling, preprocessing, anomaly detection, metrics</td>
+</tr>
+<tr>
+<td>matplotlib</td>
+<td>Base plotting</td>
+</tr>
+<tr>
+<td>seaborn</td>
+<td>Statistical plotting</td>
+</tr>
+<tr>
+<td>openpyxl</td>
+<td>Excel workbook support</td>
+</tr>
+<tr>
+<td>mkdocs</td>
+<td>Static documentation site generator</td>
+</tr>
+<tr>
+<td>mkdocs-material</td>
+<td>Documentation theme</td>
+</tr>
+<tr>
+<td>mkdocstrings</td>
+<td>Source-generated API documentation</td>
+</tr>
+<tr>
+<td>pymdown-extensions</td>
+<td>Markdown extensions</td>
+</tr>
+</tbody>
+</table>
+<h2 id="design-strengths">🛡️ Design Strengths<a class="headerlink" href="#design-strengths" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Strength</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Single entry point</td>
+<td>Easy to run and inspect</td>
+</tr>
+<tr>
+<td>Local execution</td>
+<td>Keeps analysis within the user’s environment</td>
+</tr>
+<tr>
+<td>Flexible schema</td>
+<td>Works with many tabular datasets</td>
+</tr>
+<tr>
+<td>Multiple model families</td>
+<td>Supports broad model comparison</td>
+</tr>
+<tr>
+<td>Statistical and machine-learning workflow</td>
+<td>Combines traditional statistics with predictive modeling</td>
+</tr>
+<tr>
+<td>Session-state handoff</td>
+<td>Connects feature engineering, modeling, and diagnostics</td>
+</tr>
+<tr>
+<td>Dark-mode documentation support</td>
+<td>Produces readable documentation consistent with the application style</td>
+</tr>
+</tbody>
+</table>
+<h2 id="architectural-constraints">⚠️ Architectural Constraints<a class="headerlink" href="#architectural-constraints" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Constraint</th>
+<th>Impact</th>
+<th>Recommended Future Improvement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Single large <code>app.py</code></td>
+<td>Harder to test and document as the application grows</td>
+<td>Split helpers into modules</td>
+</tr>
+<tr>
+<td>Top-level Streamlit execution</td>
+<td>May complicate mkdocstrings imports</td>
+<td>Move pure helpers into a documentation-safe module</td>
+</tr>
+<tr>
+<td>Duplicate helper definition</td>
+<td><code>_coerce_numeric_like_columns</code> appears more than once</td>
+<td>Consolidate into one definition</td>
+</tr>
+<tr>
+<td>No formal data schema</td>
+<td>Flexible but requires analyst validation</td>
+<td>Add optional schema profiles</td>
+</tr>
+<tr>
+<td>No persistent model registry</td>
+<td>Models exist only in session state</td>
+<td>Add export/save workflow if needed</td>
+</tr>
+<tr>
+<td>No centralized logging</td>
+<td>Errors are surfaced through Streamlit</td>
+<td>Add project logger for production hardening</td>
+</tr>
+<tr>
+<td>No automated test suite</td>
+<td>Manual validation required</td>
+<td>Add unit tests for helper functions</td>
+</tr>
+</tbody>
+</table>
+<p>These constraints do not prevent the current application from running, but they are important for
+future maintainability.</p>
+<h2 id="recommended-future-module-layout">🧭 Recommended Future Module Layout<a class="headerlink" href="#recommended-future-module-layout" title="Permanent link">&para;</a></h2>
+<p>If Pogi grows beyond the current single-file model, the next architecture should separate pure
+functions from UI execution.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>pogi/
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>├── __init__.py
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>├── data.py
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>├── profiling.py
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>├── statistics.py
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>├── features.py
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>├── anomalies.py
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>├── modeling.py
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>├── diagnostics.py
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>├── plotting.py
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>└── ui.py
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>app.py
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>data.py</code></td>
+<td>File loading, sheet discovery, numeric coercion</td>
+</tr>
+<tr>
+<td><code>profiling.py</code></td>
+<td>Feature quality, missingness, descriptive profile</td>
+</tr>
+<tr>
+<td><code>statistics.py</code></td>
+<td>Correlations, p-values, normality, group tests, VIF</td>
+</tr>
+<tr>
+<td><code>features.py</code></td>
+<td>Imputation, scaling, winsorization, encoding</td>
+</tr>
+<tr>
+<td><code>anomalies.py</code></td>
+<td>Isolation Forest, LOF, PCA-distance voting</td>
+</tr>
+<tr>
+<td><code>modeling.py</code></td>
+<td>Regression/classification model setup and training</td>
+</tr>
+<tr>
+<td><code>diagnostics.py</code></td>
+<td>Residuals, classification metrics, feature importance</td>
+</tr>
+<tr>
+<td><code>plotting.py</code></td>
+<td>Shared Matplotlib/Seaborn formatting helpers</td>
+</tr>
+<tr>
+<td><code>ui.py</code></td>
+<td>Streamlit layout, controls, tabs</td>
+</tr>
+<tr>
+<td><code>app.py</code></td>
+<td>Thin Streamlit entry point</td>
+</tr>
+</tbody>
+</table>
+<p>This future layout would make Pogi easier to test, easier to document through mkdocstrings, and
+easier to extend without changing the application’s behavior.</p>
+<h2 id="recommended-operational-sequence">✅ Recommended Operational Sequence<a class="headerlink" href="#recommended-operational-sequence" title="Permanent link">&para;</a></h2>
+<p>For routine use, follow this sequence:</p>
+<ol>
+<li>Start the Streamlit application.</li>
+<li>Load fallback data or upload a CSV/Excel workbook.</li>
+<li>Review Data Overview for type inference, feature quality, and missingness.</li>
+<li>Use Descriptive Statistics to understand distributions.</li>
+<li>Use Inferential Statistics to test relationships and group differences.</li>
+<li>Use Feature Analysis to inspect correlations, PCA, clustering, and VIF.</li>
+<li>Build the feature matrix in Feature Engineering.</li>
+<li>Run Anomaly Detection to identify records for review.</li>
+<li>Train models in the Modeling tab.</li>
+<li>Review the Diagnostics tab for model behavior and feature importance.</li>
+</ol>
+<h2 id="build-and-documentation-notes">🧾 Build and Documentation Notes<a class="headerlink" href="#build-and-documentation-notes" title="Permanent link">&para;</a></h2>
+<p>The MkDocs site should be built from the project root:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>mkdocs build
+</code></pre></div>
+<p>For local preview:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>mkdocs serve
+</code></pre></div>
+<p>For source-generated API documentation, the source docstrings should be Google-style and
+griffe-compatible. The API reference should initially target the existing <code>app.py</code> file. If
+Streamlit top-level execution causes import problems during the MkDocs build, move pure helper
+functions into a documentation-safe helper module and document that module instead.</p>
+<h2 id="summary">📌 Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<p>Pogi’s architecture is a practical Streamlit analytics pipeline built around direct data loading,
+statistical profiling, feature engineering, anomaly detection, model comparison, and diagnostics.
+Its current single-file structure favors simplicity and fast iteration. The MkDocs documentation
+architecture should reflect that reality by documenting the actual Streamlit workflow first and the
+source-generated helper API second.</p>
+<p>The recommended next step is to keep the documentation aligned with the existing application while
+gradually preparing the codebase for a modular structure if the project continues to grow.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.copy", "content.code.select"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../assets/js/pogi.js"></script>
+      
+    
+  </body>
+</html>
