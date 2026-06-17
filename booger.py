@@ -121,7 +121,7 @@ class ButtonIcon( ):
 
         Pupose:
 
-            Class representing form images
+            Class representing form img
 
     '''
 	

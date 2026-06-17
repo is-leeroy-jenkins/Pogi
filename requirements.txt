@@ -8,3 +8,10 @@ openpyxl>=3.1
 streamlit
 streamlit-extras
 
+mkdocs
+mkdocs-material
+mkdocstrings[python]
+mkdocs-autorefs
+pymdown-extensions
+black
+
