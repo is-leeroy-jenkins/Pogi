@@ -13,6 +13,19 @@ SF-133 Forecasting Tool
 ## 🎥 Demo
 ![](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/pogi-demo.gif)
 
+---
+
+## 🧊 Azure
+
+[![Containerized](https://img.shields.io/badge/Docker-App-2496ED?logo=docker&logoColor=white)](https://pogi.nicemoss-d8fe9d95.centralus.azurecontainerapps.io)
+
+- Container App
+
+## 🔥 Streamlit
+
+[![Streamlit App](https://img.shields.io/badge/Streamlit-App-FF4B4B?logo=streamlit&logoColor=white)](https://pogi-py.streamlit.app/)
+- Web App
+
 ## 🧱 Databricks
 [![Databricks Notebook](https://img.shields.io/badge/Databricks%20Repo-Pogi--Py-FF3621?logo=databricks&logoColor=white)](https://dbc-a0c21f80-7bb3.cloud.databricks.com/editor/notebooks/1460524320197769?o=7474645703081351)
 - A data engineering, analytics, and artificial intelligence collaborative workspace
