@@ -27,7 +27,7 @@ SF-133 Forecasting Tool
 - Web App
 
 ## 🧱 Databricks
-[![Databricks Notebook](https://img.shields.io/badge/Databricks%20Repo-Pogi--Py-FF3621?logo=databricks&logoColor=white)](https://dbc-a0c21f80-7bb3.cloud.databricks.com/editor/notebooks/1460524320197769?o=7474645703081351)
+[![Databricks Notebook](https://img.shields.io/badge/%20Repo-Pogi--Py-FF3621?logo=databricks&logoColor=white)](https://dbc-a0c21f80-7bb3.cloud.databricks.com/editor/notebooks/1460524320197769?o=7474645703081351)
 - A data engineering, analytics, and artificial intelligence collaborative workspace
 - Codebase
 
