@@ -15,11 +15,11 @@ SF-133 Forecasting Tool
 
 ---
 
-## 🧊 Azure
+## 🧊 Azure (Demo)
 
 [![Containerized](https://img.shields.io/badge/Docker-App-2496ED?logo=docker&logoColor=white)](https://pogi.nicemoss-d8fe9d95.centralus.azurecontainerapps.io)
 
-- Container App
+- Containerized App
 
 ## 🔥 Streamlit
 
