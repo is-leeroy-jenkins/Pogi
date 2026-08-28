@@ -146,17 +146,6 @@ jupyter notebook models.ipynb
 - Open `ipynb/schedule-x.ipynb` and run cells top-to-bottom.
 
 
-
-
-##  🎯 Quickstart (Streamlit)
-
-[![Streamlit App](https://img.shields.io/badge/Streamlit-App-FF4B4B?logo=streamlit&logoColor=white)](https://pogi-py.streamlit.app/)
-
-![](https://github.com/is-leeroy-jenkins/Pogi/blob/main/resources/Pogi-Py.gif)
----
-- This section explains how to clone the repository, set up the Python environment, and launch the **Pogi** Streamlit application locally.
-
-
 ### 📥 Clone the Repository
 
 - First, clone the Pogi repository from GitHub and navigate into the project directory:
