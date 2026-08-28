@@ -193,7 +193,6 @@ pip install -r requirements.txt
 - This installs only the libraries required to run the Streamlit application (no notebook-only or experimental dependencies).
 
 
-
 ### ▶️ Run the Streamlit App
 
 - Start the application using Streamlit:
@@ -204,7 +203,6 @@ streamlit run app.py
 ```
 
 - Once launched, Streamlit will display a local URL (typically `http://localhost:8501`) in the terminal. Open this link in your web browser to access the app.
-
 
 
 ### 📊 Using the Application
