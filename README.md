@@ -72,15 +72,11 @@ SF-133 Forecasting Tool
 - Decision Tree, Random Forest, Extra Trees, AdaBoost, Gradient Boosting
 - MLP Classifier, Naive Bayes
 
-
-
 ## 📊 Diagnostics & Evaluation
 
 - Scatter plots, residuals, precision-recall, ROC curves
 - Confusion matrices, ANOVA tests, statistical fitting
 - PCA visualizations and correlation heatmaps
-
-
 
 ## 📁 Data & Engineering
 
