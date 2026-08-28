@@ -53,7 +53,7 @@ SF-133 Forecasting Tool
 <td align="center">
 <a href="https://leeroy.usw-16.palantirfoundry.com/shares/links/f7n2aa6beh6q2">
 <img width="190" height="1" alt=""><br>
-<img src="https://img.shields.io/badge/Palantir%20Foundry-Repository-101113?logo=palantir&logoColor=white" alt="Palantir Repo">
+<img src="https://img.shields.io/badge/Palantir%20Foundry-Repo-101113?logo=palantir&logoColor=white" alt="Palantir Repo">
 </a>
 </td>
 </tr>
